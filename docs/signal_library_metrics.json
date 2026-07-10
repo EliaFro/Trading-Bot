@@ -1,0 +1,1476 @@
+{
+  "oos_span": "2023-09-08 -> 2026-06-24",
+  "n_windows": 51,
+  "regimes": {
+    "sideways": 18,
+    "bull": 19,
+    "bear": 14
+  },
+  "hold_btc": 1.3572679029736978,
+  "n_strategies": 29,
+  "alpha": 0.05,
+  "bonferroni_bar": 0.001724137931034483,
+  "expected_false_positives_naive": 1.4500000000000002,
+  "reality_check": {
+    "best_t": 2.1835314791697478,
+    "p": 0.153
+  },
+  "naive_significant": [
+    "price_above_sma50",
+    "turtle_s1_20_10"
+  ],
+  "bonferroni_significant": [],
+  "econ_gate_passers_naive": [],
+  "noise": {
+    "n": 100,
+    "econ_gate_passers": 0,
+    "naive_significant": 9,
+    "best": {
+      "seed": 1055,
+      "t": 2.4873976960774042,
+      "p": 0.008124251940966696,
+      "pf": 3.6855400547701445,
+      "total_return": 0.1592735093615183,
+      "econ_gate": false,
+      "p_naive_sig": true
+    },
+    "all_t": [
+      0.7446782256802315,
+      0.16677419893910628,
+      0.6472114605281937,
+      1.8692460169201812,
+      0.3408252235395586,
+      0.7507733321475233,
+      1.7280218572717072,
+      -0.28141207376313976,
+      0.8345289632159043,
+      0.8617336156630382,
+      0.35107299392532637,
+      -0.08911339803297728,
+      1.2418735529813527,
+      0.48077899545384767,
+      -1.0114596725633669,
+      0.3894648321746213,
+      1.3917199949180827,
+      0.7508340248116289,
+      -0.2292449982807038,
+      1.2726545378429,
+      -0.5173368487884719,
+      -0.12783236329365172,
+      0.9269383512096453,
+      1.5502203444010714,
+      0.8740663024801529,
+      0.6878793490264801,
+      0.4201071296269442,
+      1.212488600064922,
+      1.1753122110566152,
+      0.029153349366085334,
+      -0.14788556554248042,
+      0.1036119331096766,
+      0.8197624208436728,
+      -0.2871573946176848,
+      0.9032287973897231,
+      2.096049530593111,
+      1.1237668362067026,
+      1.335340945440578,
+      -0.09873059459819314,
+      0.2148312667335967,
+      -0.427698588988663,
+      1.0631062285052886,
+      1.9785540204414556,
+      0.3335939864036894,
+      0.23027432630526493,
+      -0.010252244860968042,
+      0.9624012121878684,
+      0.7960488295129773,
+      1.0204079615992407,
+      2.3897838695307216,
+      0.0006028705638369035,
+      0.19513441511722868,
+      0.7085181798173726,
+      1.1179037856887435,
+      1.0640086537964712,
+      2.4873976960774042,
+      0.9115350114175567,
+      0.3316423104523222,
+      0.5570543115730201,
+      1.5599921734376168,
+      0.776881334152288,
+      -0.5801095260879212,
+      -0.9081400773459185,
+      0.45326581608889,
+      -0.008111194723473132,
+      1.9194131370914678,
+      1.3277441391984128,
+      0.1001023587580222,
+      0.24276866719058254,
+      0.9052825762390824,
+      1.2223383595674104,
+      -0.13474108064933113,
+      0.6911402787977349,
+      0.8439733684219557,
+      -1.6825739899974443,
+      -1.0709154344288425,
+      -0.653351057568872,
+      0.9178128666713148,
+      0.8014172140601692,
+      0.9682959945657433,
+      0.8965229690658678,
+      0.46846639602103923,
+      0.9564293853978347,
+      1.2628933064607444,
+      0.20709698983897734,
+      -0.09500840684416866,
+      -0.1969717854173157,
+      0.5667156014476736,
+      -1.125693948963891,
+      -0.36558242778222116,
+      1.6863941535778983,
+      0.6090435821893483,
+      1.4581700460211937,
+      0.9978170586495615,
+      0.4970167179115078,
+      -0.451081443323034,
+      1.4439904880205763,
+      0.6444095268186704,
+      2.071900400626321,
+      1.138440586896565
+    ]
+  },
+  "strategies": {
+    "sma_cross_50_200": {
+      "name": "sma_cross_50_200",
+      "doc": "Golden cross: long while SMA50 > SMA200. (Classic; e.g. Edwards & Magee)",
+      "taker|rail_10pct": {
+        "total_return": 0.013731405107859862,
+        "profit_factor": 1.3576473453342282,
+        "max_drawdown": -0.07562236686899054,
+        "n_trades": 9,
+        "fees": 18.784489924675064,
+        "positive_windows": 13,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 0.1870448287444228,
+      "p_naive": 0.42619120437014585,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.03654163040893588,
+        "profit_factor": 1.2660707040197756,
+        "max_drawdown": -0.21671052298182847,
+        "n_trades": 9,
+        "fees": 65.0070182741789,
+        "positive_windows": 13,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.01388613569492314,
+        "profit_factor": 1.3622129892607933,
+        "max_drawdown": -0.07551751641567346,
+        "n_trades": 9,
+        "fees": 14.089073226963801,
+        "positive_windows": 13,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.037062458282827615,
+        "profit_factor": 1.27022350187321,
+        "max_drawdown": -0.21640670368472184,
+        "n_trades": 9,
+        "fees": 48.76317079708218,
+        "positive_windows": 13,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "sma_cross_20_50": {
+      "name": "sma_cross_20_50",
+      "doc": "Golden cross fast variant: long while SMA20 > SMA50.",
+      "taker|rail_10pct": {
+        "total_return": 0.14199134305444527,
+        "profit_factor": 2.5700346961895337,
+        "max_drawdown": -0.06715198086162931,
+        "n_trades": 32,
+        "fees": 77.49083182143698,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.3480219506302713,
+      "p_naive": 0.09186354635768207,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.42075516944867597,
+        "profit_factor": 1.9981496616033045,
+        "max_drawdown": -0.21928654058793387,
+        "n_trades": 32,
+        "fees": 325.17241321530764,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.14262954696549035,
+        "profit_factor": 2.581370458988117,
+        "max_drawdown": -0.06701297709306328,
+        "n_trades": 32,
+        "fees": 58.13302062141355,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.4233264658426774,
+        "profit_factor": 2.006218300774822,
+        "max_drawdown": -0.2188879883504911,
+        "n_trades": 32,
+        "fees": 244.08080439445786,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "faber_sma200": {
+      "name": "faber_sma200",
+      "doc": "Faber (2007) timing model, daily proxy: long while close > SMA200.",
+      "taker|rail_10pct": {
+        "total_return": 0.03662359912897828,
+        "profit_factor": 2.0941315435359122,
+        "max_drawdown": -0.061289099932170486,
+        "n_trades": 36,
+        "fees": 75.66273268930786,
+        "positive_windows": 18,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 0.44052430338718246,
+      "p_naive": 0.3307280763074214,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.11887298261436752,
+        "profit_factor": 1.9846652966816491,
+        "max_drawdown": -0.17338592886980536,
+        "n_trades": 36,
+        "fees": 270.9643059290742,
+        "positive_windows": 18,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.03725304869829893,
+        "profit_factor": 2.1274978165287126,
+        "max_drawdown": -0.06102561682307561,
+        "n_trades": 36,
+        "fees": 56.763374048605826,
+        "positive_windows": 18,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.12111753073713816,
+        "profit_factor": 2.015728941393764,
+        "max_drawdown": -0.1726225815376616,
+        "n_trades": 36,
+        "fees": 203.4165689122918,
+        "positive_windows": 18,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "price_above_sma50": {
+      "name": "price_above_sma50",
+      "doc": "Long while close > SMA50 (ubiquitous trend filter).",
+      "taker|rail_10pct": {
+        "total_return": 0.19945797952719135,
+        "profit_factor": 3.1243873645704197,
+        "max_drawdown": -0.0554239728132392,
+        "n_trades": 76,
+        "fees": 184.45733074751925,
+        "positive_windows": 24,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.7620634149632575,
+      "p_naive": 0.04208563240133796,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.6874439738985172,
+        "profit_factor": 2.4880254481345374,
+        "max_drawdown": -0.1762793459967186,
+        "n_trades": 76,
+        "fees": 837.7865017539705,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.20102234585571455,
+        "profit_factor": 3.163664352732367,
+        "max_drawdown": -0.055124368338280494,
+        "n_trades": 76,
+        "fees": 138.43167311566242,
+        "positive_windows": 24,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.6946700477635563,
+        "profit_factor": 2.516304206096767,
+        "max_drawdown": -0.1753828371798932,
+        "n_trades": 76,
+        "fees": 629.69101098792,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "ema_cross_12_26": {
+      "name": "ema_cross_12_26",
+      "doc": "Long while EMA12 > EMA26 (Appel's MACD components as a cross system).",
+      "taker|rail_10pct": {
+        "total_return": 0.1664444330726471,
+        "profit_factor": 2.6337080407404025,
+        "max_drawdown": -0.060081682605079276,
+        "n_trades": 47,
+        "fees": 113.24540081205174,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.4998904554827837,
+      "p_naive": 0.0699655670684355,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.5533869141241594,
+        "profit_factor": 2.164682077530502,
+        "max_drawdown": -0.18791244456733172,
+        "n_trades": 47,
+        "fees": 494.52992590125797,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.16739051467039867,
+        "profit_factor": 2.6512927611284836,
+        "max_drawdown": -0.0599068978226567,
+        "n_trades": 47,
+        "fees": 84.96650484638592,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.5574721655388248,
+        "profit_factor": 2.177845173680949,
+        "max_drawdown": -0.18741349257842135,
+        "n_trades": 47,
+        "fees": 371.36233041428693,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "macd_signal_cross": {
+      "name": "macd_signal_cross",
+      "doc": "Appel: long while MACD(12,26) > signal(9).",
+      "taker|rail_10pct": {
+        "total_return": 0.08776760600572797,
+        "profit_factor": 1.5159900841904683,
+        "max_drawdown": -0.057422491364946975,
+        "n_trades": 113,
+        "fees": 249.19506618711932,
+        "positive_windows": 19,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.0241351761681066,
+      "p_naive": 0.15535047990173675,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.28685051183275956,
+        "profit_factor": 1.4051484309150166,
+        "max_drawdown": -0.1859292771304595,
+        "n_trades": 113,
+        "fees": 1002.3322372957211,
+        "positive_windows": 19,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.08980578785925064,
+        "profit_factor": 1.5313279333098133,
+        "max_drawdown": -0.05700477198259179,
+        "n_trades": 113,
+        "fees": 187.07047849266456,
+        "positive_windows": 19,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.2948178768022367,
+        "profit_factor": 1.4179609505053152,
+        "max_drawdown": -0.18468397711197904,
+        "n_trades": 113,
+        "fees": 754.0852388695852,
+        "positive_windows": 19,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "macd_zero": {
+      "name": "macd_zero",
+      "doc": "Long while MACD line > 0 (zero-line rule).",
+      "taker|rail_10pct": {
+        "total_return": 0.1664444330726471,
+        "profit_factor": 2.6337080407404025,
+        "max_drawdown": -0.060081682605079276,
+        "n_trades": 47,
+        "fees": 113.24540081205174,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.4998904554827837,
+      "p_naive": 0.0699655670684355,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.5533869141241594,
+        "profit_factor": 2.164682077530502,
+        "max_drawdown": -0.18791244456733172,
+        "n_trades": 47,
+        "fees": 494.52992590125797,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.16739051467039867,
+        "profit_factor": 2.6512927611284836,
+        "max_drawdown": -0.0599068978226567,
+        "n_trades": 47,
+        "fees": 84.96650484638592,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.5574721655388248,
+        "profit_factor": 2.177845173680949,
+        "max_drawdown": -0.18741349257842135,
+        "n_trades": 47,
+        "fees": 371.36233041428693,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "rsi14_reversion": {
+      "name": "rsi14_reversion",
+      "doc": "Wilder (1978): enter RSI(14) < 30 (oversold); exit RSI > 50.",
+      "taker|rail_10pct": {
+        "total_return": -0.007211472399754393,
+        "profit_factor": 0.7603142535972344,
+        "max_drawdown": -0.043303254370199974,
+        "n_trades": 17,
+        "fees": 34.05761999264362,
+        "positive_windows": 8,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "t_stat": -0.5214600331754641,
+      "p_naive": 0.6978257112458857,
+      "taker|equal_weight_33pct": {
+        "total_return": -0.02627050818983756,
+        "profit_factor": 0.7451694066585626,
+        "max_drawdown": -0.13855342530196585,
+        "n_trades": 17,
+        "fees": 115.23936246958795,
+        "positive_windows": 8,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|rail_10pct": {
+        "total_return": -0.006931757725908039,
+        "profit_factor": 0.7685408223592985,
+        "max_drawdown": -0.043162312108176,
+        "n_trades": 17,
+        "fees": 25.546331262855674,
+        "positive_windows": 8,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": -0.025356110260404408,
+        "profit_factor": 0.752997507025061,
+        "max_drawdown": -0.1381225997818171,
+        "n_trades": 17,
+        "fees": 86.4643061041334,
+        "positive_windows": 8,
+        "n_windows": 51,
+        "econ_gate": "False"
+      }
+    },
+    "connors_rsi2": {
+      "name": "connors_rsi2",
+      "doc": "Connors & Alvarez (2009): enter RSI(2) < 10 with close > SMA200;\n    exit when close > SMA5.",
+      "taker|rail_10pct": {
+        "total_return": 0.005216618351684854,
+        "profit_factor": 1.148842916535386,
+        "max_drawdown": -0.0197681867899664,
+        "n_trades": 63,
+        "fees": 126.3298705318642,
+        "positive_windows": 12,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "t_stat": 0.35674020135551543,
+      "p_naive": 0.36139372945878595,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.01609973327549774,
+        "profit_factor": 1.1374163050716677,
+        "max_drawdown": -0.06577760017401248,
+        "n_trades": 63,
+        "fees": 421.208567518127,
+        "positive_windows": 12,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.006273829438811829,
+        "profit_factor": 1.181031535064431,
+        "max_drawdown": -0.01964642430716803,
+        "n_trades": 63,
+        "fees": 94.79581243523118,
+        "positive_windows": 12,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.019656991220550202,
+        "profit_factor": 1.169480149452353,
+        "max_drawdown": -0.06538750359821335,
+        "n_trades": 63,
+        "fees": 316.44554013091306,
+        "positive_windows": 12,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "bollinger_reversion": {
+      "name": "bollinger_reversion",
+      "doc": "Bollinger (2001): enter close < lower band(20,2); exit at middle band.",
+      "taker|rail_10pct": {
+        "total_return": 0.0015277028231919232,
+        "profit_factor": 1.0201371670110428,
+        "max_drawdown": -0.05981294674950786,
+        "n_trades": 50,
+        "fees": 102.4251705432215,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "t_stat": 0.056293786026137195,
+      "p_naive": 0.47766606312876375,
+      "taker|equal_weight_33pct": {
+        "total_return": -0.0012673626051641351,
+        "profit_factor": 0.9953226037843893,
+        "max_drawdown": -0.18999578981228404,
+        "n_trades": 50,
+        "fees": 359.1845171397982,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.002363578994528659,
+        "profit_factor": 1.0312604567327288,
+        "max_drawdown": -0.05966228657916569,
+        "n_trades": 50,
+        "fees": 76.84913562545715,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.0015118626468084706,
+        "profit_factor": 1.0055906852838468,
+        "max_drawdown": -0.18954717614508812,
+        "n_trades": 50,
+        "fees": 269.74461756993225,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": "False"
+      }
+    },
+    "bollinger_breakout": {
+      "name": "bollinger_breakout",
+      "doc": "Band breakout usage: enter close > upper band(20,2); exit < middle.",
+      "taker|rail_10pct": {
+        "total_return": 0.08567977920641989,
+        "profit_factor": 1.9575153581283153,
+        "max_drawdown": -0.039064959068278664,
+        "n_trades": 65,
+        "fees": 143.22195051666102,
+        "positive_windows": 17,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.3510089164495611,
+      "p_naive": 0.09138737244633212,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.29456460882639024,
+        "profit_factor": 1.8141622183717319,
+        "max_drawdown": -0.12771417076874783,
+        "n_trades": 65,
+        "fees": 568.0922003687958,
+        "positive_windows": 17,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.08686976573503635,
+        "profit_factor": 1.9776464179581221,
+        "max_drawdown": -0.03870718672966946,
+        "n_trades": 65,
+        "fees": 107.47376200435151,
+        "positive_windows": 17,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.29921136962561534,
+        "profit_factor": 1.831508631515566,
+        "max_drawdown": -0.1266199298731214,
+        "n_trades": 65,
+        "fees": 426.82774285353884,
+        "positive_windows": 17,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "turtle_s1_20_10": {
+      "name": "turtle_s1_20_10",
+      "doc": "",
+      "taker|rail_10pct": {
+        "total_return": 0.1804530621813154,
+        "profit_factor": 3.1676717615693533,
+        "max_drawdown": -0.03811990618440548,
+        "n_trades": 63,
+        "fees": 149.26396502178073,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 2.1835314791697478,
+      "p_naive": 0.016858318406409854,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.653146017657765,
+        "profit_factor": 2.8634922039227866,
+        "max_drawdown": -0.09814780928662024,
+        "n_trades": 63,
+        "fees": 651.8075345096029,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.1817248227766468,
+        "profit_factor": 3.198001214685421,
+        "max_drawdown": -0.038014872623735235,
+        "n_trades": 63,
+        "fees": 112.00657238936283,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.6589181977777852,
+        "profit_factor": 2.89065369496106,
+        "max_drawdown": -0.0978733156689515,
+        "n_trades": 63,
+        "fees": 489.7161734724132,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "turtle_s2_55_20": {
+      "name": "turtle_s2_55_20",
+      "doc": "",
+      "taker|rail_10pct": {
+        "total_return": 0.13245960712608862,
+        "profit_factor": 3.296195298422447,
+        "max_drawdown": -0.04740595935984,
+        "n_trades": 32,
+        "fees": 76.01146026303854,
+        "positive_windows": 16,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.5949392602755643,
+      "p_naive": 0.058514054986628275,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.43128120345567766,
+        "profit_factor": 2.6640965753154524,
+        "max_drawdown": -0.11926039310461656,
+        "n_trades": 32,
+        "fees": 316.59407226017606,
+        "positive_windows": 15,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.1330916621808107,
+        "profit_factor": 3.3206437262243758,
+        "max_drawdown": -0.04735286291015736,
+        "n_trades": 32,
+        "fees": 57.02310662725563,
+        "positive_windows": 16,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.43387549342677434,
+        "profit_factor": 2.682654631968484,
+        "max_drawdown": -0.1191210207538272,
+        "n_trades": 32,
+        "fees": 237.64341395206722,
+        "positive_windows": 15,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "ichimoku_standard": {
+      "name": "ichimoku_standard",
+      "doc": "Hosoda's Ichimoku (9/26/52): long while close above the cloud and\n    tenkan > kijun; exit when close falls below the cloud.",
+      "taker|rail_10pct": {
+        "total_return": 0.2144997241290334,
+        "profit_factor": 4.325456047756979,
+        "max_drawdown": -0.10895184065644886,
+        "n_trades": 28,
+        "fees": 71.65425348518106,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.445134539143702,
+      "p_naive": 0.07732932831360972,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.6828462389625352,
+        "profit_factor": 3.190040741152857,
+        "max_drawdown": -0.25707041076942244,
+        "n_trades": 28,
+        "fees": 306.8674755503256,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.21510194911590585,
+        "profit_factor": 4.351638124938615,
+        "max_drawdown": -0.10876764645884411,
+        "n_trades": 28,
+        "fees": 53.75265774145534,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.6854478122064736,
+        "profit_factor": 3.207676769303582,
+        "max_drawdown": -0.2565986532893098,
+        "n_trades": 28,
+        "fees": 230.31325618766846,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "adx_di_system": {
+      "name": "adx_di_system",
+      "doc": "Wilder (1978) directional system: long while +DI > -DI with ADX > 25;\n    exit on the DI cross down.",
+      "taker|rail_10pct": {
+        "total_return": 0.11221208521010162,
+        "profit_factor": 2.5507379850149388,
+        "max_drawdown": -0.04844794045440723,
+        "n_trades": 45,
+        "fees": 103.53349181324472,
+        "positive_windows": 18,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.5605463352964988,
+      "p_naive": 0.062469317884476926,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.32484839872432514,
+        "profit_factor": 2.032080308283008,
+        "max_drawdown": -0.1521970492737868,
+        "n_trades": 45,
+        "fees": 416.1684177687962,
+        "positive_windows": 17,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.11306572286750982,
+        "profit_factor": 2.5733812496519053,
+        "max_drawdown": -0.047788635573280426,
+        "n_trades": 45,
+        "fees": 77.67787068654195,
+        "positive_windows": 18,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.32816628344813736,
+        "profit_factor": 2.0485872202035362,
+        "max_drawdown": -0.1502430895697763,
+        "n_trades": 45,
+        "fees": 312.48735517291,
+        "positive_windows": 17,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "roc20_momentum": {
+      "name": "roc20_momentum",
+      "doc": "Rate-of-change momentum: long while ROC(20) > 0.",
+      "taker|rail_10pct": {
+        "total_return": 0.1478002594366723,
+        "profit_factor": 2.042148580666159,
+        "max_drawdown": -0.05006795025499682,
+        "n_trades": 147,
+        "fees": 337.78031079892446,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.5405355959015616,
+      "p_naive": 0.06486768933238916,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.5255062201638159,
+        "profit_factor": 1.834413190177377,
+        "max_drawdown": -0.17087832305594333,
+        "n_trades": 147,
+        "fees": 1478.709153826493,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.15061925588833502,
+        "profit_factor": 2.0749776675318934,
+        "max_drawdown": -0.049481056574665,
+        "n_trades": 147,
+        "fees": 253.64577522558815,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.5376842487571014,
+        "profit_factor": 1.8614560313042998,
+        "max_drawdown": -0.1683747296577689,
+        "n_trades": 147,
+        "fees": 1113.5317892152877,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "obv_trend": {
+      "name": "obv_trend",
+      "doc": "Granville's OBV: long while OBV above its 20-day average.",
+      "taker|rail_10pct": {
+        "total_return": 0.1113918169169763,
+        "profit_factor": 1.6239460283716258,
+        "max_drawdown": -0.05109621532389143,
+        "n_trades": 173,
+        "fees": 389.95843569547293,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.4038069952500973,
+      "p_naive": 0.08327856377703065,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.38581294409893463,
+        "profit_factor": 1.4982187047123254,
+        "max_drawdown": -0.16187303037106968,
+        "n_trades": 173,
+        "fees": 1651.1739326983238,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.11460490561145686,
+        "profit_factor": 1.6494286471278143,
+        "max_drawdown": -0.05040719985443241,
+        "n_trades": 173,
+        "fees": 292.8902719905469,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.39895764708983816,
+        "profit_factor": 1.5191776421297887,
+        "max_drawdown": -0.1598555866823594,
+        "n_trades": 173,
+        "fees": 1244.3008119377118,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "stochastic_oversold": {
+      "name": "stochastic_oversold",
+      "doc": "Lane's stochastic (14,3,3): enter on %K crossing above %D while\n    %K < 20; exit when %K > 80.",
+      "taker|rail_10pct": {
+        "total_return": 0.024378283524953304,
+        "profit_factor": 1.3378205078670826,
+        "max_drawdown": -0.046987307876739826,
+        "n_trades": 42,
+        "fees": 87.88059624729343,
+        "positive_windows": 25,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 0.36029317175810477,
+      "p_naive": 0.36007274536015127,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.07155317895890079,
+        "profit_factor": 1.2598020511839076,
+        "max_drawdown": -0.1584382472525027,
+        "n_trades": 42,
+        "fees": 316.9148527337579,
+        "positive_windows": 25,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.0251018435853283,
+        "profit_factor": 1.348690916796211,
+        "max_drawdown": -0.04665634457862946,
+        "n_trades": 42,
+        "fees": 65.9324036144516,
+        "positive_windows": 25,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.0740724079631716,
+        "profit_factor": 1.269281563247203,
+        "max_drawdown": -0.1574488186898267,
+        "n_trades": 42,
+        "fees": 237.9515318532525,
+        "positive_windows": 25,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "williams_r": {
+      "name": "williams_r",
+      "doc": "Williams %R(14): enter < -80 (oversold); exit > -20.",
+      "taker|rail_10pct": {
+        "total_return": 0.028933540797027923,
+        "profit_factor": 1.269855794221342,
+        "max_drawdown": -0.062412501606042205,
+        "n_trades": 74,
+        "fees": 155.83372737642753,
+        "positive_windows": 32,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 0.4547236617245975,
+      "p_naive": 0.3256381224555747,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.08472324679685106,
+        "profit_factor": 1.2067990391843704,
+        "max_drawdown": -0.1998634149536238,
+        "n_trades": 74,
+        "fees": 574.1886319823911,
+        "positive_windows": 32,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.030201518180676068,
+        "profit_factor": 1.2826266416300218,
+        "max_drawdown": -0.06219069385851564,
+        "n_trades": 74,
+        "fees": 116.945391818241,
+        "positive_windows": 32,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.08917111825790403,
+        "profit_factor": 1.2179560891573005,
+        "max_drawdown": -0.1992174954552165,
+        "n_trades": 74,
+        "fees": 431.5130727140312,
+        "positive_windows": 32,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "cci_lambert_trend": {
+      "name": "cci_lambert_trend",
+      "doc": "Lambert (1980) original CCI usage: long while CCI(20) > +100.",
+      "taker|rail_10pct": {
+        "total_return": 0.07149284351606688,
+        "profit_factor": 1.6458787442274851,
+        "max_drawdown": -0.03452264541518058,
+        "n_trades": 135,
+        "fees": 291.07249450800265,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.5300645902569276,
+      "p_naive": 0.06615172690904722,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.25233802722083465,
+        "profit_factor": 1.5748632558129656,
+        "max_drawdown": -0.11012605030731284,
+        "n_trades": 135,
+        "fees": 1130.9841943637703,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.07392347778043251,
+        "profit_factor": 1.675997264899414,
+        "max_drawdown": -0.03393134420405056,
+        "n_trades": 135,
+        "fees": 218.5488611097296,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.26179745397682663,
+        "profit_factor": 1.6017778638474758,
+        "max_drawdown": -0.1082248546222572,
+        "n_trades": 135,
+        "fees": 851.467654389849,
+        "positive_windows": 23,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "cci_reversion": {
+      "name": "cci_reversion",
+      "doc": "CCI mean-reversion usage: enter CCI(20) < -100; exit CCI > 0.",
+      "taker|rail_10pct": {
+        "total_return": -0.005251984235965623,
+        "profit_factor": 0.9511095847435551,
+        "max_drawdown": -0.06006021337070955,
+        "n_trades": 76,
+        "fees": 155.08514061130705,
+        "positive_windows": 30,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "t_stat": -0.07910193056268729,
+      "p_naive": 0.5313663563229925,
+      "taker|equal_weight_33pct": {
+        "total_return": -0.02863453255241688,
+        "profit_factor": 0.9248253400680295,
+        "max_drawdown": -0.19167040569544339,
+        "n_trades": 76,
+        "fees": 539.7773611389271,
+        "positive_windows": 30,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|rail_10pct": {
+        "total_return": -0.003991681474921793,
+        "profit_factor": 0.9627392901644664,
+        "max_drawdown": -0.05983180597815038,
+        "n_trades": 76,
+        "fees": 116.38555345649974,
+        "positive_windows": 30,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": -0.02452921833596533,
+        "profit_factor": 0.9355512892656347,
+        "max_drawdown": -0.1910055728877359,
+        "n_trades": 76,
+        "fees": 405.66780206892355,
+        "positive_windows": 30,
+        "n_windows": 51,
+        "econ_gate": "False"
+      }
+    },
+    "psar_trend": {
+      "name": "psar_trend",
+      "doc": "Wilder's Parabolic SAR (0.02/0.2): long while close > SAR.",
+      "taker|rail_10pct": {
+        "total_return": 0.05691273985540701,
+        "profit_factor": 1.2779452260757287,
+        "max_drawdown": -0.06227222506812216,
+        "n_trades": 127,
+        "fees": 273.72948984950614,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 0.74171019845784,
+      "p_naive": 0.23086640704926092,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.19192726173152574,
+        "profit_factor": 1.2364977039117848,
+        "max_drawdown": -0.19563070974232344,
+        "n_trades": 127,
+        "fees": 1062.0783542551912,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.0591495064874048,
+        "profit_factor": 1.2904304562036863,
+        "max_drawdown": -0.06087802753381784,
+        "n_trades": 127,
+        "fees": 205.51019888452458,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.20026981337637872,
+        "profit_factor": 1.2474714790904484,
+        "max_drawdown": -0.19166318907925856,
+        "n_trades": 127,
+        "fees": 799.2871666585921,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "keltner_breakout": {
+      "name": "keltner_breakout",
+      "doc": "Keltner channel (EMA20 \u00b1 2\u00d7ATR10, Chester Keltner as modernized by\n    Linda Raschke): enter close > upper channel; exit close < EMA20.",
+      "taker|rail_10pct": {
+        "total_return": 0.10341256219149852,
+        "profit_factor": 2.536262995753247,
+        "max_drawdown": -0.035503702569421564,
+        "n_trades": 41,
+        "fees": 92.92881377754668,
+        "positive_windows": 13,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.6613793149936453,
+      "p_naive": 0.05144787913223205,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.3252742486078255,
+        "profit_factor": 2.1707604563765925,
+        "max_drawdown": -0.11329723985543072,
+        "n_trades": 41,
+        "fees": 368.3825021033421,
+        "positive_windows": 12,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.1041884462928937,
+        "profit_factor": 2.557891634201503,
+        "max_drawdown": -0.03532331357487105,
+        "n_trades": 41,
+        "fees": 69.71961703490862,
+        "positive_windows": 13,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.3283297708763433,
+        "profit_factor": 2.188308679148699,
+        "max_drawdown": -0.11274085560450556,
+        "n_trades": 41,
+        "fees": 276.5922722546583,
+        "positive_windows": 12,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "high_52w_momentum": {
+      "name": "high_52w_momentum",
+      "doc": "George & Hwang (2004) 52-week-high momentum, daily adaptation:\n    enter when close within 5% of the 252-day high; exit below 90% of it.",
+      "taker|rail_10pct": {
+        "total_return": -0.029839370286065203,
+        "profit_factor": 0.40703301959139954,
+        "max_drawdown": -0.03539917840527644,
+        "n_trades": 20,
+        "fees": 38.56340400641803,
+        "positive_windows": 4,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "t_stat": -1.0115679132673838,
+      "p_naive": 0.8416924882024089,
+      "taker|equal_weight_33pct": {
+        "total_return": -0.09754206898926165,
+        "profit_factor": 0.39683511336294475,
+        "max_drawdown": -0.11120331008332945,
+        "n_trades": 20,
+        "fees": 124.05576970256843,
+        "positive_windows": 4,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|rail_10pct": {
+        "total_return": -0.029522276284514426,
+        "profit_factor": 0.41048660227909106,
+        "max_drawdown": -0.03522613468477397,
+        "n_trades": 20,
+        "fees": 28.927014445779633,
+        "positive_windows": 4,
+        "n_windows": 51,
+        "econ_gate": "False"
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": -0.09655412345823533,
+        "profit_factor": 0.4002462920178707,
+        "max_drawdown": -0.11067184226986436,
+        "n_trades": 20,
+        "fees": 93.08965387555352,
+        "positive_windows": 4,
+        "n_windows": 51,
+        "econ_gate": "False"
+      }
+    },
+    "aroon_25": {
+      "name": "aroon_25",
+      "doc": "Chande's Aroon(25): enter AroonUp > 70 with AroonDown < 30;\n    exit when AroonUp < 50.",
+      "taker|rail_10pct": {
+        "total_return": 0.10740302315060535,
+        "profit_factor": 2.0763978868751694,
+        "max_drawdown": -0.04353852296415395,
+        "n_trades": 55,
+        "fees": 123.57821152461545,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.4202056909682352,
+      "p_naive": 0.0808767936744573,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.37409168101932555,
+        "profit_factor": 1.904648014551555,
+        "max_drawdown": -0.1375519184801424,
+        "n_trades": 55,
+        "fees": 501.21011223060293,
+        "positive_windows": 19,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.10843739436460442,
+        "profit_factor": 2.0930016778000042,
+        "max_drawdown": -0.043348751057236526,
+        "n_trades": 55,
+        "fees": 92.72508209536014,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.37827965331903246,
+        "profit_factor": 1.918969117101793,
+        "max_drawdown": -0.13698772853500676,
+        "n_trades": 55,
+        "fees": 376.4681234048709,
+        "positive_windows": 19,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "tsmom_20d": {
+      "name": "tsmom_20d",
+      "doc": "Moskowitz-Ooi-Pedersen (2012) time-series momentum: long while trailing 20d return > 0, weekly.",
+      "taker|rail_10pct": {
+        "total_return": 0.17259255582347066,
+        "profit_factor": 2.5594667953213732,
+        "max_drawdown": -0.07314758350335815,
+        "n_trades": 54,
+        "fees": 128.39129956516194,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.657493556872903,
+      "p_naive": 0.051840971251058895,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.5771102228726281,
+        "profit_factor": 2.186671146735542,
+        "max_drawdown": -0.22770632352543316,
+        "n_trades": 54,
+        "fees": 546.858582020471,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.17367909942775528,
+        "profit_factor": 2.577723274470723,
+        "max_drawdown": -0.07290273692239155,
+        "n_trades": 54,
+        "fees": 96.33615406767188,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.5818392127049172,
+        "profit_factor": 2.2015531823780754,
+        "max_drawdown": -0.2270168720561845,
+        "n_trades": 54,
+        "fees": 410.74336274899446,
+        "positive_windows": 22,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "tsmom_40d": {
+      "name": "tsmom_40d",
+      "doc": "Moskowitz-Ooi-Pedersen (2012) time-series momentum: long while trailing 40d return > 0, weekly.",
+      "taker|rail_10pct": {
+        "total_return": 0.11816433220206912,
+        "profit_factor": 2.009232510698458,
+        "max_drawdown": -0.06338917336271242,
+        "n_trades": 38,
+        "fees": 89.53157431391561,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.2121171674113478,
+      "p_naive": 0.11558215637612827,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.3437326124646818,
+        "profit_factor": 1.643860136621654,
+        "max_drawdown": -0.2186847004937142,
+        "n_trades": 38,
+        "fees": 371.52172028164534,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.1188959640252365,
+        "profit_factor": 2.018850385698086,
+        "max_drawdown": -0.06286747934443435,
+        "n_trades": 38,
+        "fees": 67.16922141990455,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.34660276920999666,
+        "profit_factor": 1.650770630833154,
+        "max_drawdown": -0.2172214700067887,
+        "n_trades": 38,
+        "fees": 278.91779346891246,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "tsmom_60d": {
+      "name": "tsmom_60d",
+      "doc": "Moskowitz-Ooi-Pedersen (2012) time-series momentum: long while trailing 60d return > 0, weekly.",
+      "taker|rail_10pct": {
+        "total_return": 0.20523186220542566,
+        "profit_factor": 3.6561056724809475,
+        "max_drawdown": -0.103142774038111,
+        "n_trades": 36,
+        "fees": 92.38716404951178,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.4211399724730522,
+      "p_naive": 0.0807415966107165,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.6127113947560112,
+        "profit_factor": 2.65569329822204,
+        "max_drawdown": -0.25891713641172726,
+        "n_trades": 36,
+        "fees": 406.56026312247275,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.20600461160126282,
+        "profit_factor": 3.6801871373790043,
+        "max_drawdown": -0.10292411017266079,
+        "n_trades": 36,
+        "fees": 69.31174588221845,
+        "positive_windows": 21,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.6160628000839103,
+        "profit_factor": 2.672044592148002,
+        "max_drawdown": -0.25832928521370746,
+        "n_trades": 36,
+        "fees": 305.2310009945131,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    },
+    "tsmom_90d": {
+      "name": "tsmom_90d",
+      "doc": "Moskowitz-Ooi-Pedersen (2012) time-series momentum: long while trailing 90d return > 0, weekly.",
+      "taker|rail_10pct": {
+        "total_return": 0.16395325538292682,
+        "profit_factor": 3.1284802745764018,
+        "max_drawdown": -0.0814781931281463,
+        "n_trades": 24,
+        "fees": 61.3460917885846,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "t_stat": 1.2264766460034708,
+      "p_naive": 0.11288196985507276,
+      "taker|equal_weight_33pct": {
+        "total_return": 0.5226472052247633,
+        "profit_factor": 2.5362216365259957,
+        "max_drawdown": -0.20676674563459,
+        "n_trades": 24,
+        "fees": 269.33801356262734,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|rail_10pct": {
+        "total_return": 0.16446455175118113,
+        "profit_factor": 3.1412399667206743,
+        "max_drawdown": -0.08133185760069711,
+        "n_trades": 24,
+        "fees": 46.01937492910927,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      },
+      "bnb|equal_weight_33pct": {
+        "total_return": 0.5248643169800236,
+        "profit_factor": 2.5465139341015193,
+        "max_drawdown": -0.2063906797870025,
+        "n_trades": 24,
+        "fees": 202.14904562850637,
+        "positive_windows": 20,
+        "n_windows": 51,
+        "econ_gate": false
+      }
+    }
+  }
+}
