@@ -102,7 +102,7 @@ class TradingDashboard:
         self._render_sidebar()
 
         tabs = st.tabs([
-            "📈 Live Trading", "🧪 ML Lab", "📊 Performance",
+            "📈 Live Trading", "🧪 ML Lab", "⚡ Fast Lab", "📊 Performance",
             "📋 Trade History", "💭 Sentiment", "🎯 Patterns",
         ])
         with tabs[0]:
@@ -110,12 +110,14 @@ class TradingDashboard:
         with tabs[1]:
             self._render_ml_lab()
         with tabs[2]:
-            self._render_performance()
+            self._render_fast_lab()
         with tabs[3]:
-            self._render_trade_history()
+            self._render_performance()
         with tabs[4]:
-            self._render_sentiment()
+            self._render_trade_history()
         with tabs[5]:
+            self._render_sentiment()
+        with tabs[6]:
             self._render_patterns()
 
         if st.session_state.get('auto_refresh', True):
@@ -246,6 +248,109 @@ class TradingDashboard:
                     else ['background-color: rgba(255,82,82,0.15)'] * len(row)
                     if row['action'] == 'SELL' else [''] * len(row), axis=1),
                 use_container_width=True, hide_index=True)
+
+    def _render_fast_lab(self):
+        st.header("⚡ Fast Lab — the fee wall, live")
+
+        st.error(
+            "**Learning accelerator, not a profit path — pre-registered.** "
+            "Phase 2 and the Part B study proved the arithmetic: at 1m the "
+            "gross edge per trade (~0.01%) is ~40× smaller than the 0.31% "
+            "round-trip cost. This account exists to watch ML learning "
+            "dynamics at ~500× the daily lab's sample rate and to show the "
+            "cost arithmetic in real time. **Kill date for any "
+            "strategy-search role: 2026-08-07** (docs/FASTLAB_PLAN.md).")
+
+        lab_path = 'data/fastlab.db'
+        if not os.path.exists(lab_path):
+            st.info("Fast Lab database not found — the fastlab service "
+                    "hasn't run yet.")
+            return
+        from src.utils.database import DatabaseManager as _DBM
+        lab = _DBM(lab_path)
+
+        def q(sql, params=None):
+            from sqlalchemy import text as _t
+            try:
+                return pd.read_sql_query(_t(sql), lab.engine, params=params or {})
+            except Exception:
+                return pd.DataFrame()
+
+        equity = q("SELECT timestamp, total_equity, benchmark_price "
+                   "FROM performance_tracking ORDER BY timestamp")
+        trades = q("SELECT * FROM trades ORDER BY entry_time")
+
+        col1, col2, col3, col4 = st.columns(4)
+        if not equity.empty:
+            eq = equity['total_equity']
+            col1.metric("Paper equity", f"${eq.iloc[-1]:,.2f}",
+                        f"{eq.iloc[-1] / eq.iloc[0] - 1:+.2%} since start")
+        closed = trades[trades['status'] == 'CLOSED'] if not trades.empty \
+            else pd.DataFrame()
+        col2.metric("Round trips", len(closed))
+        fees_paid = float(closed['commission'].sum() * 2) if not closed.empty else 0.0
+        col3.metric("Fees paid (both legs)", f"${fees_paid:,.2f}")
+        if not closed.empty:
+            net = float(closed['pnl'].sum())
+            # friction estimate: fees (exact) + spread&slip at 0.12%/round trip
+            notional = float((closed['quantity'] * closed['entry_price']).sum())
+            friction_est = fees_paid + notional * 0.0012
+            col4.metric("Net P&L vs friction",
+                        f"${net:+,.2f}",
+                        f"friction ≈ ${friction_est:,.2f}")
+
+        # ── The fee decomposition, cumulative ─────────────────────────────
+        if not closed.empty:
+            st.subheader("Cost decomposition (cumulative, closed trades)")
+            notional = (closed['quantity'] * closed['entry_price']).sum()
+            gross_est = float(closed['pnl'].sum()) + fees_paid \
+                + float(notional) * 0.0012
+            rows = pd.DataFrame({
+                'component': ['gross edge (est.)', '− fees (exact)',
+                              '− spread+slippage (modeled)', '= net P&L'],
+                'usd': [gross_est, -fees_paid, -float(notional) * 0.0012,
+                        float(closed['pnl'].sum())]})
+            fig = go.Figure(go.Bar(
+                x=rows['component'], y=rows['usd'],
+                marker_color=['#4a90d9', '#ff5252', '#ff8a65', '#00c853']))
+            fig.update_layout(template='plotly_dark', height=300,
+                              yaxis_title='USD')
+            st.plotly_chart(fig, use_container_width=True)
+
+        if not equity.empty and len(equity) > 2:
+            st.subheader("Equity")
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(
+                x=pd.to_datetime(equity['timestamp'], unit='s'),
+                y=equity['total_equity'] / equity['total_equity'].iloc[0],
+                name='Fast Lab', line=dict(color='#00c853', width=2)))
+            bench = equity.dropna(subset=['benchmark_price'])
+            if not bench.empty:
+                fig.add_trace(go.Scatter(
+                    x=pd.to_datetime(bench['timestamp'], unit='s'),
+                    y=bench['benchmark_price'] / bench['benchmark_price'].iloc[0],
+                    name='Hold BTC', line=dict(color='orange', dash='dash')))
+            fig.add_hline(y=1.0, line_color='gray', line_width=1)
+            fig.update_layout(template='plotly_dark', height=320)
+            st.plotly_chart(fig, use_container_width=True)
+
+        preds = q("SELECT timestamp, symbol, pred, p_up, model_version, "
+                  "executed FROM ml_predictions ORDER BY id DESC LIMIT 9")
+        if not preds.empty:
+            st.subheader("Latest 1m predictions")
+            preds['time'] = pd.to_datetime(preds['timestamp'], unit='s')
+            st.dataframe(preds[['time', 'symbol', 'pred', 'p_up',
+                                'model_version', 'executed']],
+                         use_container_width=True, hide_index=True)
+
+        log = q("SELECT timestamp, decision, old_val_f1, new_val_f1, "
+                "n_train, reason FROM ml_retrain_log ORDER BY timestamp DESC")
+        if not log.empty:
+            st.subheader("Retrain log (daily cap)")
+            log['time'] = pd.to_datetime(log['timestamp'], unit='s')
+            st.dataframe(log[['time', 'decision', 'old_val_f1', 'new_val_f1',
+                              'n_train', 'reason']],
+                         use_container_width=True, hide_index=True)
 
     def _render_performance(self):
         st.header("📊 Performance")

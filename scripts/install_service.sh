@@ -14,6 +14,7 @@ AGENTS_DIR="$HOME/Library/LaunchAgents"
 UID_N="$(id -u)"
 BOT_LABEL="com.tradingbot.paper"
 DASH_LABEL="com.tradingbot.dashboard"
+FAST_LABEL="com.tradingbot.fastlab"
 
 make_plist() {
     local label="$1"; shift
@@ -51,7 +52,9 @@ boot_out() {
 if [[ "${1:-}" == "uninstall" ]]; then
     boot_out "$BOT_LABEL"
     boot_out "$DASH_LABEL"
-    rm -f "$AGENTS_DIR/$BOT_LABEL.plist" "$AGENTS_DIR/$DASH_LABEL.plist"
+    boot_out "$FAST_LABEL"
+    rm -f "$AGENTS_DIR/$BOT_LABEL.plist" "$AGENTS_DIR/$DASH_LABEL.plist" \
+          "$AGENTS_DIR/$FAST_LABEL.plist"
     echo "Agents stopped and removed."
     exit 0
 fi
@@ -60,6 +63,7 @@ fi
 
 # never run two bots against one database
 pkill -f "src/main.py --mode paper" 2>/dev/null && sleep 3 || true
+pkill -f "scripts/fastlab_bot.py" 2>/dev/null && sleep 2 || true
 
 make_plist "$BOT_LABEL" "launchd_bot" \
     "$REPO/.venv/bin/python" "src/main.py" "--mode" "paper"
@@ -67,11 +71,15 @@ make_plist "$DASH_LABEL" "launchd_dashboard" \
     "$REPO/.venv/bin/python" "-m" "streamlit" "run" "src/dashboard/app.py" \
     "--server.port" "8501" "--server.address" "127.0.0.1" \
     "--server.headless" "true"
+make_plist "$FAST_LABEL" "launchd_fastlab" \
+    "$REPO/.venv/bin/python" "scripts/fastlab_bot.py"
 
 boot_out "$BOT_LABEL"
 boot_out "$DASH_LABEL"
+boot_out "$FAST_LABEL"
 launchctl bootstrap "gui/$UID_N" "$AGENTS_DIR/$BOT_LABEL.plist"
 launchctl bootstrap "gui/$UID_N" "$AGENTS_DIR/$DASH_LABEL.plist"
+launchctl bootstrap "gui/$UID_N" "$AGENTS_DIR/$FAST_LABEL.plist"
 
 echo
 echo "Installed. The lab now starts at login and restarts itself on crashes."

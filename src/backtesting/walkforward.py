@@ -431,7 +431,8 @@ class SimResult:
 
 def simulate(df: pd.DataFrame, sig: SignalArrays, start_idx: int,
              end_idx: int, initial_equity: float = 10_000.0,
-             min_confidence: float = MIN_CONFIDENCE) -> SimResult:
+             min_confidence: float = MIN_CONFIDENCE,
+             spread: float = 0.0) -> SimResult:
     """Simulate one long-only, one-position-at-a-time pass with full cash
     accounting and per-bar mark-to-market equity (honest drawdowns).
 
@@ -450,22 +451,39 @@ def simulate(df: pd.DataFrame, sig: SignalArrays, start_idx: int,
     equity_curve = np.full(n, np.nan)
 
     in_pos = False
-    qty = sl = tp = entry_px = 0.0
+    qty = sl = tp = entry_px = entry_mkt = 0.0
     entry_i = -1
+    half_spread = spread / 2.0
 
-    def close_position(i: int, exit_px: float, reason: str):
+    def close_position(i: int, exit_px: float, exit_mkt: float, reason: str):
+        """exit_px = realized fill; exit_mkt = friction-free market reference
+        at the same instant, for the honest cost decomposition."""
         nonlocal cash, fees_total, in_pos, qty
         proceeds = qty * exit_px
         commission = proceeds * COMMISSION
         pnl = proceeds - commission - qty * entry_px * (1 + COMMISSION)
         cash += proceeds - commission
         fees_total += commission
+
+        # Fee decomposition (percent of entry notional):
+        # gross = the market move alone; net = what we actually kept;
+        # itemized: fees exact, spread declared, slippage = the exact rest.
+        gross_pct = exit_mkt / entry_mkt - 1 if entry_mkt else 0.0
+        net_pct = pnl / (qty * entry_px)
+        total_cost_pct = gross_pct - net_pct
+        fee_pct = COMMISSION * (1 + exit_px / entry_px) if entry_px else 0.0
+        spread_pct = spread
+        slip_pct = total_cost_pct - fee_pct - spread_pct
+
         trades.append({
             'entry_idx': entry_i, 'exit_idx': i,
             'entry_time': df.index[entry_i], 'exit_time': df.index[i],
             'entry_price': entry_px, 'exit_price': exit_px,
             'qty': qty, 'pnl': pnl,
-            'pnl_pct': pnl / (qty * entry_px),
+            'pnl_pct': net_pct,
+            'gross_pct': gross_pct, 'fee_pct': fee_pct,
+            'spread_pct': spread_pct, 'slip_pct': slip_pct,
+            'total_cost_pct': total_cost_pct,
             'reason': reason, 'bars_held': i - entry_i,
         })
         in_pos = False
@@ -474,37 +492,40 @@ def simulate(df: pd.DataFrame, sig: SignalArrays, start_idx: int,
     for i in range(start_idx, n):
         if in_pos:
             # scan bar i for SL (priority) / TP / signal exit
-            exit_px = reason = None
+            exit_px = exit_mkt = reason = None
             if not np.isnan(sl) and low[i] <= sl:
                 raw = min(open_[i], sl)        # gap through stop -> worse open
-                exit_px, reason = raw * (1 - SLIPPAGE), 'stop_loss'
+                exit_px, exit_mkt, reason = \
+                    raw * (1 - SLIPPAGE - half_spread), raw, 'stop_loss'
             elif not np.isnan(tp) and high[i] >= tp:
                 raw = max(open_[i], tp)        # gap up through TP -> real open
-                exit_px, reason = raw * (1 - SLIPPAGE), 'take_profit'
+                exit_px, exit_mkt, reason = \
+                    raw * (1 - SLIPPAGE - half_spread), raw, 'take_profit'
             elif i - 1 >= entry_i and sig.exit_[i - 1]:
                 # exit decided at close of bar i-1 -> execute at open of i
-                exit_px, reason = open_[i] * (1 - SLIPPAGE), 'signal'
+                exit_px, exit_mkt, reason = \
+                    open_[i] * (1 - SLIPPAGE - half_spread), open_[i], 'signal'
             if exit_px is not None:
-                close_position(i, exit_px, reason)
+                close_position(i, exit_px, exit_mkt, reason)
 
         elif i < end_idx and i + 1 < n and sig.entry[i] \
                 and sig.confidence[i] >= min_confidence and sig.size[i] > 0:
             nxt = i + 1
-            fill = None
+            fill = mkt_ref = None
             if sig.passive_offset > 0:
                 # Passive maker entry: rest BELOW the market; fills only if
                 # the next bar trades strictly through the limit. No taker
-                # slippage (we are the resting side), fill never better
-                # than the limit.
+                # slippage/spread crossing (we are the resting side).
                 limit = close[i] * (1 - sig.passive_offset)
                 if low[nxt] <= limit * (1 - SLIPPAGE):
-                    fill = limit
+                    fill = mkt_ref = limit
             else:
                 limit = close[i] * (1 + LIMIT_TOLERANCE)
                 if open_[nxt] <= limit:
-                    fill = min(open_[nxt] * (1 + SLIPPAGE), limit)
+                    fill = min(open_[nxt] * (1 + SLIPPAGE + half_spread), limit)
+                    mkt_ref = open_[nxt]
                 elif low[nxt] <= limit:
-                    fill = limit               # resting limit taken out
+                    fill = mkt_ref = limit     # resting limit taken out
             if fill is not None:
                 equity_now = cash               # flat -> equity == cash
                 notional = min(equity_now * sig.size[i],
@@ -515,6 +536,7 @@ def simulate(df: pd.DataFrame, sig: SignalArrays, start_idx: int,
                     cash -= notional + commission
                     fees_total += commission
                     entry_px, sl, tp = fill, sig.stop_loss[i], sig.take_profit[i]
+                    entry_mkt = mkt_ref
                     entry_i = nxt
 
                     in_pos = True
@@ -526,7 +548,8 @@ def simulate(df: pd.DataFrame, sig: SignalArrays, start_idx: int,
 
     # Force-close any position still open at the very end of the data
     if in_pos:
-        close_position(n - 1, close[n - 1] * (1 - SLIPPAGE), 'window_end')
+        close_position(n - 1, close[n - 1] * (1 - SLIPPAGE - half_spread),
+                       close[n - 1], 'window_end')
         equity_curve[n - 1] = cash
 
     final_equity = cash

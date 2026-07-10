@@ -103,6 +103,19 @@ learning process measured truthfully, and the guard, the gauge, and the
 evidence tiers are there so that if nothing real ever emerges, the system
 says so every single week.
 
+## 3b. Fast Lab kill criteria (pre-registered 2026-07-10, immutable)
+
+The ⚡ Fast Lab (1m/5m paper bot) is a **learning accelerator, never a profit
+path** — its banner states the Phase 2 fee-wall verdict from day one. Its
+strategy-search role ends **permanently** if, after the offline studies
+(docs/FASTLAB_PLAN.md) plus the live-paper window ending **2026-08-07**,
+nothing has cleared the multiple-testing-corrected significance bar after
+full costs (fees + spread + slippage). After that date it may keep running
+solely as an observation instrument for watching the ML learn — no further
+strategy iterations at this horizon, ever. Same standing rules: no
+gate-loosening, no cherry-picking after results, noise control is the
+baseline, in-sample numbers are never celebrated.
+
 ## 4. Maintenance (rarely needed)
 
 ```bash
