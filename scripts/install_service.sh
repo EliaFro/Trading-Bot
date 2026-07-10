@@ -15,6 +15,7 @@ UID_N="$(id -u)"
 BOT_LABEL="com.tradingbot.paper"
 DASH_LABEL="com.tradingbot.dashboard"
 FAST_LABEL="com.tradingbot.fastlab"
+PLAYBOOK_LABEL="com.tradingbot.playbook"
 
 make_plist() {
     local label="$1"; shift
@@ -53,8 +54,9 @@ if [[ "${1:-}" == "uninstall" ]]; then
     boot_out "$BOT_LABEL"
     boot_out "$DASH_LABEL"
     boot_out "$FAST_LABEL"
+    boot_out "$PLAYBOOK_LABEL"
     rm -f "$AGENTS_DIR/$BOT_LABEL.plist" "$AGENTS_DIR/$DASH_LABEL.plist" \
-          "$AGENTS_DIR/$FAST_LABEL.plist"
+          "$AGENTS_DIR/$FAST_LABEL.plist" "$AGENTS_DIR/$PLAYBOOK_LABEL.plist"
     echo "Agents stopped and removed."
     exit 0
 fi
@@ -73,13 +75,18 @@ make_plist "$DASH_LABEL" "launchd_dashboard" \
     "--server.headless" "true"
 make_plist "$FAST_LABEL" "launchd_fastlab" \
     "$REPO/.venv/bin/python" "scripts/fastlab_bot.py"
+make_plist "$PLAYBOOK_LABEL" "launchd_playbook" \
+    "$REPO/.venv/bin/python" "scripts/playbook_companion.py"
 
 boot_out "$BOT_LABEL"
 boot_out "$DASH_LABEL"
 boot_out "$FAST_LABEL"
+boot_out "$PLAYBOOK_LABEL"
 launchctl bootstrap "gui/$UID_N" "$AGENTS_DIR/$BOT_LABEL.plist"
 launchctl bootstrap "gui/$UID_N" "$AGENTS_DIR/$DASH_LABEL.plist"
 launchctl bootstrap "gui/$UID_N" "$AGENTS_DIR/$FAST_LABEL.plist"
+sleep 2
+launchctl bootstrap "gui/$UID_N" "$AGENTS_DIR/$PLAYBOOK_LABEL.plist"
 
 echo
 echo "Installed. The lab now starts at login and restarts itself on crashes."

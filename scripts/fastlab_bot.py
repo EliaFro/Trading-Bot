@@ -215,9 +215,16 @@ async def main():
                    'paper-only learning accelerator; kill date 2026-08-07',
                    dedupe_key=f'fastlab_start_{datetime.now():%Y%m%d%H%M}')
 
+    from src.trading import kill_rule
     last_retrain = 0.0
+    last_kill_check = 0.0
     while True:
         try:
+            # pre-registered kill rule: checked daily, engages automatically
+            if time.time() - last_kill_check > 86400 or last_kill_check == 0:
+                kill_rule.check_and_engage(lab_db, notifier)
+                last_kill_check = time.time()
+
             # daily-capped retrain
             if time.time() - last_retrain > RETRAIN_INTERVAL_H * 3600 \
                     or ml.bundle is None:

@@ -45,3 +45,7 @@ _quarantine/
 .idea/
 .vscode/
 *.swp
+
+# ML model bundles (regenerable binaries)
+models/**/*.joblib
+*.joblib

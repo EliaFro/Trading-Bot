@@ -73,6 +73,11 @@ def preds_to_signals(frame_1m, dates, pred, size=0.10):
 
 
 def main():
+    # Pre-registered kill rule: strategy search at this horizon closes
+    # permanently after 2026-08-07 (src/trading/kill_rule.py). No bypass.
+    from src.trading.kill_rule import assert_search_allowed
+    assert_search_allowed()
+
     t0 = time.time()
     db = DatabaseManager('./data/trading_system.db')
     frames_1m = {}

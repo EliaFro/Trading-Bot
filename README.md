@@ -1,86 +1,63 @@
-# AI Crypto Trading System — Paper-Money ML Learning Lab
+# A random strategy beat the Turtles.
 
-**Status (2026-07-10): finished.** The system runs 24/7 on **paper money
-only** as an honest ML learning lab — daily predictions, weekly
-champion/challenger retrains, and a dashboard that surfaces overfitting and
-evidence quality instead of hiding them. **No live trading.** The money plan
-remains manual DCA — see **[PLAYBOOK.md](PLAYBOOK.md)**.
+**I built an honest evaluation harness and tested 29 famous trading strategies, machine learning at two scales, and every retail-tradeable horizon on 36 months of crypto data. Nothing survived multiple-testing correction. A coin-flip strategy outperformed ninety years of trading literature. This repository is the method, the evidence, and the running instrument.**
 
-- **Run and read it:** [OPERATING.md](OPERATING.md) — start/stop, how to read
-  the ML Lab tab, and the exact (probably never-cleared) bar for the banner
-  to change from "learning" to "demonstrated an edge".
-- **Why paper-only:** three years of walk-forward evidence, summarized below.
+*(Everything here runs on paper money. The only real-money artifact is [PLAYBOOK.md](PLAYBOOK.md) — a 10-minute-a-month manual plan that deliberately contains no cleverness.)*
 
-## What this project proved (the short version)
+---
 
-Three years of verified Binance data, an honest walk-forward harness, five
-hypothesis-driven strategy iterations, two fee tiers:
+## The question
 
-- **Intraday strategies (5m/15m RSI / MA-cross / breakout / ensemble): dead.**
-  Gross edge ~0.3–0.45% per trade against 0.25–0.30% round-trip costs; every
-  configuration net-negative in every regime. Full autopsy:
-  [docs/PHASE2_RESULTS.md](docs/PHASE2_RESULTS.md)
-- **Daily trend-following (TSMOM, weekly rebalance): profitable in backtest**
-  (PF 2.0–3.7) **but failed the gate** — sample too thin to prove (24–56
-  trades, t ≤ 1.67), drawdown 21–26% at deployable size, and at $100–500 the
-  dollar edge is smaller than hosting costs. Full study:
-  [docs/DAILY_MOMENTUM_RESULTS.md](docs/DAILY_MOMENTUM_RESULTS.md)
-- **ML core (Stage 1 walk-forward): no edge demonstrated.** ML −2.8% vs
-  TSMOM-60d +0.4% after fees on the identical calendar; the best in-sample
-  model (92% accuracy) was the worst out-of-sample (36%). Full study:
-  [docs/ML_RESULTS.md](docs/ML_RESULTS.md) · design contract:
-  [docs/ML_PLAN.md](docs/ML_PLAN.md)
-- **The infrastructure works**: gap-free data pipeline, realistic paper
-  engine (fills verified to the cent), hard risk rails, kill switch,
-  monitoring, alerting, dashboard, 60-test suite. It was never the problem.
+Can a retail account ($100–$10k, standard exchange fees) systematically day-trade crypto profitably — using published technical strategies, or machine learning, at any horizon from 1 minute to weekly?
 
-## How to resume (the $2k+ path)
+## The harness (the actual contribution)
 
-If the account is ever funded to **$2,000+** (the economic floor computed in
-DAILY_MOMENTUM_RESULTS.md §5), the tested restart path is:
+Every strategy and model faced the identical, pre-registered evaluation:
 
-1. Read the verdict first: [docs/DAILY_MOMENTUM_RESULTS.md](docs/DAILY_MOMENTUM_RESULTS.md)
-   — especially §4 (why the evidence is the literature, not this backtest)
-   and §3 (expect −20–26% drawdowns, not smooth gains).
-2. The frozen strategy profile is [config/tsmom_frozen.yaml](config/tsmom_frozen.yaml).
-   Do **not** re-tune it; re-*validate* it on fresh data:
-   ```bash
-   make install && make db-init
-   python scripts/backfill.py --months 36
-   python scripts/verify_coverage.py --months 36
-   python scripts/run_daily_momentum.py        # numbers should rhyme with the report
-   ```
-3. Wire the TSMOM profile into the engine (daily bars + weekly cycle;
-   the equal-weight variant requires consciously raising the 10% position
-   rail in `src/trading/safety.py` — it is a hard ceiling by design).
-4. Run the **full 14-day paper gate** (Phase 3) before any live key touches
-   the engine; Phase 4's live rails (withdrawal-permission refusal, kill
-   switch, reconciliation) are already built and tested.
+- **Walk-forward only** — train on the past, test once on the never-seen future, roll forward. In-sample results are never reported as findings. ([docs/ML_PLAN.md](docs/ML_PLAN.md))
+- **Purge + embargo** — labels that peek past a training boundary are purged; an embargo gap prevents adjacency leakage.
+- **Anti-lookahead as executable tests** — every feature and signal must be *truncation-invariant* (identical at time T whether or not the future exists in the data); the full ML pipeline must find **no skill on random walks**. 140+ tests enforce this.
+- **Honest execution** — next-bar fills through a LIMIT model that lapses on gaps, 0.10%/side fees (0.075% sensitivity), 0.05% slippage, **measured** bid-ask spreads with conservative floors ([docs/spread_measurements.json](docs/spread_measurements.json)), and a per-trade cost decomposition: gross − fees − spread − slippage = net.
+- **Multiple-testing correction** — N is counted; naive p-values face Bonferroni and a White's Reality Check bootstrap; and a **100-random-strategy noise control** runs through the same pipeline as the luck baseline for every claim.
+- **Pre-registration** — predictions with probabilities were written down before each study ran, and scored after.
 
-## Running what exists
+## The findings
+
+| study | result | evidence |
+|---|---|---|
+| Intraday classics (RSI/MA/breakout, 5m–15m, walk-forward, 36 mo) | Gross edge ~0.4%/trade vs 0.3% round-trip cost → **every configuration net-negative in every regime** | [docs/PHASE2_RESULTS.md](docs/PHASE2_RESULTS.md) |
+| **29 published strategies** (Wilder, Bollinger, Ichimoku, Turtles, TSMOM…) | 24 profitable-looking; **2 naive-significant vs 1.5 expected by luck; 0 survive Bonferroni; Reality Check p=0.15; the best of 100 random strategies (t=2.49) beat the best published one (t=2.18)** | [docs/SIGNAL_LIBRARY_RESULTS.md](docs/SIGNAL_LIBRARY_RESULTS.md) |
+| Daily trend (TSMOM), the strongest family | Profitable (PF 2–3.7) but statistically unprovable in 3 years (t≤1.67), −21–26% drawdowns at deployable size, and at small accounts the edge is smaller than hosting costs | [docs/DAILY_MOMENTUM_RESULTS.md](docs/DAILY_MOMENTUM_RESULTS.md) |
+| ML, daily horizon (trees + linear, 3k samples) | The 92%-in-sample model was worst out-of-sample (36%); the linear floor won; **ML lost to simple momentum** | [docs/ML_RESULTS.md](docs/ML_RESULTS.md) |
+| ML, 1-minute horizon (LSTM/CNN fair trial, ~1M samples) | **Genuine skill: +11 points above chance, every window, every regime** — worth ~1bp/trade against a 31bp cost. Deep ≈ trees. **Predictive ≠ profitable, demonstrated with real prediction** | [docs/FASTLAB_RESULTS.md](docs/FASTLAB_RESULTS.md) |
+| Multi-timeframe (Elder triple-screen, 8 variants) | −87% to −99%; gross/trade ≤0.008% vs 0.313% cost — a 40× shortfall no filter can fix | [docs/FASTLAB_RESULTS.md](docs/FASTLAB_RESULTS.md) |
+
+Key charts: `docs/phase2_charts/signal_library.png` (the published-vs-noise t-distribution overlap — the whole finding in one image), `docs/phase2_charts/fastlab_partB.png` (gross edge vs cost per trade), `docs/phase2_charts/ml_study.png` (the overfitting gauge in action).
+
+## The lessons (each one measured, not asserted)
+
+1. **Predictive ≠ profitable.** 1-minute crypto is genuinely predictable (+11 pts over chance, robust) and genuinely untradeable (the skill is worth 1/25th of the toll).
+2. **The fee wall explains retail trading.** ~97% of the intraday round-trip cost is fees+slippage, not spread. Below ~0.1% per-trade gross edge, strategy quality is irrelevant.
+3. **Stable ≠ meaningful.** A feature can rank high in every retrain and rest on 3 observations (`month`, over 3 years). Count independent observations, not consistency.
+4. **Best-of-N is luck's favorite costume.** Test 29 things and ~1.5 pass at p<0.05 for free; 9 of 100 coin-flip strategies "passed" too. Corrections aren't pedantry — they're the difference between a finding and a story.
+5. **In-sample accuracy is an anti-signal.** The prettiest training numbers came from the worst live models, every time.
+
+## The running instrument
+
+The repo ships a live paper-trading observatory (four macOS launchd services — see [OPERATING.md](OPERATING.md)): a daily ML lab and a 1m "Fast Lab" that retrain on schedule behind a keep-old-unless-better guard, a dashboard that displays the overfitting gauge, evidence tiers, and the live fee decomposition, monthly auto-generated evidence digests, and a **self-executing pre-registered kill rule** ([src/trading/kill_rule.py](src/trading/kill_rule.py)) that permanently closes strategy search at the fast horizon on 2026-08-07 unless something clears the corrected bar (nothing is on track to).
+
+## Reproduce
 
 ```bash
-make help          # all commands
-make run           # paper-trading bot (health: :8080, metrics: :9100)
-make dashboard     # Streamlit dashboard on :8501
-make test          # 47-test suite
-make docker-up     # containerized deployment (auto-restart, log rotation)
+make install && make db-init
+python scripts/backfill.py --months 36      # ~4M candles from Binance public API
+python scripts/verify_coverage.py           # gap-free proof
+make test                                   # 140+ tests incl. anti-lookahead suite
+python scripts/run_signal_library.py        # the 29-strategy study + noise control
+python scripts/run_daily_momentum.py        # TSMOM
+python scripts/run_ml_study.py              # daily ML
+python scripts/run_fastlab_study.py         # multi-timeframe (kill-rule-gated)
+python scripts/run_ml_fast_study.py         # deep ML at 1m (kill-rule-gated)
 ```
 
-Secrets live only in `.env` (gitignored, chmod 600, template in
-`.env.example`). Market data, logs, models, and the quarantined legacy code
-are all excluded from version control.
-
-## Map
-
-| Path | What |
-|---|---|
-| `PLAYBOOK.md` | The active plan (manual, 10 min/month) |
-| `docs/ARCHITECTURE_REPORT.md` | Phase 0 audit of the original codebase |
-| `docs/PHASE2_RESULTS.md` | Intraday strategy validation (verdict: dead) |
-| `docs/DAILY_MOMENTUM_RESULTS.md` | TSMOM study (verdict: FAIL gate; conditional promise at $2k+) |
-| `config/tsmom_frozen.yaml` | Frozen TSMOM profile for a future restart |
-| `src/` | Engine, strategies, backtester, monitoring, dashboard |
-| `scripts/` | init_db, backfill (gap-repairing), verify_coverage, walk-forward studies |
-| `tests/` | Fill economics, safety rails, DB, indicators, notifier |
-| `_quarantine/` | Dead legacy files (preserved, excluded from git) |
+Scope for contributions: see [CONTRIBUTING.md](CONTRIBUTING.md) — this is an evaluation harness and a finding; strategy submissions go through the corrected gate or not at all. License: [MIT](LICENSE).

@@ -102,22 +102,24 @@ class TradingDashboard:
         self._render_sidebar()
 
         tabs = st.tabs([
-            "📈 Live Trading", "🧪 ML Lab", "⚡ Fast Lab", "📊 Performance",
-            "📋 Trade History", "💭 Sentiment", "🎯 Patterns",
+            "📘 Playbook", "📈 Live Trading", "🧪 ML Lab", "⚡ Fast Lab",
+            "📊 Performance", "📋 Trade History", "💭 Sentiment", "🎯 Patterns",
         ])
         with tabs[0]:
-            self._render_live_trading()
+            self._render_playbook()
         with tabs[1]:
-            self._render_ml_lab()
+            self._render_live_trading()
         with tabs[2]:
-            self._render_fast_lab()
+            self._render_ml_lab()
         with tabs[3]:
-            self._render_performance()
+            self._render_fast_lab()
         with tabs[4]:
-            self._render_trade_history()
+            self._render_performance()
         with tabs[5]:
-            self._render_sentiment()
+            self._render_trade_history()
         with tabs[6]:
+            self._render_sentiment()
+        with tabs[7]:
             self._render_patterns()
 
         if st.session_state.get('auto_refresh', True):
@@ -249,17 +251,135 @@ class TradingDashboard:
                     if row['action'] == 'SELL' else [''] * len(row), axis=1),
                 use_container_width=True, hide_index=True)
 
+    def _render_playbook(self):
+        st.header("📘 Playbook — your money, your hands")
+        st.info(
+            "**These are YOUR manual trades, not bot activity.** This tab is "
+            "a reminder and a ledger for the DCA + 200-day rule "
+            "(PLAYBOOK.md). It never places orders, never touches an API key "
+            "with trade permission, and never suggests deviating from the "
+            "schedule.")
+
+        from src.playbook import companion as pc
+        state_path = 'data/playbook.db'
+        if not os.path.exists(state_path):
+            from scripts.init_db import init_db
+            init_db(state_path)
+        from src.utils.database import DatabaseManager as _DBM
+        state_db = _DBM(state_path)
+        pc.ensure_tables(state_db)
+
+        # ── Regime status ─────────────────────────────────────────────────
+        stale_h = pc.data_staleness_hours(self.db)
+        if stale_h > pc.STALE_HOURS:
+            st.warning(f"Local data is {stale_h:.1f}h old — verify manually "
+                       f"on TradingView (BTCUSD 1D, MA length 200).")
+        else:
+            regime = pc.check_regime(pc.btc_daily_closes(self.db))
+            if regime:
+                col1, col2, col3, col4 = st.columns(4)
+                if regime['above']:
+                    col1.success("### ABOVE 200-day\nbuys ON")
+                else:
+                    col1.error("### BELOW 200-day\nbuys PAUSED")
+                col2.metric("BTC close", f"${regime['close']:,.0f}",
+                            f"{regime['distance_pct']:+.1%} vs trend")
+                col3.metric("200-day average", f"${regime['sma200']:,.0f}")
+                since = pc.get_state(state_db, 'regime_since')
+                col4.metric("Regime since", since or "—")
+
+        # ── Log a buy ─────────────────────────────────────────────────────
+        st.subheader("Log a buy you made")
+        with st.form("dca_form", clear_on_submit=True):
+            c1, c2, c3 = st.columns(3)
+            amount = c1.number_input("USD spent", min_value=1.0, value=50.0)
+            price = c2.number_input("BTC price paid (0 = that day's close)",
+                                    min_value=0.0, value=0.0)
+            buy_date = c3.date_input("Date", value=datetime.now().date())
+            note = st.text_input("Note (optional)")
+            if st.form_submit_button("Add to ledger"):
+                try:
+                    rec = pc.log_buy(state_db, self.db, float(amount),
+                                     price=float(price) or None,
+                                     buy_date=buy_date, note=note)
+                    st.success(f"Logged: ${rec['amount_usd']:,.2f} → "
+                               f"{rec['btc_amount']:.8f} BTC @ "
+                               f"${rec['btc_price']:,.2f}")
+                except Exception as e:
+                    st.error(f"Could not log: {e}")
+
+        # ── Ledger + comparisons ──────────────────────────────────────────
+        summary = pc.ledger_summary(state_db, self.db)
+        log = summary['log']
+        if log.empty:
+            st.info("Ledger is empty — log your first buy above or via "
+                    "`python scripts/playbook_log.py add --amount <usd>`.")
+        else:
+            col1, col2, col3, col4 = st.columns(4)
+            col1.metric("Invested", f"${summary['invested']:,.2f}")
+            col2.metric("Holdings", f"{summary['btc_total']:.8f} BTC",
+                        f"cost basis ${summary['cost_basis']:,.0f}")
+            pnl = summary['current_value'] - summary['invested']
+            col3.metric("Current value", f"${summary['current_value']:,.2f}",
+                        f"{pnl:+,.2f}")
+            if 'lump_sum_value' in summary:
+                col4.metric("Lump-sum-day-one would be",
+                            f"${summary['lump_sum_value']:,.2f}",
+                            help="Honest comparison: everything invested on "
+                                 "your first logged date instead of DCA.")
+
+            log = log.copy()
+            log['cum_invested'] = log['amount_usd'].cumsum()
+            log['cum_btc'] = log['btc_amount'].cumsum()
+            log['cost_basis'] = log['cum_invested'] / log['cum_btc']
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x=log['buy_date'], y=log['cost_basis'],
+                                     name='cost basis', mode='lines+markers',
+                                     line=dict(color='#00c853')))
+            fig.add_trace(go.Scatter(x=log['buy_date'], y=log['btc_price'],
+                                     name='price paid', mode='markers',
+                                     marker=dict(color='orange', size=9)))
+            fig.update_layout(template='plotly_dark', height=300,
+                              title='Cost basis over time')
+            st.plotly_chart(fig, use_container_width=True)
+            st.dataframe(log[['buy_date', 'amount_usd', 'btc_price',
+                              'btc_amount', 'note']],
+                         use_container_width=True, hide_index=True)
+
+        # ── Monthly digests ───────────────────────────────────────────────
+        digest_dir = Path('docs/digests')
+        if digest_dir.exists():
+            digests = sorted(digest_dir.glob('*.md'), reverse=True)
+            if digests:
+                st.subheader("Monthly evidence digests")
+                pick = st.selectbox("Digest", [d.name for d in digests])
+                st.markdown((digest_dir / pick).read_text())
+
     def _render_fast_lab(self):
         st.header("⚡ Fast Lab — the fee wall, live")
 
-        st.error(
-            "**Learning accelerator, not a profit path — pre-registered.** "
-            "Phase 2 and the Part B study proved the arithmetic: at 1m the "
-            "gross edge per trade (~0.01%) is ~40× smaller than the 0.31% "
-            "round-trip cost. This account exists to watch ML learning "
-            "dynamics at ~500× the daily lab's sample rate and to show the "
-            "cost arithmetic in real time. **Kill date for any "
-            "strategy-search role: 2026-08-07** (docs/FASTLAB_PLAN.md).")
+        from src.trading.kill_rule import closure_record, KILL_DATE
+        closure = closure_record()
+        if closure:
+            st.error(
+                f"**Strategy search CLOSED per pre-registered rule "
+                f"2026-08-07 — observation instrument only.** Closed at "
+                f"{closure.get('closed_at', '?')[:16]}; nothing cleared the "
+                f"corrected bar after full costs. Final evidence: "
+                f"docs/FASTLAB_RESULTS.md. Re-opening requires a deliberate "
+                f"code change (src/trading/kill_rule.py), by design.")
+        else:
+            days_left = (KILL_DATE - datetime.utcnow()
+                         .replace(tzinfo=KILL_DATE.tzinfo)).days
+            st.error(
+                "**Learning accelerator, not a profit path — pre-registered.** "
+                "Phase 2 and the Part B study proved the arithmetic: at 1m the "
+                "gross edge per trade (~0.01%) is ~40× smaller than the 0.31% "
+                "round-trip cost. This account exists to watch ML learning "
+                "dynamics at ~500× the daily lab's sample rate and to show the "
+                "cost arithmetic in real time. **Strategy-search kill clock: "
+                f"{max(days_left, 0)} days to 2026-08-07** "
+                "(docs/FASTLAB_PLAN.md — the rule executes itself).")
 
         lab_path = 'data/fastlab.db'
         if not os.path.exists(lab_path):
