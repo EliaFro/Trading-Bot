@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# FROZEN: Daily TSMOM profile — preserved 2026-07-10, NOT approved for live.
+#
+# Status: FAILED the Phase 2 gate as written (trade count and window
+# consistency are structurally unreachable at weekly frequency; equal-weight
+# sizing exceeds the 15% drawdown gate). Profitable in backtest across all
+# four pre-registered lookbacks (PF 2.0–3.7 rail-sized), but the 3-year
+# sample is NOT statistically significant on its own (t <= 1.67).
+# Full evidence: docs/DAILY_MOMENTUM_RESULTS.md
+#
+# This file exists so a future $2k+ deployment starts from the exact tested
+# configuration instead of re-deriving it. See README "How to resume".
+# ─────────────────────────────────────────────────────────────────────────────
+
+tsmom:
+  timeframe: 1d                  # daily UTC bars (resampled from 1h)
+  rebalance_weekday: 0           # Monday UTC close, execute next day's open
+  lookback_days: 60              # primary (best PF 3.66 rail / 2.66 equal-wt);
+                                 # 20/40/90 all profitable — see report
+  signal: trailing_return        # long if close/close[-lookback] - 1 > 0, else cash
+  long_only: true
+  stops: none                    # exit = signal flip (canonical TSMOM)
+
+  symbols: [BTC/USDT, ETH/USDT, SOL/USDT]
+
+  sizing:
+    # Rail-compliant variant (works under the Phase 4 10% position rail):
+    #   ~6.8% CAGR, -10.3% maxDD, 70% of capital permanently idle
+    rail_compliant: 0.10
+    # Equal-weight variant (REQUIRES deliberately raising the per-position
+    # rail in src/trading/safety.py — a product decision, not a config flip):
+    #   ~18.4% CAGR, -25.9% maxDD
+    equal_weight: 0.3333
+
+  execution:                     # identical to the tested model
+    order_type: LIMIT
+    commission_rate: 0.001
+    slippage_rate: 0.0005
+    slippage_tolerance: 0.001
+
+  deployment_preconditions:      # ALL must hold before this goes near money
+    min_account_usd: 2000        # below this, hosting costs exceed the edge
+    fresh_backfill_and_restudy: true   # re-run scripts/run_daily_momentum.py
+                                       # on current data before deploying
+    paper_trading_days: 14       # the Phase 3 gate, never started for this profile
+    accept_drawdown: 0.26        # honest expectation at equal-weight sizing
+    evidence_basis: >
+      The edge rests on the external trend-following literature; this
+      repository's 3-year backtest is consistent with it but does not
+      independently prove it. Deploy only if you accept that.

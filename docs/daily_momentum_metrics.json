@@ -1,0 +1,648 @@
+{
+  "benchmarks": {
+    "BTC/USDT": 1.3572679029736978,
+    "ETH/USDT": -0.008720148615286805,
+    "SOL/USDT": 2.4732279449260584,
+    "basket": 1.273925233094823
+  },
+  "results": {
+    "tsmom_20d|rail_10pct": {
+      "taker": {
+        "total_return": 0.1729739193119093,
+        "cagr": 0.057917400353038495,
+        "profit_factor": 2.546364786457729,
+        "sharpe": 1.043442722910312,
+        "sortino": 1.238758720198752,
+        "max_drawdown": -0.07314758350335815,
+        "win_rate": 0.35714285714285715,
+        "n_trades": 56,
+        "avg_hold_days": 28.321428571428573,
+        "fees": 133.22603145436847,
+        "n_windows": 51,
+        "positive_windows": 22,
+        "positive_window_pct": 0.43137254901960786,
+        "t_stat_windows": 1.673986436294121,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.014814417393626959,
+            "positive_pct": 0.8421052631578947,
+            "total_return": 0.319976956422104
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0006609975693891866,
+            "positive_pct": 0.2777777777777778,
+            "total_return": -0.012007209092261939
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.007524844940040497,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.10086064390798755
+          }
+        },
+        "gross_pnl": 5322.443610811661,
+        "fees_pct_of_gross": 0.025030989747592984
+      },
+      "bnb": {
+        "total_return": 0.17410100279347795,
+        "cagr": 0.058276020261653905,
+        "profit_factor": 2.5649521343646255,
+        "sharpe": 1.049598964098914,
+        "sortino": 1.2454820329166343,
+        "max_drawdown": -0.07290273692239155,
+        "win_rate": 0.35714285714285715,
+        "n_trades": 56,
+        "avg_hold_days": 28.321428571428573,
+        "fees": 99.96565241997185,
+        "n_windows": 51,
+        "positive_windows": 22,
+        "positive_window_pct": 0.43137254901960786,
+        "t_stat_windows": 1.6839362163963127,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.014833663580529032,
+            "positive_pct": 0.8421052631578947,
+            "total_return": 0.3204561389162157
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0006405302705507024,
+            "positive_pct": 0.2777777777777778,
+            "total_return": -0.01164286272588766
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.007511127064693804,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.10068572305877277
+          }
+        },
+        "gross_pnl": 5322.995736224311,
+        "fees_pct_of_gross": 0.018779961017004146
+      },
+      "verdict": "FAIL"
+    },
+    "tsmom_40d|rail_10pct": {
+      "taker": {
+        "total_return": 0.11816433220206912,
+        "cagr": 0.040201721586494044,
+        "profit_factor": 2.009232510698458,
+        "sharpe": 0.693819298344377,
+        "sortino": 0.8012895204884931,
+        "max_drawdown": -0.06338917336271242,
+        "win_rate": 0.3684210526315789,
+        "n_trades": 38,
+        "avg_hold_days": 44.39473684210526,
+        "fees": 89.53157431391564,
+        "n_windows": 51,
+        "positive_windows": 21,
+        "positive_window_pct": 0.4117647058823529,
+        "t_stat_windows": 1.2241783318144361,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.012902425294313706,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 0.2735427924490501
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.00034258879257252167,
+            "positive_pct": 0.3888888888888889,
+            "total_return": -0.006409999147433787
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.008764525760330997,
+            "positive_pct": 0.0,
+            "total_return": -0.11634064365773966
+          }
+        },
+        "gross_pnl": 3634.4615403759904,
+        "fees_pct_of_gross": 0.02463406843607801
+      },
+      "bnb": {
+        "total_return": 0.1188959640252365,
+        "cagr": 0.040441860464383694,
+        "profit_factor": 2.018850385698086,
+        "sharpe": 0.6977165150820486,
+        "sortino": 0.805524627536916,
+        "max_drawdown": -0.06286747934443435,
+        "win_rate": 0.3684210526315789,
+        "n_trades": 38,
+        "avg_hold_days": 44.39473684210526,
+        "fees": 67.16922141990453,
+        "n_windows": 51,
+        "positive_windows": 21,
+        "positive_window_pct": 0.4117647058823529,
+        "t_stat_windows": 1.2313706549617387,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.01291863684907061,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 0.27393303693668547
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0003336852680074467,
+            "positive_pct": 0.3888888888888889,
+            "total_return": -0.006250515210775909
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.008751317250601267,
+            "positive_pct": 0.0,
+            "total_return": -0.11617518609224287
+          }
+        },
+        "gross_pnl": 3634.0481421770037,
+        "fees_pct_of_gross": 0.01848330533663935
+      },
+      "verdict": "FAIL"
+    },
+    "tsmom_60d|rail_10pct": {
+      "taker": {
+        "total_return": 0.20523186220542566,
+        "cagr": 0.06809454935733239,
+        "profit_factor": 3.6561056724809475,
+        "sharpe": 0.85998455335043,
+        "sortino": 0.9159826854700637,
+        "max_drawdown": -0.103142774038111,
+        "win_rate": 0.3888888888888889,
+        "n_trades": 36,
+        "avg_hold_days": 46.861111111111114,
+        "fees": 92.38716404951178,
+        "n_windows": 51,
+        "positive_windows": 21,
+        "positive_window_pct": 0.4117647058823529,
+        "t_stat_windows": 1.435281017009534,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.018301199722051627,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 0.40650093405761134
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.00026167089593187587,
+            "positive_pct": 0.3333333333333333,
+            "total_return": -0.004924730898742902
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.010479784211698444,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.13885824702206095
+          }
+        },
+        "gross_pnl": 6249.34303021229,
+        "fees_pct_of_gross": 0.01478350021800186
+      },
+      "bnb": {
+        "total_return": 0.20600461160126282,
+        "cagr": 0.06833617196774022,
+        "profit_factor": 3.6801871373790043,
+        "sharpe": 0.8628238502316529,
+        "sortino": 0.9188228647256325,
+        "max_drawdown": -0.10292411017266079,
+        "win_rate": 0.3888888888888889,
+        "n_trades": 36,
+        "avg_hold_days": 46.861111111111114,
+        "fees": 69.31174588221843,
+        "n_windows": 51,
+        "positive_windows": 21,
+        "positive_window_pct": 0.4117647058823529,
+        "t_stat_windows": 1.4401936245480242,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.018315903995870932,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 0.40689119471948065
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0002524462371866456,
+            "positive_pct": 0.3333333333333333,
+            "total_return": -0.004759163846293268
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.010465861343854577,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.13868845303228294
+          }
+        },
+        "gross_pnl": 6249.450093920102,
+        "fees_pct_of_gross": 0.011090855169745208
+      },
+      "verdict": "FAIL"
+    },
+    "tsmom_90d|rail_10pct": {
+      "taker": {
+        "total_return": 0.16395325538292682,
+        "cagr": 0.055039103091159,
+        "profit_factor": 3.1284802745764018,
+        "sharpe": 0.7282087726259988,
+        "sortino": 0.789156063267698,
+        "max_drawdown": -0.0814781931281463,
+        "win_rate": 0.4583333333333333,
+        "n_trades": 24,
+        "avg_hold_days": 70.875,
+        "fees": 61.346091788584594,
+        "n_windows": 51,
+        "positive_windows": 20,
+        "positive_window_pct": 0.39215686274509803,
+        "t_stat_windows": 1.2386806943097812,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.017665264087048715,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 0.3911026649545224
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0005383801752270293,
+            "positive_pct": 0.3333333333333333,
+            "total_return": -0.010085401502526126
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.011825527649112131,
+            "positive_pct": 0.0,
+            "total_return": -0.15476275116720595
+          }
+        },
+        "gross_pnl": 4979.943753276401,
+        "fees_pct_of_gross": 0.012318631460089045
+      },
+      "bnb": {
+        "total_return": 0.16446455175118113,
+        "cagr": 0.05520263175371354,
+        "profit_factor": 3.1412399667206743,
+        "sharpe": 0.730226769770192,
+        "sortino": 0.7912185490874787,
+        "max_drawdown": -0.08133185760069711,
+        "win_rate": 0.4583333333333333,
+        "n_trades": 24,
+        "avg_hold_days": 70.875,
+        "fees": 46.019374929109276,
+        "n_windows": 51,
+        "positive_windows": 20,
+        "positive_window_pct": 0.39215686274509803,
+        "t_stat_windows": 1.2422622947617952,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.01767009940577073,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 0.3912289228292709
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0005292979604969809,
+            "positive_pct": 0.3333333333333333,
+            "total_return": -0.009923095850254193
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.01181249776843454,
+            "positive_pct": 0.0,
+            "total_return": -0.15460681033840362
+          }
+        },
+        "gross_pnl": 4979.955927464539,
+        "fees_pct_of_gross": 0.009240920120459633
+      },
+      "verdict": "FAIL"
+    },
+    "tsmom_20d|equal_weight_33pct": {
+      "taker": {
+        "total_return": 0.5810713809645724,
+        "cagr": 0.17546496144649115,
+        "profit_factor": 2.1839711460149043,
+        "sharpe": 1.0391055510752123,
+        "sortino": 1.2612486591683492,
+        "max_drawdown": -0.22770632352543316,
+        "win_rate": 0.35714285714285715,
+        "n_trades": 56,
+        "avg_hold_days": 28.321428571428573,
+        "fees": 569.442420330949,
+        "n_windows": 51,
+        "positive_windows": 22,
+        "positive_window_pct": 0.43137254901960786,
+        "t_stat_windows": 1.5774867019995622,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.04768943649784892,
+            "positive_pct": 0.8421052631578947,
+            "total_return": 1.380382362125474
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0027879144759755084,
+            "positive_pct": 0.2777777777777778,
+            "total_return": -0.05116331865135715
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.024859929306759183,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.30172923842311383
+          }
+        },
+        "gross_pnl": 18001.583849268143,
+        "fees_pct_of_gross": 0.03163290658750006
+      },
+      "bnb": {
+        "total_return": 0.5859984925477502,
+        "cagr": 0.17675636839260034,
+        "profit_factor": 2.199237509981349,
+        "sharpe": 1.0456845217810042,
+        "sortino": 1.2684623134181217,
+        "max_drawdown": -0.2270168720561845,
+        "win_rate": 0.35714285714285715,
+        "n_trades": 56,
+        "avg_hold_days": 28.321428571428573,
+        "fees": 427.73290322710517,
+        "n_windows": 51,
+        "positive_windows": 22,
+        "positive_window_pct": 0.43137254901960786,
+        "t_stat_windows": 1.5873471170274422,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.047751326574850754,
+            "positive_pct": 0.8421052631578947,
+            "total_return": 1.3831400800094755
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0027217852912140602,
+            "positive_pct": 0.2777777777777778,
+            "total_return": -0.05002927418388203
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.0248160060303732,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.3012810143170993
+          }
+        },
+        "gross_pnl": 18007.68767965963,
+        "fees_pct_of_gross": 0.023752794408481763
+      },
+      "verdict": "FAIL"
+    },
+    "tsmom_40d|equal_weight_33pct": {
+      "taker": {
+        "total_return": 0.3437326124646818,
+        "cagr": 0.10989379008636901,
+        "profit_factor": 1.643860136621654,
+        "sharpe": 0.6689823105410718,
+        "sortino": 0.7954626342441308,
+        "max_drawdown": -0.2186847004937142,
+        "win_rate": 0.3684210526315789,
+        "n_trades": 38,
+        "avg_hold_days": 44.39473684210526,
+        "fees": 371.5217202816453,
+        "n_windows": 51,
+        "positive_windows": 21,
+        "positive_window_pct": 0.4117647058823529,
+        "t_stat_windows": 1.1047406431177325,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.04140195021751297,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 1.1241110081614947
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.001488076841788138,
+            "positive_pct": 0.3888888888888889,
+            "total_return": -0.02940738446706659
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.029766493189455758,
+            "positive_pct": 0.0,
+            "total_return": -0.3482235489321742
+          }
+        },
+        "gross_pnl": 10683.50009422211,
+        "fees_pct_of_gross": 0.034775281228534176
+      },
+      "bnb": {
+        "total_return": 0.34660276920999666,
+        "cagr": 0.11072982451958491,
+        "profit_factor": 1.650770630833154,
+        "sharpe": 0.673198060025992,
+        "sortino": 0.8001578344840491,
+        "max_drawdown": -0.2172214700067887,
+        "win_rate": 0.3684210526315789,
+        "n_trades": 38,
+        "avg_hold_days": 44.39473684210526,
+        "fees": 278.9177934689124,
+        "n_windows": 51,
+        "positive_windows": 21,
+        "positive_window_pct": 0.4117647058823529,
+        "t_stat_windows": 1.1118832745754668,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.041453144865882925,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 1.126149677193291
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.001459884646004038,
+            "positive_pct": 0.3888888888888889,
+            "total_return": -0.028912379946850586
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.02972102171601791,
+            "positive_pct": 0.0,
+            "total_return": -0.3477903040613418
+          }
+        },
+        "gross_pnl": 10677.000869768808,
+        "fees_pct_of_gross": 0.026123234124542306
+      },
+      "verdict": "FAIL"
+    },
+    "tsmom_60d|equal_weight_33pct": {
+      "taker": {
+        "total_return": 0.6127113947560112,
+        "cagr": 0.183713069061878,
+        "profit_factor": 2.65569329822204,
+        "sharpe": 0.8929090204389651,
+        "sortino": 1.0170741121793268,
+        "max_drawdown": -0.25891713641172726,
+        "win_rate": 0.3888888888888889,
+        "n_trades": 36,
+        "avg_hold_days": 46.861111111111114,
+        "fees": 406.56026312247275,
+        "n_windows": 51,
+        "positive_windows": 20,
+        "positive_window_pct": 0.39215686274509803,
+        "t_stat_windows": 1.4527049759174206,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.0530235400915938,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 1.6027660142548155
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0021164663363540024,
+            "positive_pct": 0.2777777777777778,
+            "total_return": -0.03971406731851512
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.029983271976501143,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.3547604786771451
+          }
+        },
+        "gross_pnl": 18787.902105802816,
+        "fees_pct_of_gross": 0.021639471018794744
+      },
+      "bnb": {
+        "total_return": 0.6160628000839103,
+        "cagr": 0.18458057976925102,
+        "profit_factor": 2.672044592148002,
+        "sharpe": 0.8963652588235776,
+        "sortino": 1.0206925482291007,
+        "max_drawdown": -0.25832928521370746,
+        "win_rate": 0.3888888888888889,
+        "n_trades": 36,
+        "avg_hold_days": 46.861111111111114,
+        "fees": 305.2310009945131,
+        "n_windows": 51,
+        "positive_windows": 20,
+        "positive_window_pct": 0.39215686274509803,
+        "t_stat_windows": 1.4585055650464556,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.05306957147278155,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 1.6050011463298444
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.002085984464506363,
+            "positive_pct": 0.2777777777777778,
+            "total_return": -0.03918261936118461
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.029937724815934114,
+            "positive_pct": 0.07142857142857142,
+            "total_return": -0.354331700832361
+          }
+        },
+        "gross_pnl": 18787.11500351182,
+        "fees_pct_of_gross": 0.01624682666484222
+      },
+      "verdict": "FAIL"
+    },
+    "tsmom_90d|equal_weight_33pct": {
+      "taker": {
+        "total_return": 0.5226472052247633,
+        "cagr": 0.15994934687183537,
+        "profit_factor": 2.5362216365259957,
+        "sharpe": 0.804178727138352,
+        "sortino": 0.9181805122943398,
+        "max_drawdown": -0.20676674563459,
+        "win_rate": 0.4583333333333333,
+        "n_trades": 24,
+        "avg_hold_days": 70.875,
+        "fees": 269.33801356262734,
+        "n_windows": 51,
+        "positive_windows": 20,
+        "positive_window_pct": 0.39215686274509803,
+        "t_stat_windows": 1.3310234088896444,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.05264239081163141,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 1.6001450093581693
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0016016417572320358,
+            "positive_pct": 0.3333333333333333,
+            "total_return": -0.03181504592380324
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.034515092785606036,
+            "positive_pct": 0.0,
+            "total_return": -0.3951559798701254
+          }
+        },
+        "gross_pnl": 15948.754170305541,
+        "fees_pct_of_gross": 0.01688771490779505
+      },
+      "bnb": {
+        "total_return": 0.5248643169800236,
+        "cagr": 0.1605451087436025,
+        "profit_factor": 2.5465139341015193,
+        "sharpe": 0.8066228334165635,
+        "sortino": 0.9207447982925782,
+        "max_drawdown": -0.2063906797870025,
+        "win_rate": 0.4583333333333333,
+        "n_trades": 24,
+        "avg_hold_days": 70.875,
+        "fees": 202.14904562850637,
+        "n_windows": 51,
+        "positive_windows": 20,
+        "positive_window_pct": 0.39215686274509803,
+        "t_stat_windows": 1.335176853679055,
+        "regimes": {
+          "bull": {
+            "n_windows": 19,
+            "mean_window_return": 0.052658594813790933,
+            "positive_pct": 0.7368421052631579,
+            "total_return": 1.600911155659726
+          },
+          "sideways": {
+            "n_windows": 18,
+            "mean_window_return": -0.0015710680647116769,
+            "positive_pct": 0.3333333333333333,
+            "total_return": -0.031281324156407164
+          },
+          "bear": {
+            "n_windows": 14,
+            "mean_window_return": -0.03447323073748472,
+            "positive_pct": 0.0,
+            "total_return": -0.3947873293839984
+          }
+        },
+        "gross_pnl": 15948.07855502921,
+        "fees_pct_of_gross": 0.012675448326328873
+      },
+      "verdict": "FAIL"
+    }
+  },
+  "windows": 51,
+  "regime_counts": {
+    "sideways": 18,
+    "bull": 19,
+    "bear": 14
+  }
+}

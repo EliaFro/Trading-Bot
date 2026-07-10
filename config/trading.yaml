@@ -1,0 +1,85 @@
+# Canonical trading configuration.
+# Section names match what src/main.py and TradingEngine read.
+# Secrets NEVER go in this file — they come from .env.
+
+trading:
+  symbols:
+    - BTC/USDT
+    - ETH/USDT
+    - SOL/USDT
+  timeframes:
+    - 1m
+    - 5m
+    - 15m
+    - 1h
+  # Timeframe strategies trade on (others are stored for analysis/ML)
+  signal_timeframe: 5m
+  # Seconds between trading cycles
+  cycle_interval: 60
+  # Bars of history handed to strategies each cycle
+  lookback_bars: 200
+
+execution:
+  order_type: LIMIT
+  time_in_force: GTC
+  commission_rate: 0.001        # 0.1% Binance spot taker fee
+  slippage_rate: 0.0005         # 0.05% assumed slippage
+  slippage_tolerance: 0.001     # max limit-price offset from mid
+  order_timeout_seconds: 90     # unfilled LIMIT orders cancelled after this
+
+risk_management:
+  max_drawdown: 0.15            # kill switch: halt at -15% from starting equity
+  max_position_size: 0.1        # max 10% of equity per position
+  stop_loss_pct: 0.02
+  take_profit_pct: 0.04
+  max_concurrent_positions: 5
+  daily_loss_limit: 0.03        # stop opening new trades after -3% in a day
+  allow_shorting: false         # v1 is long-only spot
+
+strategies:
+  enabled:
+    - ma_crossover
+    - rsi_mean_reversion
+    - breakout
+  min_confidence: 0.55
+  params:
+    ma_crossover:
+      fast_period: 20
+      slow_period: 50
+      use_volume_filter: true
+    rsi_mean_reversion:
+      rsi_period: 14
+      oversold_threshold: 30
+      overbought_threshold: 70
+      use_divergence: true
+    breakout:
+      lookback_period: 20
+      volume_multiplier: 1.5
+      use_atr_stops: true
+      atr_multiplier: 2.0
+
+features:
+  sentiment_analysis: true
+  pattern_discovery: true
+
+sentiment:
+  update_interval: 300          # seconds between sentiment refreshes
+  # Symbol -> search terms mapping (trading pairs to asset names)
+  asset_map:
+    BTC/USDT: [BTC, bitcoin]
+    ETH/USDT: [ETH, ethereum]
+    SOL/USDT: [SOL, solana]
+  # Sentiment nudges position sizing; it never creates trades on its own
+  size_modifier_max: 0.2        # +/-20% position size at extreme sentiment
+
+patterns:
+  discovery_interval: 3600      # seconds between discovery runs
+  min_performance: 0.02         # min mini-backtest return to activate a pattern
+  timeframe: 15m
+  min_history_bars: 1000
+
+models:
+  retrain_interval_hours: 24
+  min_sharpe_ratio: 1.0
+  min_trades_for_retrain: 100
+  min_improvement: 0.02         # keep old models unless new improve by this

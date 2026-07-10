@@ -1,0 +1,24 @@
+ensemble:
+  weights:
+    patterns: 0.1
+    rl_agent: 0.2
+    tcn: 0.3
+    transformer: 0.4
+tcn:
+  dropout: 0.1
+  kernel_size: 3
+  num_channels:
+  - 64
+  - 128
+  - 256
+training:
+  batch_size: 32
+  epochs: 100
+  learning_rate: 0.001
+  validation_split: 0.2
+transformer:
+  dropout: 0.1
+  hidden_size: 128
+  num_heads: 8
+  num_layers: 3
+  sequence_length: 50

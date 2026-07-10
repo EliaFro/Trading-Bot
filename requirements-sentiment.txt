@@ -1,0 +1,13 @@
+# Sentiment service container — no dashboard/backtest deps
+numpy>=1.26,<2.0
+pandas>=2.2,<3.0
+aiohttp>=3.9
+requests>=2.31
+redis>=5.0
+SQLAlchemy>=2.0
+vaderSentiment>=3.3.2
+nltk>=3.8
+torch>=2.2
+transformers>=4.40
+python-dotenv>=1.0
+PyYAML>=6.0

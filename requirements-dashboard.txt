@@ -1,0 +1,11 @@
+# Dashboard container — lightweight subset (no torch/transformers)
+numpy>=1.26,<2.0
+pandas>=2.2,<3.0
+streamlit>=1.35
+plotly>=5.20
+SQLAlchemy>=2.0
+redis>=5.0
+requests>=2.31
+ccxt>=4.4
+python-dotenv>=1.0
+PyYAML>=6.0

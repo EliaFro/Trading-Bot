@@ -1,0 +1,1112 @@
+{
+  "fee": 0.00075,
+  "flags": {
+    "calibrated": true,
+    "regime_filter": true,
+    "min_edge": false,
+    "mr_completion": false,
+    "mr_deep": false,
+    "direction_only": false,
+    "passive_entry": false
+  },
+  "metrics": {
+    "ma_crossover|BTC/USDT|5m": {
+      "total_return": -0.032648290423489934,
+      "profit_factor": 0.6867564169451632,
+      "sharpe": -1.391194722286638,
+      "sortino": -1.273386531986391,
+      "max_drawdown": -0.03385799606339721,
+      "win_rate": 0.33796296296296297,
+      "n_trades": 216,
+      "avg_duration_h": 4.966820987654321,
+      "fees": 319.10698491588016,
+      "n_windows": 51,
+      "positive_windows": 19,
+      "positive_window_pct": 0.37254901960784315,
+      "windows_traded": 44,
+      "is_pf_mean": 0.8936055066569679,
+      "final_equity": 9673.5170957651
+    },
+    "ma_crossover|BTC/USDT|15m": {
+      "total_return": 0.0,
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "sortino": 0.0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0,
+      "n_trades": 0,
+      "avg_duration_h": 0.0,
+      "fees": 0.0,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 0,
+      "is_pf_mean": 0.0,
+      "final_equity": 10000.0
+    },
+    "ma_crossover|ETH/USDT|5m": {
+      "total_return": -0.05824311810592331,
+      "profit_factor": 0.6241246646734346,
+      "sharpe": -1.8922466772887843,
+      "sortino": -1.5728959806425582,
+      "max_drawdown": -0.06096944858946621,
+      "win_rate": 0.3302752293577982,
+      "n_trades": 218,
+      "avg_duration_h": 4.201070336391438,
+      "fees": 318.50017336222504,
+      "n_windows": 51,
+      "positive_windows": 14,
+      "positive_window_pct": 0.27450980392156865,
+      "windows_traded": 45,
+      "is_pf_mean": 1.0534144283275866,
+      "final_equity": 9417.568818940767
+    },
+    "ma_crossover|ETH/USDT|15m": {
+      "total_return": 0.0,
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "sortino": 0.0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0,
+      "n_trades": 0,
+      "avg_duration_h": 0.0,
+      "fees": 0.0,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 0,
+      "is_pf_mean": 0.0,
+      "final_equity": 10000.0
+    },
+    "ma_crossover|SOL/USDT|5m": {
+      "total_return": -0.09115183709303187,
+      "profit_factor": 0.5977477230765319,
+      "sharpe": -2.1723600122537046,
+      "sortino": -2.0420085412038524,
+      "max_drawdown": -0.09507393052335826,
+      "win_rate": 0.3553113553113553,
+      "n_trades": 273,
+      "avg_duration_h": 3.6346153846153846,
+      "fees": 391.0331421248203,
+      "n_windows": 51,
+      "positive_windows": 14,
+      "positive_window_pct": 0.27450980392156865,
+      "windows_traded": 47,
+      "is_pf_mean": 1.1067098224958336,
+      "final_equity": 9088.481629069682
+    },
+    "ma_crossover|SOL/USDT|15m": {
+      "total_return": 0.0,
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "sortino": 0.0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0,
+      "n_trades": 0,
+      "avg_duration_h": 0.0,
+      "fees": 0.0,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 0,
+      "is_pf_mean": 0.0,
+      "final_equity": 10000.0
+    },
+    "rsi_mean_reversion|BTC/USDT|5m": {
+      "total_return": -0.14376565242133132,
+      "profit_factor": 0.5273211848796442,
+      "sharpe": -3.450092202559546,
+      "sortino": -3.067048261315858,
+      "max_drawdown": -0.1510823489311852,
+      "win_rate": 0.5109649122807017,
+      "n_trades": 912,
+      "avg_duration_h": 4.279148391812866,
+      "fees": 1273.2573101137878,
+      "n_windows": 51,
+      "positive_windows": 12,
+      "positive_window_pct": 0.23529411764705882,
+      "windows_traded": 51,
+      "is_pf_mean": 0.7332345001992462,
+      "final_equity": 8562.343475786687
+    },
+    "rsi_mean_reversion|BTC/USDT|15m": {
+      "total_return": -0.02917717472260606,
+      "profit_factor": 0.8303527140707907,
+      "sharpe": -0.7229505296856364,
+      "sortino": -0.49749802251789543,
+      "max_drawdown": -0.04882943032527317,
+      "win_rate": 0.6384839650145773,
+      "n_trades": 343,
+      "avg_duration_h": 11.489795918367347,
+      "fees": 508.2357869023942,
+      "n_windows": 51,
+      "positive_windows": 19,
+      "positive_window_pct": 0.37254901960784315,
+      "windows_traded": 50,
+      "is_pf_mean": 3.086035867580962,
+      "final_equity": 9708.228252773939
+    },
+    "rsi_mean_reversion|ETH/USDT|5m": {
+      "total_return": -0.21434567532369897,
+      "profit_factor": 0.5071402623389473,
+      "sharpe": -4.128952036389223,
+      "sortino": -3.9136267088132866,
+      "max_drawdown": -0.21624047709564828,
+      "win_rate": 0.5129310344827587,
+      "n_trades": 928,
+      "avg_duration_h": 4.301185344827586,
+      "fees": 1243.891479456559,
+      "n_windows": 51,
+      "positive_windows": 8,
+      "positive_window_pct": 0.1568627450980392,
+      "windows_traded": 51,
+      "is_pf_mean": 0.640536373225148,
+      "final_equity": 7856.543246763011
+    },
+    "rsi_mean_reversion|ETH/USDT|15m": {
+      "total_return": -0.06735524014581751,
+      "profit_factor": 0.7467273981353472,
+      "sharpe": -1.320569197271703,
+      "sortino": -1.0615790681371982,
+      "max_drawdown": -0.07754514496762988,
+      "win_rate": 0.6390374331550802,
+      "n_trades": 374,
+      "avg_duration_h": 9.207887700534759,
+      "fees": 539.384230256034,
+      "n_windows": 51,
+      "positive_windows": 20,
+      "positive_window_pct": 0.39215686274509803,
+      "windows_traded": 50,
+      "is_pf_mean": 0.8717847805354925,
+      "final_equity": 9326.447598541825
+    },
+    "rsi_mean_reversion|SOL/USDT|5m": {
+      "total_return": -0.10223354536455065,
+      "profit_factor": 0.8040071842027524,
+      "sharpe": -1.5207588122428781,
+      "sortino": -1.6274156360107028,
+      "max_drawdown": -0.14059604755511124,
+      "win_rate": 0.6167355371900827,
+      "n_trades": 968,
+      "avg_duration_h": 3.291580578512397,
+      "fees": 1417.6433952402135,
+      "n_windows": 51,
+      "positive_windows": 20,
+      "positive_window_pct": 0.39215686274509803,
+      "windows_traded": 51,
+      "is_pf_mean": 1.0800890962259797,
+      "final_equity": 8977.664546354494
+    },
+    "rsi_mean_reversion|SOL/USDT|15m": {
+      "total_return": -0.023764992702356214,
+      "profit_factor": 0.922937047455047,
+      "sharpe": -0.37454525689446955,
+      "sortino": -0.3431875815027611,
+      "max_drawdown": -0.06343621967627742,
+      "win_rate": 0.6856435643564357,
+      "n_trades": 404,
+      "avg_duration_h": 6.419554455445544,
+      "fees": 606.2044623308059,
+      "n_windows": 51,
+      "positive_windows": 24,
+      "positive_window_pct": 0.47058823529411764,
+      "windows_traded": 51,
+      "is_pf_mean": 1.105127388355846,
+      "final_equity": 9762.350072976438
+    },
+    "breakout|BTC/USDT|5m": {
+      "total_return": -0.2951232077785343,
+      "profit_factor": 0.47879108925461306,
+      "sharpe": -7.231339145991267,
+      "sortino": -10.411866618785126,
+      "max_drawdown": -0.2965952217264985,
+      "win_rate": 0.31100846805234794,
+      "n_trades": 1299,
+      "avg_duration_h": 2.4492558378239675,
+      "fees": 1668.419470541289,
+      "n_windows": 51,
+      "positive_windows": 1,
+      "positive_window_pct": 0.0196078431372549,
+      "windows_traded": 51,
+      "is_pf_mean": 0.5456383848715235,
+      "final_equity": 7048.767922214657
+    },
+    "breakout|BTC/USDT|15m": {
+      "total_return": -0.14054248823104498,
+      "profit_factor": 0.5869989998044078,
+      "sharpe": -3.16746378667642,
+      "sortino": -3.9526081329233853,
+      "max_drawdown": -0.14619252486422776,
+      "win_rate": 0.3176470588235294,
+      "n_trades": 510,
+      "avg_duration_h": 6.219607843137255,
+      "fees": 720.5033622893648,
+      "n_windows": 51,
+      "positive_windows": 10,
+      "positive_window_pct": 0.19607843137254902,
+      "windows_traded": 51,
+      "is_pf_mean": 0.8606785330252643,
+      "final_equity": 8594.57511768955
+    },
+    "breakout|ETH/USDT|5m": {
+      "total_return": -0.32995362255401706,
+      "profit_factor": 0.5404512035993396,
+      "sharpe": -5.862014634629172,
+      "sortino": -10.038999561215148,
+      "max_drawdown": -0.3304146820253855,
+      "win_rate": 0.29920116194626,
+      "n_trades": 1377,
+      "avg_duration_h": 2.6241830065359477,
+      "fees": 1720.3808854576243,
+      "n_windows": 51,
+      "positive_windows": 5,
+      "positive_window_pct": 0.09803921568627451,
+      "windows_traded": 51,
+      "is_pf_mean": 0.6357531943885353,
+      "final_equity": 6700.463774459829
+    },
+    "breakout|ETH/USDT|15m": {
+      "total_return": -0.1339523525511298,
+      "profit_factor": 0.6749803421987626,
+      "sharpe": -2.1299278410636995,
+      "sortino": -3.059508840216771,
+      "max_drawdown": -0.13395235255112983,
+      "win_rate": 0.3236514522821577,
+      "n_trades": 482,
+      "avg_duration_h": 7.102697095435684,
+      "fees": 681.0128147870812,
+      "n_windows": 51,
+      "positive_windows": 15,
+      "positive_window_pct": 0.29411764705882354,
+      "windows_traded": 51,
+      "is_pf_mean": 0.9906425436201011,
+      "final_equity": 8660.476474488702
+    },
+    "breakout|SOL/USDT|5m": {
+      "total_return": -0.29820059844359315,
+      "profit_factor": 0.6789442548342645,
+      "sharpe": -3.518451208564507,
+      "sortino": -5.565928690272227,
+      "max_drawdown": -0.2999240598175226,
+      "win_rate": 0.31546707503828486,
+      "n_trades": 1306,
+      "avg_duration_h": 2.7980474732006124,
+      "fees": 1653.3372074472334,
+      "n_windows": 51,
+      "positive_windows": 6,
+      "positive_window_pct": 0.11764705882352941,
+      "windows_traded": 51,
+      "is_pf_mean": 0.7692888578895704,
+      "final_equity": 7017.994015564069
+    },
+    "breakout|SOL/USDT|15m": {
+      "total_return": -0.1468763084298269,
+      "profit_factor": 0.730972468400251,
+      "sharpe": -1.8790195689024025,
+      "sortino": -2.70718228987251,
+      "max_drawdown": -0.17283175814890617,
+      "win_rate": 0.32903225806451614,
+      "n_trades": 465,
+      "avg_duration_h": 7.36989247311828,
+      "fees": 639.3619609547355,
+      "n_windows": 51,
+      "positive_windows": 14,
+      "positive_window_pct": 0.27450980392156865,
+      "windows_traded": 51,
+      "is_pf_mean": 1.12150062421253,
+      "final_equity": 8531.236915701731
+    },
+    "ensemble|BTC/USDT|5m": {
+      "total_return": -0.3273521571460688,
+      "profit_factor": 0.28868416328017116,
+      "sharpe": -10.651444227576448,
+      "sortino": -12.134293931946235,
+      "max_drawdown": -0.32740092762383605,
+      "win_rate": 0.2239142695995488,
+      "n_trades": 1773,
+      "avg_duration_h": 0.7429498025944726,
+      "fees": 2210.127342539022,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 51,
+      "is_pf_mean": 0.29201914371126025,
+      "final_equity": 6726.4784285393125
+    },
+    "ensemble|BTC/USDT|15m": {
+      "total_return": -0.1495635756197411,
+      "profit_factor": 0.4610531598044547,
+      "sharpe": -4.560045512111524,
+      "sortino": -5.147267200166836,
+      "max_drawdown": -0.1495635756197411,
+      "win_rate": 0.2954838709677419,
+      "n_trades": 775,
+      "avg_duration_h": 1.7258064516129032,
+      "fees": 1078.8925794318127,
+      "n_windows": 51,
+      "positive_windows": 7,
+      "positive_window_pct": 0.13725490196078433,
+      "windows_traded": 51,
+      "is_pf_mean": 0.4946670678826929,
+      "final_equity": 8504.364243802589
+    },
+    "ensemble|ETH/USDT|5m": {
+      "total_return": -0.4357544284439391,
+      "profit_factor": 0.2926012938962885,
+      "sharpe": -11.359125508083414,
+      "sortino": -13.346072565175241,
+      "max_drawdown": -0.4365212718883693,
+      "win_rate": 0.22396856581532418,
+      "n_trades": 2036,
+      "avg_duration_h": 0.733218729535036,
+      "fees": 2348.0738358830604,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 51,
+      "is_pf_mean": 0.3207636956634041,
+      "final_equity": 5642.455715560609
+    },
+    "ensemble|ETH/USDT|15m": {
+      "total_return": -0.19000731833904816,
+      "profit_factor": 0.4569671050302394,
+      "sharpe": -4.736306505005566,
+      "sortino": -4.895792051478245,
+      "max_drawdown": -0.1900073183390482,
+      "win_rate": 0.32075471698113206,
+      "n_trades": 795,
+      "avg_duration_h": 1.9418238993710693,
+      "fees": 1079.9862970445786,
+      "n_windows": 51,
+      "positive_windows": 6,
+      "positive_window_pct": 0.11764705882352941,
+      "windows_traded": 51,
+      "is_pf_mean": 0.5463837836725339,
+      "final_equity": 8099.926816609518
+    },
+    "ensemble|SOL/USDT|5m": {
+      "total_return": -0.39241693720156434,
+      "profit_factor": 0.47429411373370495,
+      "sharpe": -7.617494407035865,
+      "sortino": -9.496878889150675,
+      "max_drawdown": -0.39336905567373626,
+      "win_rate": 0.30347349177330896,
+      "n_trades": 2188,
+      "avg_duration_h": 0.7077239488117002,
+      "fees": 2605.2651012170336,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 51,
+      "is_pf_mean": 0.45850473972156136,
+      "final_equity": 6075.830627984356
+    },
+    "ensemble|SOL/USDT|15m": {
+      "total_return": -0.15566182200016665,
+      "profit_factor": 0.6108586787806218,
+      "sharpe": -2.8042192846443723,
+      "sortino": -2.8564973847969237,
+      "max_drawdown": -0.1688955080534056,
+      "win_rate": 0.41025641025641024,
+      "n_trades": 819,
+      "avg_duration_h": 1.6108058608058609,
+      "fees": 1115.9684410878153,
+      "n_windows": 51,
+      "positive_windows": 11,
+      "positive_window_pct": 0.21568627450980393,
+      "windows_traded": 51,
+      "is_pf_mean": 0.6876327510103982,
+      "final_equity": 8443.381779998334
+    },
+    "ma_crossover|PORTFOLIO|5m": {
+      "total_return": -0.060681081874148335,
+      "profit_factor": 0.6252584589520538,
+      "sharpe": -2.829929401161234,
+      "sortino": -3.0366087216689452,
+      "max_drawdown": -0.06103183961214233,
+      "win_rate": 0.3422913719943423,
+      "n_trades": 707,
+      "avg_duration_h": 4.216289486091466,
+      "fees": 1028.6403004029255,
+      "n_windows": 51,
+      "positive_windows": 13,
+      "positive_window_pct": 0.2549019607843137,
+      "windows_traded": 136,
+      "is_pf_mean": 1.0179099191601295,
+      "final_equity": 9393.189181258516
+    },
+    "ma_crossover|PORTFOLIO|15m": {
+      "total_return": 0.0,
+      "profit_factor": 0.0,
+      "sharpe": 0.0,
+      "sortino": 0.0,
+      "max_drawdown": 0.0,
+      "win_rate": 0.0,
+      "n_trades": 0,
+      "avg_duration_h": 0.0,
+      "fees": 0.0,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 0,
+      "is_pf_mean": 0.0,
+      "final_equity": 10000.0
+    },
+    "rsi_mean_reversion|PORTFOLIO|5m": {
+      "total_return": -0.15344829103652702,
+      "profit_factor": 0.634841574842214,
+      "sharpe": -3.9794078519561524,
+      "sortino": -4.380272677616527,
+      "max_drawdown": -0.16070035517746156,
+      "win_rate": 0.5480769230769231,
+      "n_trades": 2808,
+      "avg_duration_h": 3.9459876543209877,
+      "fees": 3934.7921848105602,
+      "n_windows": 51,
+      "positive_windows": 11,
+      "positive_window_pct": 0.21568627450980393,
+      "windows_traded": 153,
+      "is_pf_mean": 0.8179533232167913,
+      "final_equity": 8465.51708963473
+    },
+    "rsi_mean_reversion|PORTFOLIO|15m": {
+      "total_return": -0.040099135856926704,
+      "profit_factor": 0.8388106462942696,
+      "sharpe": -1.0690578867418012,
+      "sortino": -0.9855475390248405,
+      "max_drawdown": -0.05961819392750186,
+      "win_rate": 0.655664585191793,
+      "n_trades": 1121,
+      "avg_duration_h": 8.901204281891166,
+      "fees": 1653.8244794892341,
+      "n_windows": 51,
+      "positive_windows": 18,
+      "positive_window_pct": 0.35294117647058826,
+      "windows_traded": 151,
+      "is_pf_mean": 1.6876493454907668,
+      "final_equity": 9599.008641430733
+    },
+    "breakout|PORTFOLIO|5m": {
+      "total_return": -0.30775914292538153,
+      "profit_factor": 0.5828004481690162,
+      "sharpe": -7.173737409103878,
+      "sortino": -11.693485796031482,
+      "max_drawdown": -0.30834822288136976,
+      "win_rate": 0.30838774485183323,
+      "n_trades": 3982,
+      "avg_duration_h": 2.6241419722082706,
+      "fees": 5042.1375634461465,
+      "n_windows": 51,
+      "positive_windows": 4,
+      "positive_window_pct": 0.0784313725490196,
+      "windows_traded": 153,
+      "is_pf_mean": 0.6502268123832097,
+      "final_equity": 6922.4085707461845
+    },
+    "breakout|PORTFOLIO|15m": {
+      "total_return": -0.14045704973733386,
+      "profit_factor": 0.6754650792746167,
+      "sharpe": -3.1784306147186236,
+      "sortino": -4.786237278455904,
+      "max_drawdown": -0.14735383568395655,
+      "win_rate": 0.32326698695950584,
+      "n_trades": 1457,
+      "avg_duration_h": 6.878860672614962,
+      "fees": 2040.8781380311816,
+      "n_windows": 51,
+      "positive_windows": 6,
+      "positive_window_pct": 0.11764705882352941,
+      "windows_traded": 153,
+      "is_pf_mean": 0.9909405669526318,
+      "final_equity": 8595.42950262666
+    },
+    "ensemble|PORTFOLIO|5m": {
+      "total_return": -0.38517450759719074,
+      "profit_factor": 0.36602326102545085,
+      "sharpe": -14.315762847364013,
+      "sortino": -16.95821905890438,
+      "max_drawdown": -0.38550770834234754,
+      "win_rate": 0.2529598132399533,
+      "n_trades": 5997,
+      "avg_duration_h": 0.7267939525318214,
+      "fees": 7163.466279639116,
+      "n_windows": 51,
+      "positive_windows": 0,
+      "positive_window_pct": 0.0,
+      "windows_traded": 153,
+      "is_pf_mean": 0.3570958596987419,
+      "final_equity": 6148.254924028092
+    },
+    "ensemble|PORTFOLIO|15m": {
+      "total_return": -0.16507757198631867,
+      "profit_factor": 0.5179863237065464,
+      "sharpe": -5.893860748003991,
+      "sortino": -6.735311509859467,
+      "max_drawdown": -0.16648981984859948,
+      "win_rate": 0.34323984930933443,
+      "n_trades": 2389,
+      "avg_duration_h": 1.7582670573461698,
+      "fees": 3274.8473175642066,
+      "n_windows": 51,
+      "positive_windows": 1,
+      "positive_window_pct": 0.0196078431372549,
+      "windows_traded": 153,
+      "is_pf_mean": 0.576227867521875,
+      "final_equity": 8349.224280136814
+    }
+  },
+  "regimes": {
+    "ma_crossover|BTC/USDT|5m": {
+      "bull": {
+        "n_windows": 20,
+        "mean_window_return": -0.000425162505182497,
+        "positive_pct": 0.4,
+        "profit_factor": 0.7972866336264315,
+        "n_trades": 96
+      },
+      "sideways": {
+        "n_windows": 18,
+        "mean_window_return": -0.0005079302327946684,
+        "positive_pct": 0.3888888888888889,
+        "profit_factor": 0.7224487725946768,
+        "n_trades": 72
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.0011864961315528355,
+        "positive_pct": 0.3076923076923077,
+        "profit_factor": 0.4937095366141897,
+        "n_trades": 48
+      }
+    },
+    "ma_crossover|BTC/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      }
+    },
+    "ma_crossover|ETH/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": -0.0009301401236736002,
+        "positive_pct": 0.22727272727272727,
+        "profit_factor": 0.7126683819575791,
+        "n_trades": 101
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.0010424000506334755,
+        "positive_pct": 0.3125,
+        "profit_factor": 0.647661482909059,
+        "n_trades": 67
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.0017400175717361666,
+        "positive_pct": 0.3076923076923077,
+        "profit_factor": 0.4380866517676073,
+        "n_trades": 50
+      }
+    },
+    "ma_crossover|ETH/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      }
+    },
+    "ma_crossover|SOL/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": -0.0009301609220696612,
+        "positive_pct": 0.4090909090909091,
+        "profit_factor": 0.7875828706768342,
+        "n_trades": 124
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.0019796015032913783,
+        "positive_pct": 0.25,
+        "profit_factor": 0.5284471554403842,
+        "n_trades": 72
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.003306590330558203,
+        "positive_pct": 0.07692307692307693,
+        "profit_factor": 0.4021159551832449,
+        "n_trades": 77
+      }
+    },
+    "ma_crossover|SOL/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": 0.0,
+        "positive_pct": 0.0,
+        "profit_factor": 0.0,
+        "n_trades": 0
+      }
+    },
+    "rsi_mean_reversion|BTC/USDT|5m": {
+      "bull": {
+        "n_windows": 20,
+        "mean_window_return": -0.00079170874801196,
+        "positive_pct": 0.5,
+        "profit_factor": 0.8286479446225162,
+        "n_trades": 349
+      },
+      "sideways": {
+        "n_windows": 18,
+        "mean_window_return": -0.005294975339923291,
+        "positive_pct": 0.0,
+        "profit_factor": 0.3483232492128449,
+        "n_trades": 331
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.003346362497495118,
+        "positive_pct": 0.15384615384615385,
+        "profit_factor": 0.5167520447184512,
+        "n_trades": 232
+      }
+    },
+    "rsi_mean_reversion|BTC/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": 0.00035222983236001443,
+        "positive_pct": 0.5238095238095238,
+        "profit_factor": 1.1244021833218556,
+        "n_trades": 152
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.00029855707224714286,
+        "positive_pct": 0.35294117647058826,
+        "profit_factor": 0.9001797859822004,
+        "n_trades": 107
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.002441744043006968,
+        "positive_pct": 0.15384615384615385,
+        "profit_factor": 0.4908071577332137,
+        "n_trades": 84
+      }
+    },
+    "rsi_mean_reversion|ETH/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": -0.0034521408409124935,
+        "positive_pct": 0.18181818181818182,
+        "profit_factor": 0.5685918019643244,
+        "n_trades": 402
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.005553898623462089,
+        "positive_pct": 0.125,
+        "profit_factor": 0.48178317002347776,
+        "n_trades": 299
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.005796449232256196,
+        "positive_pct": 0.15384615384615385,
+        "profit_factor": 0.45943903900637023,
+        "n_trades": 227
+      }
+    },
+    "rsi_mean_reversion|ETH/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": -0.00034204030579850934,
+        "positive_pct": 0.5238095238095238,
+        "profit_factor": 0.9356729018881484,
+        "n_trades": 183
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.002738185524414947,
+        "positive_pct": 0.17647058823529413,
+        "profit_factor": 0.5267545254838572,
+        "n_trades": 112
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.0011945204054125348,
+        "positive_pct": 0.46153846153846156,
+        "profit_factor": 0.7524166688637756,
+        "n_trades": 79
+      }
+    },
+    "rsi_mean_reversion|SOL/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": 0.00020224419212541952,
+        "positive_pct": 0.5,
+        "profit_factor": 1.028342441873227,
+        "n_trades": 463
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.004689852627567173,
+        "positive_pct": 0.1875,
+        "profit_factor": 0.5993221631843193,
+        "n_trades": 294
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.002777937104817483,
+        "positive_pct": 0.46153846153846156,
+        "profit_factor": 0.7235122063124164,
+        "n_trades": 211
+      }
+    },
+    "rsi_mean_reversion|SOL/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": 0.001202676546903996,
+        "positive_pct": 0.7142857142857143,
+        "profit_factor": 1.1832010291906347,
+        "n_trades": 209
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.0008578490585214348,
+        "positive_pct": 0.4117647058823529,
+        "profit_factor": 0.8387753526774993,
+        "n_trades": 115
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.0026218552100402736,
+        "positive_pct": 0.15384615384615385,
+        "profit_factor": 0.5942705098052805,
+        "n_trades": 80
+      }
+    },
+    "breakout|BTC/USDT|5m": {
+      "bull": {
+        "n_windows": 20,
+        "mean_window_return": -0.005899173215922937,
+        "positive_pct": 0.05,
+        "profit_factor": 0.5959965841819951,
+        "n_trades": 603
+      },
+      "sideways": {
+        "n_windows": 18,
+        "mean_window_return": -0.007301639426947868,
+        "positive_pct": 0.0,
+        "profit_factor": 0.41867930908997797,
+        "n_trades": 446
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.007593851935134877,
+        "positive_pct": 0.0,
+        "profit_factor": 0.32925788827704777,
+        "n_trades": 250
+      }
+    },
+    "breakout|BTC/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": -0.0010016064735953259,
+        "positive_pct": 0.3333333333333333,
+        "profit_factor": 0.8759761789286197,
+        "n_trades": 263
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.005000275837470751,
+        "positive_pct": 0.11764705882352941,
+        "profit_factor": 0.3154783393388081,
+        "n_trades": 151
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.003445939861884282,
+        "positive_pct": 0.07692307692307693,
+        "profit_factor": 0.4061798048122417,
+        "n_trades": 96
+      }
+    },
+    "breakout|ETH/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": -0.006873792601871542,
+        "positive_pct": 0.18181818181818182,
+        "profit_factor": 0.6135011403934275,
+        "n_trades": 693
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.009096421475371062,
+        "positive_pct": 0.0,
+        "profit_factor": 0.44430952755797976,
+        "n_trades": 378
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.00778138304097068,
+        "positive_pct": 0.07692307692307693,
+        "profit_factor": 0.5185100558539681,
+        "n_trades": 306
+      }
+    },
+    "breakout|ETH/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": -0.0030174766348716026,
+        "positive_pct": 0.38095238095238093,
+        "profit_factor": 0.7217619215790049,
+        "n_trades": 261
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.003361756790585656,
+        "positive_pct": 0.23529411764705882,
+        "profit_factor": 0.5667226105264246,
+        "n_trades": 139
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.001737751084183341,
+        "positive_pct": 0.23076923076923078,
+        "profit_factor": 0.7209082640175793,
+        "n_trades": 82
+      }
+    },
+    "breakout|SOL/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": -0.005825149893619869,
+        "positive_pct": 0.18181818181818182,
+        "profit_factor": 0.7634134080361124,
+        "n_trades": 643
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.007735114390963575,
+        "positive_pct": 0.0625,
+        "profit_factor": 0.6150911229339344,
+        "n_trades": 393
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.0076385980311372,
+        "positive_pct": 0.07692307692307693,
+        "profit_factor": 0.5598287820290905,
+        "n_trades": 270
+      }
+    },
+    "breakout|SOL/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": -0.0015735041388457267,
+        "positive_pct": 0.38095238095238093,
+        "profit_factor": 0.8857713505813702,
+        "n_trades": 236
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.004494781068904004,
+        "positive_pct": 0.29411764705882354,
+        "profit_factor": 0.5787152116634731,
+        "n_trades": 140
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.0037111501753484756,
+        "positive_pct": 0.07692307692307693,
+        "profit_factor": 0.554890220026753,
+        "n_trades": 89
+      }
+    },
+    "ensemble|BTC/USDT|5m": {
+      "bull": {
+        "n_windows": 20,
+        "mean_window_return": -0.008003623270798843,
+        "positive_pct": 0.0,
+        "profit_factor": 0.32396704199653836,
+        "n_trades": 792
+      },
+      "sideways": {
+        "n_windows": 18,
+        "mean_window_return": -0.007733158546035592,
+        "positive_pct": 0.0,
+        "profit_factor": 0.26202348858892877,
+        "n_trades": 600
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.00733617106041526,
+        "positive_pct": 0.0,
+        "profit_factor": 0.25827311581409396,
+        "n_trades": 381
+      }
+    },
+    "ensemble|BTC/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": -0.003610749961472693,
+        "positive_pct": 0.14285714285714285,
+        "profit_factor": 0.5034250912359638,
+        "n_trades": 407
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.0032688224922261663,
+        "positive_pct": 0.058823529411764705,
+        "profit_factor": 0.41467832745176875,
+        "n_trades": 234
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.002320432687036932,
+        "positive_pct": 0.23076923076923078,
+        "profit_factor": 0.4232730997172314,
+        "n_trades": 134
+      }
+    },
+    "ensemble|ETH/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": -0.011215114534053282,
+        "positive_pct": 0.0,
+        "profit_factor": 0.29286683762178534,
+        "n_trades": 955
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.011006503026404699,
+        "positive_pct": 0.0,
+        "profit_factor": 0.28562230228713126,
+        "n_trades": 590
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.011214374904792788,
+        "positive_pct": 0.0,
+        "profit_factor": 0.3012331285699241,
+        "n_trades": 491
+      }
+    },
+    "ensemble|ETH/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": -0.004280180100295157,
+        "positive_pct": 0.09523809523809523,
+        "profit_factor": 0.5297572284477234,
+        "n_trades": 427
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.004517128053710034,
+        "positive_pct": 0.11764705882352941,
+        "profit_factor": 0.39127596318393315,
+        "n_trades": 241
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.0033345072233053994,
+        "positive_pct": 0.15384615384615385,
+        "profit_factor": 0.3723721402302517,
+        "n_trades": 127
+      }
+    },
+    "ensemble|SOL/USDT|5m": {
+      "bull": {
+        "n_windows": 22,
+        "mean_window_return": -0.01017347683142781,
+        "positive_pct": 0.0,
+        "profit_factor": 0.5321897402339216,
+        "n_trades": 1094
+      },
+      "sideways": {
+        "n_windows": 16,
+        "mean_window_return": -0.009554326378066781,
+        "positive_pct": 0.0,
+        "profit_factor": 0.43622057785978063,
+        "n_trades": 634
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.009124076195001081,
+        "positive_pct": 0.0,
+        "profit_factor": 0.3778505587766806,
+        "n_trades": 460
+      }
+    },
+    "ensemble|SOL/USDT|15m": {
+      "bull": {
+        "n_windows": 21,
+        "mean_window_return": -0.003964174139648499,
+        "positive_pct": 0.2857142857142857,
+        "profit_factor": 0.6159575304473245,
+        "n_trades": 410
+      },
+      "sideways": {
+        "n_windows": 17,
+        "mean_window_return": -0.0036009759793073407,
+        "positive_pct": 0.11764705882352941,
+        "profit_factor": 0.5541070600885967,
+        "n_trades": 246
+      },
+      "bear": {
+        "n_windows": 13,
+        "mean_window_return": -0.001824821571011629,
+        "positive_pct": 0.23076923076923078,
+        "profit_factor": 0.7012524781182439,
+        "n_trades": 163
+      }
+    }
+  }
+}

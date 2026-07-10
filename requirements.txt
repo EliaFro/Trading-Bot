@@ -1,0 +1,49 @@
+# AI Crypto Trading System — Python 3.11
+# Modernized 2026-07. Every package here is imported by project code.
+
+# Core numerics
+numpy>=1.26,<2.0
+pandas>=2.2,<3.0
+scipy>=1.11
+
+# Exchange connectivity (must stay current for live-trading correctness)
+ccxt>=4.4
+
+# Machine learning (pattern pipeline)
+scikit-learn>=1.4
+optuna>=3.6
+
+# Deep learning (FinBERT sentiment inference; future price models)
+torch>=2.2
+transformers>=4.40
+
+# Sentiment fallback (keyless)
+vaderSentiment>=3.3.2
+nltk>=3.8
+
+# Storage
+SQLAlchemy>=2.0
+redis>=5.0
+
+# Async / web
+aiohttp>=3.9
+requests>=2.31
+
+# Dashboard
+streamlit>=1.35
+plotly>=5.20
+
+# Monitoring
+prometheus-client>=0.20
+
+# Config / utilities
+python-dotenv>=1.0
+PyYAML>=6.0
+click>=8.1
+tabulate>=0.9
+tqdm>=4.66
+
+# Testing
+pytest>=8.0
+pytest-asyncio>=0.23
+matplotlib>=3.8

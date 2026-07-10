@@ -1,0 +1,86 @@
+# AI Crypto Trading System — Phase 3 deployment (paper mode).
+#
+#   docker-compose up -d          # start everything
+#   docker-compose logs -f trading-bot
+#   docker-compose down
+#
+# Slimmed to what v1 actually uses: trading engine (+in-process sentiment),
+# dashboard, Redis. Log rotation via the json-file driver; auto-restart via
+# restart policies; health checks against the /health endpoint.
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "50m"
+    max-file: "5"
+
+services:
+  trading-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.trading
+    container_name: ai-crypto-trader
+    command: ["python", "src/main.py", "--mode", "paper"]
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DB_PATH=/app/data/trading_system.db
+      - REDIS_URL=redis://redis:6379
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./models:/app/models
+      - ./reports:/app/reports
+    ports:
+      - "8080:8080"    # /health /ready /status
+      - "9100:9100"    # Prometheus metrics
+    depends_on:
+      - redis
+    restart: unless-stopped
+    logging: *default-logging
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 3
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.dashboard
+    container_name: trading-dashboard
+    environment:
+      - DB_PATH=/app/data/trading_system.db
+      - REDIS_URL=redis://redis:6379
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data:ro
+    ports:
+      - "8501:8501"
+    depends_on:
+      - trading-bot
+    restart: unless-stopped
+    logging: *default-logging
+
+  redis:
+    image: redis:7-alpine
+    container_name: trading-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+    logging: *default-logging
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    # Redis is NOT exposed to the host — containers reach it via the
+    # internal network. Uncomment for local debugging only:
+    # ports: ["127.0.0.1:6379:6379"]
+
+volumes:
+  redis-data:
