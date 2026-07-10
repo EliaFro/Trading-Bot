@@ -1,6 +1,8 @@
 # Dashboard container — lightweight subset (no torch/transformers)
 numpy>=1.26,<2.0
 pandas>=2.2,<3.0
+scipy>=1.11
+scikit-learn>=1.4
 streamlit>=1.35
 plotly>=5.20
 SQLAlchemy>=2.0

@@ -37,10 +37,10 @@ risk_management:
   allow_shorting: false         # v1 is long-only spot
 
 strategies:
-  enabled:
-    - ma_crossover
-    - rsi_mean_reversion
-    - breakout
+  # Intraday strategies DISABLED: Phase 2 proved them fee-negative in every
+  # regime (docs/PHASE2_RESULTS.md). Running them 24/7 would burn paper
+  # equity and pollute the ML learning curve the dashboard tracks.
+  enabled: []
   min_confidence: 0.55
   params:
     ma_crossover:
@@ -59,8 +59,9 @@ strategies:
       atr_multiplier: 2.0
 
 features:
-  sentiment_analysis: true
+  sentiment_analysis: true      # keeps accruing history for future ML features
   pattern_discovery: true
+  ml_core: true                 # the learning lab: daily predict, weekly retrain
 
 sentiment:
   update_interval: 300          # seconds between sentiment refreshes

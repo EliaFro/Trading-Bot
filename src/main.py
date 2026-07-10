@@ -88,6 +88,12 @@ class AITradingSystem:
                 self.components['patterns'] = PatternDiscoveryEngine(
                     self.config.patterns, db=self.components['db'])
 
+            if self.config.features.get('ml_core', False):
+                from src.ml.live import MLCore
+                self.components['ml'] = MLCore(
+                    self.components['db'],
+                    min_improvement=self.config.models.get('min_improvement', 0.02))
+
             self.components['trading'] = TradingEngine(
                 config=self.config,
                 models=self.components['models'],
@@ -136,6 +142,9 @@ class AITradingSystem:
                 self._run_pattern_discovery(), name='patterns'))
         tasks.append(asyncio.create_task(
             self._run_daily_summary(), name='daily_summary'))
+        if 'ml' in self.components:
+            tasks.append(asyncio.create_task(
+                self._run_ml_loop(), name='ml_core'))
 
         self.components['health'].set_ready(True)
         engine_status = self.components['trading'].get_status()
@@ -334,6 +343,82 @@ class AITradingSystem:
         while self.running:
             self.components['metrics'].update_system_metrics()
             await asyncio.sleep(10)
+
+    async def _run_ml_loop(self):
+        """ML learning loop: one prediction per UTC day, one champion/
+        challenger retrain per week, every decision logged and alerted."""
+        from src.ml.live import build_daily_frames
+        logger.info("Starting ML learning loop (daily predict, weekly retrain)")
+        ml = self.components['ml']
+        db = self.components['db']
+        engine = self.components['trading']
+        notifier = self.components['notifier']
+        last_pred_day = None
+
+        while self.running:
+            try:
+                self.components['health'].heartbeat('ml_core')
+                today = datetime.now(timezone.utc).date()
+
+                # ── Weekly retrain (also bootstraps the first champion) ──
+                last_retrain = ml.last_retrain_time()
+                needs_retrain = (ml.bundle is None or last_retrain is None
+                                 or (datetime.now(timezone.utc)
+                                     - last_retrain).days >= 7)
+                if needs_retrain:
+                    frames = await asyncio.to_thread(
+                        build_daily_frames, db,
+                        self.config.trading.get('symbols', []))
+                    record = await asyncio.to_thread(ml.retrain, frames)
+                    notifier.alert(
+                        'ml', 'info',
+                        f"ML retrain: {record['decision']}",
+                        record['reason'],
+                        dedupe_key=f"ml_retrain:{record['new_version']}")
+
+                # ── Daily prediction + paper trades ──
+                if ml.bundle is not None and last_pred_day != today:
+                    # live prices must exist before signals can fill; if the
+                    # exchange is unreachable, retry next hour (do NOT burn
+                    # today's prediction slot on an unexecutable pass)
+                    await engine._refresh_prices()
+                    if not engine.latest_prices:
+                        logger.warning("ML loop: no live prices yet — "
+                                       "retrying next hour")
+                        await asyncio.sleep(3600)
+                        continue
+                    frames = await asyncio.to_thread(
+                        build_daily_frames, db,
+                        self.config.trading.get('symbols', []))
+                    predictions = await asyncio.to_thread(ml.predict, frames)
+                    executed = {}
+                    for symbol, p in predictions.items():
+                        action = 'BUY' if p['pred'] == 'UP' else 'SELL'
+                        engine._handle_signal({
+                            'symbol': symbol, 'action': action,
+                            'size': 0.10, 'confidence': 0.99,
+                            'stop_loss': None, 'take_profit': None,
+                            'metadata': {'strategy': 'ml_core',
+                                         'p_up': p['p_up'],
+                                         'p_down': p['p_down'],
+                                         'model_version': p['model_version']},
+                        })
+                        executed[symbol] = (
+                            (action == 'BUY' and symbol in engine.positions) or
+                            (action == 'SELL' and symbol not in engine.positions))
+                    ml.store_predictions(predictions, executed)
+                    last_pred_day = today
+                    logger.info("ML daily decisions: " + ", ".join(
+                        f"{s.split('/')[0]}={p['pred']}"
+                        for s, p in predictions.items()))
+
+            except asyncio.CancelledError:
+                raise
+            except Exception as e:
+                logger.exception(f"ML loop error: {e}")
+                self.components['metrics'].record_error('ml_core', str(e))
+
+            await asyncio.sleep(3600)   # hourly wake-up; acts once per day
 
     async def _run_daily_summary(self):
         """Send the daily P&L summary shortly after UTC midnight."""

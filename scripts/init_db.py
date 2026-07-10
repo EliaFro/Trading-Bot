@@ -158,6 +158,32 @@ CREATE TABLE IF NOT EXISTS alerts (
     acknowledged    INTEGER DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS ml_predictions (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp   INTEGER NOT NULL,           -- decision time, epoch seconds UTC
+    symbol      TEXT NOT NULL,
+    pred        TEXT NOT NULL,              -- UP / FLAT / DOWN
+    p_up        REAL,
+    p_down      REAL,
+    model_version TEXT,
+    executed    INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS ml_retrain_log (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp      INTEGER NOT NULL,
+    old_version    TEXT,
+    new_version    TEXT NOT NULL,
+    decision       TEXT NOT NULL,           -- REPLACED / KEPT_OLD / INITIAL
+    reason         TEXT,
+    old_val_f1     REAL,
+    new_val_f1     REAL,
+    new_is_bal_acc REAL,                    -- in-sample (overfitting gauge)
+    new_val_bal_acc REAL,                   -- validation slice (honest side)
+    n_train        INTEGER,
+    feature_importance TEXT                 -- JSON: top features + weights
+);
+
 CREATE TABLE IF NOT EXISTS system_config (
     config_key   TEXT PRIMARY KEY,
     config_value TEXT NOT NULL,

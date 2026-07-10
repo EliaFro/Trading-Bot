@@ -102,21 +102,21 @@ class TradingDashboard:
         self._render_sidebar()
 
         tabs = st.tabs([
-            "📈 Live Trading", "📊 Performance", "📋 Trade History",
-            "💭 Sentiment", "🎯 Patterns", "🧠 Models",
+            "📈 Live Trading", "🧪 ML Lab", "📊 Performance",
+            "📋 Trade History", "💭 Sentiment", "🎯 Patterns",
         ])
         with tabs[0]:
             self._render_live_trading()
         with tabs[1]:
-            self._render_performance()
+            self._render_ml_lab()
         with tabs[2]:
-            self._render_trade_history()
+            self._render_performance()
         with tabs[3]:
-            self._render_sentiment()
+            self._render_trade_history()
         with tabs[4]:
-            self._render_patterns()
+            self._render_sentiment()
         with tabs[5]:
-            self._render_models()
+            self._render_patterns()
 
         if st.session_state.get('auto_refresh', True):
             import time
@@ -414,17 +414,138 @@ class TradingDashboard:
                                title='Pattern types'),
                         use_container_width=True)
 
-    def _render_models(self):
-        st.header("🧠 Models")
-        df = self._query("""SELECT model_name, model_type, version, created_at,
-                                   is_active, performance_metrics
-                            FROM model_versions ORDER BY created_at DESC LIMIT 50""")
-        if df is None or df.empty:
-            st.info("No model versions recorded yet. The v1 ensemble runs "
-                    "classical strategies; retrain events appear here.")
+    def _render_ml_lab(self):
+        st.header("🧪 ML Lab — watching the learning, honestly")
+
+        # ── The banner (never celebrates; states what the data says) ─────
+        st.warning(
+            "**ML has not demonstrated an edge over simple momentum.** "
+            "Stage 1 walk-forward (36 months, after fees): ML −2.8% vs "
+            "TSMOM-60d +0.4% on the identical calendar — see "
+            "docs/ML_RESULTS.md. Status: **learning** — this page watches "
+            "whether that verdict ever changes, under the same rules that "
+            "produced it.")
+
+        retrains = self._query(
+            "SELECT * FROM ml_retrain_log ORDER BY timestamp")
+        if retrains is None or retrains.empty:
+            st.info("No retrains logged yet — the first champion trains when "
+                    "the bot starts.")
             return
-        df['created_at'] = pd.to_datetime(df['created_at'], unit='s')
-        st.dataframe(df, use_container_width=True, hide_index=True)
+        retrains['time'] = pd.to_datetime(retrains['timestamp'], unit='s')
+        latest = retrains.iloc[-1]
+
+        # ── Overfitting gauge — front and center ─────────────────────────
+        st.subheader("Overfitting gauge (latest champion candidate)")
+        gap = latest['new_is_bal_acc'] - latest['new_val_bal_acc']
+        if gap > 0.15:
+            verdict, color = "🚨 this model has memorized noise", "red"
+        elif gap > 0.05:
+            verdict, color = "⚠️ watch — meaningful memorization", "orange"
+        else:
+            verdict, color = "✅ healthy — small IS/validation gap", "green"
+
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("In-sample balanced acc", f"{latest['new_is_bal_acc']:.1%}",
+                    help="How well it fits data it trained on. High numbers "
+                         "here are NOT good news.")
+        col2.metric("Validation balanced acc", f"{latest['new_val_bal_acc']:.1%}",
+                    help="Held-out recent data. 3-class chance = 33.3%.")
+        col3.metric("IS − OOS gap", f"{gap:+.1%}")
+        col4.markdown(f"### :{color}[{verdict}]")
+
+        # ── Learning curve across retrains ────────────────────────────────
+        st.subheader("Learning curve (every retrain, live)")
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=retrains['time'], y=retrains['new_is_bal_acc'],
+                                 name='in-sample', line=dict(color='gray', width=1)))
+        fig.add_trace(go.Scatter(x=retrains['time'], y=retrains['new_val_bal_acc'],
+                                 name='validation (honest)',
+                                 line=dict(color='#00c853', width=2)))
+        fig.add_hline(y=1 / 3, line_dash='dot', line_color='white',
+                      annotation_text='3-class chance (33.3%)')
+        fig.update_layout(template='plotly_dark', height=320,
+                          yaxis_title='balanced accuracy')
+        st.plotly_chart(fig, use_container_width=True)
+
+        # ── Feature importance with EVIDENCE TIERS ────────────────────────
+        st.subheader("What the model leans on — and how much evidence backs it")
+        st.caption(
+            "**Stable is not the same as meaningful.** A feature can rank "
+            "high in every retrain and still rest on a handful of "
+            "independent observations (e.g. `month`: 3 years of data = "
+            "~3 samples per month). Importance says what the model uses; "
+            "the evidence column says whether the pattern deserves belief.")
+        try:
+            import json as _json
+            from src.ml.dataset import evidence_count, evidence_tier
+            imp = _json.loads(latest['feature_importance'])
+            span_days = 1090   # 36 months of daily data
+            rows = []
+            for feat, weight in list(imp.items())[:15]:
+                n = evidence_count(feat, span_days)
+                tier = evidence_tier(feat, span_days)
+                icon = ('🟢' if tier == 'well-supported'
+                        else '🟠' if tier == 'moderate' else '🔴')
+                rows.append({'feature': feat, 'importance': round(weight, 4),
+                             'independent obs (~)': n,
+                             'evidence': f"{icon} {tier}"})
+            st.dataframe(pd.DataFrame(rows), use_container_width=True,
+                         hide_index=True)
+            thin = [r['feature'] for r in rows if '🔴' in r['evidence']]
+            if thin:
+                st.error(f"🔴 Thin-evidence features the model is using: "
+                         f"**{', '.join(thin)}** — treat their contribution "
+                         f"as noise until years more data exist.")
+        except Exception as e:
+            st.warning(f"Feature importance unavailable: {e}")
+
+        # ── Equity vs benchmarks ─────────────────────────────────────────
+        st.subheader("Paper equity: ML decisions vs doing nothing clever")
+        equity = self.db.get_equity_curve()
+        if not equity.empty and len(equity) > 2:
+            fig = go.Figure()
+            eq0 = equity['total_equity'].iloc[0]
+            fig.add_trace(go.Scatter(
+                x=equity['timestamp'], y=equity['total_equity'] / eq0,
+                name='ML paper account', line=dict(color='#00c853', width=2)))
+            bench = equity.dropna(subset=['benchmark_price'])
+            if not bench.empty:
+                fig.add_trace(go.Scatter(
+                    x=bench['timestamp'],
+                    y=bench['benchmark_price'] / bench['benchmark_price'].iloc[0],
+                    name='Hold BTC', line=dict(color='orange', dash='dash', width=1)))
+            fig.add_hline(y=1.0, line_color='gray', line_width=1,
+                          annotation_text='cash')
+            fig.update_layout(template='plotly_dark', height=350,
+                              yaxis_title='equity multiple')
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.info("Equity history builds while the bot runs.")
+
+        # ── Today's predictions ───────────────────────────────────────────
+        preds = self._query(
+            "SELECT timestamp, symbol, pred, p_up, p_down, model_version, "
+            "executed FROM ml_predictions ORDER BY timestamp DESC LIMIT 9")
+        if preds is not None and not preds.empty:
+            st.subheader("Latest predictions")
+            preds['time'] = pd.to_datetime(preds['timestamp'], unit='s')
+            st.dataframe(preds[['time', 'symbol', 'pred', 'p_up', 'p_down',
+                                'model_version', 'executed']],
+                         use_container_width=True, hide_index=True)
+
+        # ── Retrain log: watch the guard work ─────────────────────────────
+        st.subheader("Retrain log — the keep-old-unless-better guard, audited")
+        log = retrains.sort_values('timestamp', ascending=False)[
+            ['time', 'decision', 'old_val_f1', 'new_val_f1', 'n_train',
+             'reason']]
+        st.dataframe(
+            log.style.apply(
+                lambda row: ['background-color: rgba(0,200,83,0.12)'] * len(row)
+                if row['decision'] == 'REPLACED'
+                else ['background-color: rgba(158,158,158,0.10)'] * len(row)
+                if row['decision'] == 'KEPT_OLD' else [''] * len(row), axis=1),
+            use_container_width=True, hide_index=True)
 
     # ── Data helpers (parameterized SQL only) ────────────────────────────
 

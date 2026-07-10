@@ -1,9 +1,15 @@
-# AI Crypto Trading System — Project Archive
+# AI Crypto Trading System — Paper-Money ML Learning Lab
 
-**Status (2026-07-10): wound down by decision, cleanly.** The active plan is
-manual DCA with a monthly trend rule — see **[PLAYBOOK.md](PLAYBOOK.md)**.
-This repository is preserved intact for a possible future deployment at
-meaningful capital.
+**Status (2026-07-10): finished.** The system runs 24/7 on **paper money
+only** as an honest ML learning lab — daily predictions, weekly
+champion/challenger retrains, and a dashboard that surfaces overfitting and
+evidence quality instead of hiding them. **No live trading.** The money plan
+remains manual DCA — see **[PLAYBOOK.md](PLAYBOOK.md)**.
+
+- **Run and read it:** [OPERATING.md](OPERATING.md) — start/stop, how to read
+  the ML Lab tab, and the exact (probably never-cleared) bar for the banner
+  to change from "learning" to "demonstrated an edge".
+- **Why paper-only:** three years of walk-forward evidence, summarized below.
 
 ## What this project proved (the short version)
 
@@ -19,9 +25,14 @@ hypothesis-driven strategy iterations, two fee tiers:
   trades, t ≤ 1.67), drawdown 21–26% at deployable size, and at $100–500 the
   dollar edge is smaller than hosting costs. Full study:
   [docs/DAILY_MOMENTUM_RESULTS.md](docs/DAILY_MOMENTUM_RESULTS.md)
+- **ML core (Stage 1 walk-forward): no edge demonstrated.** ML −2.8% vs
+  TSMOM-60d +0.4% after fees on the identical calendar; the best in-sample
+  model (92% accuracy) was the worst out-of-sample (36%). Full study:
+  [docs/ML_RESULTS.md](docs/ML_RESULTS.md) · design contract:
+  [docs/ML_PLAN.md](docs/ML_PLAN.md)
 - **The infrastructure works**: gap-free data pipeline, realistic paper
   engine (fills verified to the cent), hard risk rails, kill switch,
-  monitoring, alerting, dashboard, 44-test suite. It was never the problem.
+  monitoring, alerting, dashboard, 60-test suite. It was never the problem.
 
 ## How to resume (the $2k+ path)
 

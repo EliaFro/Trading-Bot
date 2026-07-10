@@ -83,6 +83,18 @@ clean:
 	@rm -rf .pytest_cache
 	@echo "Cleaned."
 
+service-install:
+	@bash scripts/install_service.sh
+
+service-uninstall:
+	@bash scripts/install_service.sh uninstall
+
+service-status:
+	@launchctl list | grep -E "tradingbot|PID" || echo "agents not installed"
+	@curl -s --max-time 3 http://localhost:8080/health >/dev/null && echo "bot: healthy" || echo "bot: not responding"
+	@curl -s --max-time 3 http://localhost:8501/_stcore/health >/dev/null && echo "dashboard: up" || echo "dashboard: not responding"
+
+# Docker targets kept for reference; the supported deployment is launchd
 docker-build:
 	@docker compose build
 
