@@ -107,7 +107,7 @@ Frozen evidence artifacts (metrics JSONs, charts, window tables) were restored f
 ## Final state
 
 - Tests: **162 passed, 4 skipped** (baseline 143).
-- QA-pass commit: `PENDING_HASH` on `main`, pushed; remote HEAD verified equal to local.
+- QA-pass commit: `0aee0f2` on `main`, pushed; remote HEAD verified equal to local (`0aee0f2bdf19cf226d91db7f28b1bb6e885e06f9`).
 - Every box above is ticked with evidence; no finding remains open; the mandate's scope boundary held (zero strategy work, zero new features, zero new studies).
 
-**The system is FROZEN as of commit `PENDING_HASH` (2026-07-10): no further changes without a new explicit mandate.**
+**The system is FROZEN as of commit `0aee0f2` (2026-07-10): no further changes without a new explicit mandate.**
