@@ -387,7 +387,7 @@ class DatabaseManager:
         try:
             query = """
                 SELECT id, symbol, side, quantity, entry_price, stop_loss,
-                       take_profit, strategy, entry_time
+                       take_profit, strategy, entry_time, commission
                 FROM trades
                 WHERE status = 'OPEN'
                 ORDER BY entry_time DESC

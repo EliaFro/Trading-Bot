@@ -119,13 +119,14 @@ baseline, in-sample numbers are never celebrated.
 ## 4. Maintenance (rarely needed)
 
 ```bash
-make test                                  # 60-test suite
+make test                                  # full test suite
 python scripts/verify_coverage.py          # data integrity check
 python scripts/clear_kill_switch.py        # only after reading why it fired
-docker compose logs --tail 200 trading-bot # recent bot log
+tail -n 200 logs/trading.log               # recent bot log
 ```
 
-The database, logs, and models live in `./data`, `./logs`, `./models` on your
-machine (mounted into the containers), so `docker-down`/`up` never loses
-state. The money plan remains [PLAYBOOK.md](PLAYBOOK.md) — this lab never
-touches it.
+The databases, logs, and models live in `./data`, `./logs`, `./models` on
+your machine; the launchd services survive restarts without losing state.
+(Docker files remain in the repo for reference but the supported deployment
+is launchd.) The money plan remains [PLAYBOOK.md](PLAYBOOK.md) — this lab
+never touches it.

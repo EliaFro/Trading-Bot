@@ -32,7 +32,17 @@ Every strategy and model faced the identical, pre-registered evaluation:
 | ML, 1-minute horizon (LSTM/CNN fair trial, ~1M samples) | **Genuine skill: +11 points above chance, every window, every regime** — worth ~1bp/trade against a 31bp cost. Deep ≈ trees. **Predictive ≠ profitable, demonstrated with real prediction** | [docs/FASTLAB_RESULTS.md](docs/FASTLAB_RESULTS.md) |
 | Multi-timeframe (Elder triple-screen, 8 variants) | −87% to −99%; gross/trade ≤0.008% vs 0.313% cost — a 40× shortfall no filter can fix | [docs/FASTLAB_RESULTS.md](docs/FASTLAB_RESULTS.md) |
 
-Key charts: `docs/phase2_charts/signal_library.png` (the published-vs-noise t-distribution overlap — the whole finding in one image), `docs/phase2_charts/fastlab_partB.png` (gross edge vs cost per trade), `docs/phase2_charts/ml_study.png` (the overfitting gauge in action).
+**The whole finding in one image** — t-statistics of 29 published strategies vs 100 coin flips (the histograms overlap):
+
+![Published strategies vs pure noise](docs/phase2_charts/signal_library.png)
+
+**The fee wall** — gross edge per trade (blue) vs round-trip cost (red), multi-timeframe family:
+
+![Gross edge vs cost per trade](docs/phase2_charts/fastlab_partB.png)
+
+**The overfitting gauge in action** — in-sample vs out-of-sample accuracy, with the deep-model fair trial:
+
+![ML study: equity, learning curve, feature importance](docs/phase2_charts/ml_study.png)
 
 ## The lessons (each one measured, not asserted)
 

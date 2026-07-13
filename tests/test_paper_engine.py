@@ -150,16 +150,28 @@ def test_round_trip_pnl_math(tmp_db, monkeypatch):
     engine._close_position('BTC/USDT', 51_000.0, 'signal')
 
     exit_fill = 51_000.0 * (1 - 0.0005)
-    expected_pnl = (qty * exit_fill) * (1 - 0.001) - qty * entry_fill
+    # net P&L includes BOTH commission legs (QA fix: the entry fee was
+    # previously omitted from the recorded pnl, breaking reconciliation)
+    entry_commission = qty * entry_fill * 0.001
+    expected_pnl = (qty * exit_fill) * (1 - 0.001) \
+        - qty * entry_fill - entry_commission
 
     trades = tmp_db.get_recent_trades(10)
     closed = trades[trades['status'] == 'CLOSED'].iloc[0]
     assert abs(closed['pnl'] - expected_pnl) < 0.01
+    # commission column carries both legs after close
+    exit_commission = qty * exit_fill * 0.001
+    assert abs(closed['commission'] -
+               (entry_commission + exit_commission)) < 0.01
 
     # Final cash = initial - entry cost + exit proceeds
     entry_cost = qty * entry_fill * (1 + 0.001)
     exit_proceeds = qty * exit_fill * (1 - 0.001)
     assert abs(engine.cash - (10_000.0 - entry_cost + exit_proceeds)) < 0.01
+
+    # THE RECONCILIATION IDENTITY (QA regression): persisted ledger must
+    # tie out to cash exactly: cash == initial + sum(closed pnl)
+    assert abs(engine.cash - (10_000.0 + closed['pnl'])) < 0.005
 
 
 def test_max_concurrent_positions_gate(tmp_db, monkeypatch):

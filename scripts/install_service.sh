@@ -72,7 +72,8 @@ make_plist "$BOT_LABEL" "launchd_bot" \
 make_plist "$DASH_LABEL" "launchd_dashboard" \
     "$REPO/.venv/bin/python" "-m" "streamlit" "run" "src/dashboard/app.py" \
     "--server.port" "8501" "--server.address" "127.0.0.1" \
-    "--server.headless" "true"
+    "--server.headless" "true" "--logger.level" "error" \
+    "--server.fileWatcherType" "none"
 make_plist "$FAST_LABEL" "launchd_fastlab" \
     "$REPO/.venv/bin/python" "scripts/fastlab_bot.py"
 make_plist "$PLAYBOOK_LABEL" "launchd_playbook" \

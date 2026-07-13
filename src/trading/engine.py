@@ -156,6 +156,7 @@ class TradingEngine:
                     'side': row['side'],
                     'quantity': float(row['quantity']),
                     'entry_price': float(row['entry_price']),
+                    'entry_commission': float(row.get('commission', 0) or 0),
                     'stop_loss': float(row['stop_loss']) if row['stop_loss'] else None,
                     'take_profit': float(row['take_profit']) if row['take_profit'] else None,
                     'strategy': row.get('strategy', 'unknown'),
@@ -513,6 +514,7 @@ class TradingEngine:
             'side': 'BUY',
             'quantity': order['quantity'],
             'entry_price': fill_price,
+            'entry_commission': commission,
             'stop_loss': signal.get('stop_loss'),
             'take_profit': signal.get('take_profit'),
             'strategy': (signal.get('metadata') or {}).get('strategy', 'ensemble'),
@@ -574,7 +576,10 @@ class TradingEngine:
         slippage_cost = (market_price - fill_price) * pos['quantity']
 
         entry_value = pos['quantity'] * pos['entry_price']
-        pnl = fill_value - commission - entry_value
+        entry_commission = pos.get('entry_commission', 0.0)
+        # net P&L across BOTH legs: exit proceeds minus exit fee, minus
+        # entry notional, minus the entry fee paid at open
+        pnl = fill_value - commission - entry_value - entry_commission
         pnl_pct = pnl / entry_value if entry_value else 0.0
 
         self.cash += fill_value - commission
@@ -584,6 +589,7 @@ class TradingEngine:
             'exit_time': _utcnow(),
             'pnl': pnl,
             'pnl_percentage': pnl_pct,
+            'commission': entry_commission + commission,   # both legs
             'status': 'CLOSED',
             'exit_reason': reason,
         })

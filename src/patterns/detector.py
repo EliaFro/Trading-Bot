@@ -313,19 +313,28 @@ class AdvancedPatternDetector:
         # Handle NaN values
         features_clean = np.nan_to_num(features, nan=0.0, posinf=1e6, neginf=-1e6)
         
-        # Scale features
-        if hasattr(self.scaler, 'mean_'):
+        # Scale features. The extractor's feature width can drift between
+        # passes (degenerate windows drop sub-features); a scaler fitted at a
+        # different width must be refit, not crash every discovery cycle.
+        if hasattr(self.scaler, 'mean_') and \
+                getattr(self.scaler, 'n_features_in_', None) == features_clean.shape[1]:
             features_scaled = self.scaler.transform(features_clean)
         else:
+            if hasattr(self.scaler, 'mean_'):
+                self.logger.info(
+                    f"Refitting pattern scaler: feature width changed "
+                    f"{getattr(self.scaler, 'n_features_in_', '?')} -> "
+                    f"{features_clean.shape[1]}")
             features_scaled = self.scaler.fit_transform(features_clean)
-        
-        # Apply PCA if features are high-dimensional
+
+        # Apply PCA if features are high-dimensional (same width guard)
         if features_scaled.shape[1] > 100:
-            if hasattr(self.pca, 'components_'):
+            if hasattr(self.pca, 'components_') and \
+                    getattr(self.pca, 'n_features_in_', None) == features_scaled.shape[1]:
                 features_scaled = self.pca.transform(features_scaled)
             else:
                 features_scaled = self.pca.fit_transform(features_scaled)
-        
+
         return features_scaled
     
     def _detect_market_regime(self, features: np.ndarray) -> str:

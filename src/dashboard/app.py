@@ -37,7 +37,6 @@ st.set_page_config(
 )
 
 DB_PATH = os.getenv('DB_PATH', './data/trading_system.db')
-REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379')
 SYMBOLS = ['BTC/USDT', 'ETH/USDT', 'SOL/USDT']
 TIMEFRAMES = ['1m', '5m', '15m', '1h']
 
@@ -49,18 +48,6 @@ def get_db():
     if not os.path.exists(DB_PATH):
         return None
     return DatabaseManager(DB_PATH)
-
-
-@st.cache_resource
-def get_redis():
-    try:
-        import redis
-        client = redis.from_url(REDIS_URL, decode_responses=True,
-                                socket_connect_timeout=2)
-        client.ping()
-        return client
-    except Exception:
-        return None
 
 
 @st.cache_data(ttl=20)
@@ -88,7 +75,6 @@ class TradingDashboard:
 
     def __init__(self):
         self.db = get_db()
-        self.redis_client = get_redis()
 
     # ── Layout ───────────────────────────────────────────────────────────
 
@@ -96,9 +82,13 @@ class TradingDashboard:
         st.title("🤖 AI Cryptocurrency Trading System")
 
         if self.db is None:
-            st.error(f"Database not found at `{DB_PATH}`. "
-                     "Run `python scripts/init_db.py` and start the bot first.")
+            st.error(f"Database unreachable at `{DB_PATH}` — is the bot "
+                     "service running? Check with `make service-status`, "
+                     "or first-time setup: `python scripts/init_db.py` "
+                     "then `make service-install`.")
             return
+
+        self._render_freshness_header()
 
         self._render_sidebar()
 
@@ -128,6 +118,50 @@ class TradingDashboard:
             time.sleep(st.session_state.get('refresh_interval', 15))
             st.rerun()
 
+    def _render_freshness_header(self):
+        """Global staleness indicator — every tab inherits it. If the bot is
+        down or the data pipeline stalls, this says so instead of letting a
+        stale chart impersonate the present. All times UTC."""
+        from sqlalchemy import text as _t
+        now = datetime.utcnow()
+
+        def age_str(epoch, stale_after_min):
+            if epoch is None:
+                return "never", True
+            minutes = (now - datetime.utcfromtimestamp(epoch)
+                       ).total_seconds() / 60
+            label = (f"{minutes:.0f}m ago" if minutes < 90
+                     else f"{minutes / 60:.1f}h ago")
+            return label, minutes > stale_after_min
+
+        try:
+            with self.db.engine.connect() as conn:
+                bar = conn.execute(_t(
+                    "SELECT MAX(timestamp) FROM ohlcv WHERE symbol='BTC/USDT' "
+                    "AND timeframe='1m'")).fetchone()[0]
+                cycle = conn.execute(_t(
+                    "SELECT MAX(timestamp) FROM performance_tracking"
+                )).fetchone()[0]
+                ml = conn.execute(_t(
+                    "SELECT MAX(timestamp) FROM ml_predictions")).fetchone()[0]
+        except Exception:
+            bar = cycle = ml = None
+
+        bar_s, bar_stale = age_str(bar, 15)
+        cyc_s, cyc_stale = age_str(cycle, 10)
+        ml_s, ml_stale = age_str(ml, 26 * 60)
+
+        parts = [
+            f"{'🔴' if bar_stale else '🟢'} market data: {bar_s}",
+            f"{'🔴' if cyc_stale else '🟢'} bot cycle: {cyc_s}",
+            f"{'🔴' if ml_stale else '🟢'} ML decision: {ml_s}",
+        ]
+        st.caption(" · ".join(parts) + "  —  all times **UTC**")
+        if bar_stale or cyc_stale:
+            st.warning("⚠️ Data is STALE — charts below show the last known "
+                       "state, not the present. Is the bot running? "
+                       "`make service-status`")
+
     def _render_sidebar(self):
         with st.sidebar:
             st.header("⚙️ System")
@@ -141,25 +175,21 @@ class TradingDashboard:
                     st.error(f"🛑 HALTED ({mode}): {halted}")
                 else:
                     st.success(f"🟢 Engine running — {mode} mode")
-                st.caption(f"equity ${engine.get('equity', 0):,.2f} · "
+                st.caption(f"PAPER equity ${engine.get('equity', 0):,.2f} · "
                            f"{engine.get('open_positions', 0)} open · "
                            f"cycle {engine.get('cycle_count', 0)}")
             else:
                 st.warning("🔴 Engine not reachable on :8080")
 
             st.divider()
-            st.subheader("Manual actions")
-            if st.button("🛑 Close all positions"):
-                if self._send_command('close_all_positions'):
-                    st.warning("Close-all command sent")
-                else:
-                    st.error("Redis not connected — stop the bot with Ctrl+C "
-                             "or `make stop` instead")
-            if st.button("🔄 Force model retrain"):
-                if self._send_command('retrain_models'):
-                    st.info("Retrain command sent")
-                else:
-                    st.error("Redis not connected")
+            st.subheader("Controls (terminal)")
+            st.caption(
+                "This dashboard is read-only by design. To act on the "
+                "system:\n\n"
+                "- stop everything: `make service-uninstall`\n"
+                "- start everything: `make service-install`\n"
+                "- status: `make service-status`\n\n"
+                "A graceful stop closes all paper positions automatically.")
 
             st.divider()
             st.subheader("Display")
@@ -170,6 +200,7 @@ class TradingDashboard:
     # ── Tabs ─────────────────────────────────────────────────────────────
 
     def _render_live_trading(self):
+        st.caption("🧪 PAPER ACCOUNT — simulated money. Your real ledger lives on the 📘 Playbook tab.")
         prices = live_prices(tuple(SYMBOLS))
         metrics = self.db.get_performance_metrics() or {}
         equity_df = self.db.get_equity_curve(
@@ -181,7 +212,7 @@ class TradingDashboard:
         if not equity_df.empty and len(equity_df) > 1:
             day_change = equity_now / equity_df['total_equity'].iloc[0] - 1
 
-        col1.metric("Equity",
+        col1.metric("Equity (PAPER)",
                     f"${equity_now:,.2f}" if equity_now else "—",
                     f"{day_change:+.2%} today" if day_change is not None else None)
         col2.metric("Closed trades", f"{metrics.get('total_trades', 0):,}")
@@ -196,7 +227,7 @@ class TradingDashboard:
         st.subheader("🔥 Active positions")
         positions = self.db.get_active_positions()
         if positions.empty:
-            st.info("No open positions")
+            st.info("No open positions — the ML is in cash. Next decision just after 00:00 UTC.")
         else:
             def current_pnl(row):
                 price = prices.get(row['symbol'])
@@ -242,7 +273,7 @@ class TradingDashboard:
         st.subheader("🎯 Recent signals")
         signals = self.db.get_recent_signals(15)
         if signals.empty:
-            st.info("No signals recorded yet")
+            st.info("No signals yet — the ML decides once per day, just after 00:00 UTC; entries appear here when it does.")
         else:
             st.dataframe(
                 signals.style.apply(
@@ -287,15 +318,26 @@ class TradingDashboard:
                             f"{regime['distance_pct']:+.1%} vs trend")
                 col3.metric("200-day average", f"${regime['sma200']:,.0f}")
                 since = pc.get_state(state_db, 'regime_since')
-                col4.metric("Regime since", since or "—")
+                days_in = ''
+                if since:
+                    from datetime import date as _date
+                    days_in = f" ({(datetime.utcnow().date() - _date.fromisoformat(since)).days}d)"
+                col4.metric("Regime since", (since or "—") + days_in)
+        st.caption(
+            "**The rule, verbatim:** on your buy day (the 1st), if BTC's "
+            "daily close is ABOVE its 200-day average → buy your fixed "
+            "amount; if BELOW → skip, hold the cash, add it to the next "
+            "buy when back above. Never sell on this rule. (PLAYBOOK.md)")
 
         # ── Log a buy ─────────────────────────────────────────────────────
         st.subheader("Log a buy you made")
         with st.form("dca_form", clear_on_submit=True):
             c1, c2, c3 = st.columns(3)
-            amount = c1.number_input("USD spent", min_value=1.0, value=50.0)
+            amount = c1.number_input("USD spent", min_value=1.0,
+                                     max_value=1_000_000.0, value=50.0)
             price = c2.number_input("BTC price paid (0 = that day's close)",
-                                    min_value=0.0, value=0.0)
+                                    min_value=0.0, max_value=10_000_000.0,
+                                    value=0.0)
             buy_date = c3.date_input("Date", value=datetime.now().date())
             note = st.text_input("Note (optional)")
             if st.form_submit_button("Add to ledger"):
@@ -317,6 +359,7 @@ class TradingDashboard:
                     "`python scripts/playbook_log.py add --amount <usd>`.")
         else:
             col1, col2, col3, col4 = st.columns(4)
+            st.caption("MY REAL LEDGER — manual buys I logged, not bot activity.")
             col1.metric("Invested", f"${summary['invested']:,.2f}")
             col2.metric("Holdings", f"{summary['btc_total']:.8f} BTC",
                         f"cost basis ${summary['cost_basis']:,.0f}")
@@ -328,6 +371,9 @@ class TradingDashboard:
                             f"${summary['lump_sum_value']:,.2f}",
                             help="Honest comparison: everything invested on "
                                  "your first logged date instead of DCA.")
+            st.caption("Comparison method: your total invested, bought once "
+                       "at your first logged date's close, valued at the "
+                       "latest close.")
 
             log = log.copy()
             log['cum_invested'] = log['amount_usd'].cumsum()
@@ -460,6 +506,7 @@ class TradingDashboard:
         if not preds.empty:
             st.subheader("Latest 1m predictions")
             preds['time'] = pd.to_datetime(preds['timestamp'], unit='s')
+            preds['p_up'] = preds['p_up'].round(3)
             st.dataframe(preds[['time', 'symbol', 'pred', 'p_up',
                                 'model_version', 'executed']],
                          use_container_width=True, hide_index=True)
@@ -474,7 +521,8 @@ class TradingDashboard:
                          use_container_width=True, hide_index=True)
 
     def _render_performance(self):
-        st.header("📊 Performance")
+        st.header("📊 Performance — PAPER account")
+        st.caption("Simulated paper equity only; timestamps UTC.")
 
         col1, col2 = st.columns(2)
         start_date = col1.date_input("Start", datetime.now() - timedelta(days=30))
@@ -553,7 +601,8 @@ class TradingDashboard:
                              hide_index=True)
 
     def _render_trade_history(self):
-        st.header("📋 Trade history")
+        st.header("📋 Trade history — PAPER account")
+        st.caption("Simulated paper trades only; timestamps UTC.")
 
         col1, col2, col3 = st.columns(3)
         symbol = col1.selectbox("Symbol", ["All"] + SYMBOLS)
@@ -566,7 +615,7 @@ class TradingDashboard:
             since=datetime.now() - timedelta(days=days))
 
         if trades.empty:
-            st.info("No trades match these filters")
+            st.info("No trades match these filters — paper trades appear after the ML's daily decisions open/close positions.")
             return
 
         closed = trades[trades['status'] == 'CLOSED']
@@ -756,6 +805,7 @@ class TradingDashboard:
         if preds is not None and not preds.empty:
             st.subheader("Latest predictions")
             preds['time'] = pd.to_datetime(preds['timestamp'], unit='s')
+            preds[['p_up', 'p_down']] = preds[['p_up', 'p_down']].round(3)
             st.dataframe(preds[['time', 'symbol', 'pred', 'p_up', 'p_down',
                                 'model_version', 'executed']],
                          use_container_width=True, hide_index=True)
@@ -764,7 +814,9 @@ class TradingDashboard:
         st.subheader("Retrain log — the keep-old-unless-better guard, audited")
         log = retrains.sort_values('timestamp', ascending=False)[
             ['time', 'decision', 'old_val_f1', 'new_val_f1', 'n_train',
-             'reason']]
+             'reason']].copy()
+        log[['old_val_f1', 'new_val_f1']] = \
+            log[['old_val_f1', 'new_val_f1']].round(3)
         st.dataframe(
             log.style.apply(
                 lambda row: ['background-color: rgba(0,200,83,0.12)'] * len(row)
@@ -821,18 +873,6 @@ class TradingDashboard:
         except Exception:
             pass
         return None
-
-    def _send_command(self, command: str) -> bool:
-        if not self.redis_client:
-            return False
-        try:
-            self.redis_client.publish('system:commands', json.dumps({
-                'command': command,
-                'timestamp': datetime.now().isoformat(),
-            }))
-            return True
-        except Exception:
-            return False
 
     # ── Charts ───────────────────────────────────────────────────────────
 
