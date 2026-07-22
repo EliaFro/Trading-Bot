@@ -52,6 +52,15 @@ Every strategy and model faced the identical, pre-registered evaluation:
 4. **Best-of-N is luck's favorite costume.** Test 29 things and ~1.5 pass at p<0.05 for free; 9 of 100 coin-flip strategies "passed" too. Corrections aren't pedantry — they're the difference between a finding and a story.
 5. **In-sample accuracy is an anti-signal.** The prettiest training numbers came from the worst live models, every time.
 
+## The broader evidence (we didn't discover this — we reproduced it)
+
+After our studies concluded, we compiled the field's strongest complete-record literature into [docs/EVIDENCE_REVIEW.md](docs/EVIDENCE_REVIEW.md). This one-person project independently reproduced its central results:
+
+- **Our coin-flip finding is Harvey, Liu & Zhu (2016) in miniature.** Their audit of 313 published return factors demands **t > 3.0** after multiple-testing correction — only ~9 of 313 survive — and concludes most claimed findings in financial economics are likely false. Our best published strategy (t = 2.18) and best coin flip (t = 2.49) both live comfortably below that bar.
+- **Our fee wall is the Taiwan result in cost terms.** Barber, Lee, Liu & Odean's complete-record study found day traders lost 23.9 bps/day net of fees against −7 bps gross — costs more than *tripled* the loss. And the wall is structural, not personal: Binance retail fees are 0.10%/side while VIP-9 and market-maker tiers run near zero to negative — the ~31 bp toll we measured is one the professionals don't pay.
+- **Our "predictive ≠ profitable" matches how the actually-profitable firms work.** Virtu disclosed one losing *day* in 1,238 while profitably exiting only ~49% of individual positions — spread capture at scale, not direction forecasting. The +11 points of real skill we measured is worth ~1 bp; direction is the part that doesn't pay retail.
+- **Our self-executing kill rule is the literature's own remedy for data-mining** — commit the bar before seeing the results, then let it bind (2026-08-07, in code).
+
 ## The running instrument
 
 The repo ships a live paper-trading observatory (four macOS launchd services — see [OPERATING.md](OPERATING.md)): a daily ML lab and a 1m "Fast Lab" that retrain on schedule behind a keep-old-unless-better guard, a dashboard that displays the overfitting gauge, evidence tiers, and the live fee decomposition, monthly auto-generated evidence digests, and a **self-executing pre-registered kill rule** ([src/trading/kill_rule.py](src/trading/kill_rule.py)) that permanently closes strategy search at the fast horizon on 2026-08-07 unless something clears the corrected bar (nothing is on track to).

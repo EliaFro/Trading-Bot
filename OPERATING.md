@@ -95,6 +95,17 @@ All five conditions, measured on **live paper decisions only** (logged in
 5. **No thin-evidence dependence**: 🔴-tier features contribute < 10% of
    ensemble importance (an edge built on `month` is not an edge).
 
+> **Annotation (2026-07-22, external-evidence review — NOT a criteria
+> change):** the academic multiple-testing standard for a new finding is
+> **t > 3.0** (Harvey, Liu & Zhu 2016; see
+> [docs/EVIDENCE_REVIEW.md](docs/EVIDENCE_REVIEW.md)), stricter than the
+> t ≥ 2.0 pre-registered in condition 4. If the live record ever clears 2.0,
+> that pass gets flagged and scrutinized against the stricter 3.0 standard
+> before anyone believes it. The pre-registered criteria stay untouched in
+> both directions for one reason: editing a pre-registered bar after
+> registration — loosening *or* tightening — is exactly the after-the-fact
+> tampering this document exists to prevent.
+
 Anything less — a good month, a narrowing gap, a nice-looking stretch of the
 equity line — is **activity, not progress**. The honest expectation, stated
 in docs/ML_PLAN.md before any code was written and confirmed by Stage 1, is

@@ -46,6 +46,22 @@ You can save the TradingView layout once and the whole monthly check becomes: op
 - **Checking the price between buy days** — nothing you see can trigger an action, so looking is pure stress.
 - **Anyone selling a bot or signal group** — you have 36 months of walk-forward evidence in this repo of what intraday signals earn after fees: less than zero.
 
+## What the broader evidence says (read once, decide with open eyes)
+
+The global literature's bottom line for capital under $10k is **low-cost,
+diversified, long-horizon index exposure** — that's where a small account
+sits on the winning side of the market's toll booths
+([docs/EVIDENCE_REVIEW.md](docs/EVIDENCE_REVIEW.md)). This playbook is
+deliberately *not* that: BTC-only DCA with a trend rule is a **concentrated
+bet on one violently volatile asset**. For scale, the BIS studied retail
+crypto across 95 countries and found roughly **three-quarters of Bitcoin
+app users lost money**; 73% first bought above $20,000, and the median
+investor lost about 48% of the ~$900 they put in. The rule-based discipline
+in this playbook — fixed schedule, one signal, never selling on impulse —
+transfers unchanged to an index fund if you choose that instead. This
+section decides nothing for you; it exists so the choice is made knowing
+both facts.
+
 ## What to honestly expect
 
 - Bitcoin can still draw down 50–70%. The rule reduces how much of *your new money* enters those periods; it does not make crypto safe.

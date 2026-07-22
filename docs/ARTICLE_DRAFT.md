@@ -40,6 +40,8 @@ After recalibrating the strategies so they could actually trade, twelve months o
 
 Extending to 36 months (a full bull-bear cycle) didn't change it. The regime breakdown put a hard ceiling on hope: even a filter with *perfect hindsight*, trading only the windows that turned out bullish, would have landed below breakeven-after-fees. When the hindsight-optimal version of your idea loses, iteration is over. (That realization — a computable "futility bound" — saved weeks of self-deception.)
 
+I later learned this is the oldest result in the field, measured at national scale: the complete-record Taiwan study (Barber, Lee, Liu & Odean) found day traders losing 23.9 bps/day *net* against only −7 bps gross — transaction costs more than **tripled** the loss ([EVIDENCE_REVIEW.md](EVIDENCE_REVIEW.md)). The fee wall isn't my discovery; it's the industry's load-bearing wall.
+
 ## 5. Finding #3: ninety years of trading literature vs. one hundred coin flips
 
 The centerpiece study: 29 published strategies, implemented exactly as their authors documented, zero tuning, each passing lookahead tests, all facing 51 out-of-sample windows across bull, bear, and sideways regimes.
@@ -55,6 +57,8 @@ Then the corrections arrive:
 
 *(Chart: `phase2_charts/signal_library.png` — the t-statistic histograms of published strategies and coin flips, substantially overlapping. That overlap is the finding.)*
 
+The academic literature reached the same verdict about itself: Harvey, Liu & Zhu audited 313 published return factors (Review of Financial Studies, 2016), concluded a genuine discovery now needs **t > 3.0** after multiple-testing correction — a bar only ~9 of 313 clear — and wrote that "most claimed research findings in financial economics are likely false." My best published strategy's t = 2.18 wouldn't have gotten in their door either ([EVIDENCE_REVIEW.md](EVIDENCE_REVIEW.md)).
+
 The profits weren't fake, exactly — they were *the market's*: hold-BTC returned +135% over the span, and the best strategy captured +21% of that while "winning." Long-only rules in a rising market drift positive whether or not they contain information. Nearly every trend-flavored rule clustered together statistically, because they are one bet — "crypto trends" — wearing fifteen costumes; and mean-reversion rules were uniformly dead. The only honest residue in the whole canon is that single trend bet, which brings us to—
 
 ## 6. Finding #4: machine learning — genuinely predictive, genuinely unprofitable
@@ -68,6 +72,8 @@ ML got two fair trials with every guard active.
 - **The skill is real.** Out-of-sample balanced accuracy 0.44–0.45 against a 3-class chance of 0.333 — **+11 points, in every window, in every regime**, with tiny train/test gaps (at that data scale, nothing memorizes). Short-horizon crypto price movement is *partially predictable*. The efficient-market purists are, at the minute scale, measurably wrong.
 - **Deep learning still didn't beat a random forest** (0.442 vs 0.451).
 - **And none of it matters**, because the genuine skill converts to **+1.2 basis points of gross edge per trade**, and the toll booth charges **31 basis points**. Trading the predictions: profit factor 0.22, zero positive windows out of fifteen. The model is right about the market and still loses 0.30% per trade — *predictive ≠ profitable*, demonstrated with actual prediction rather than its absence.
+
+This is precisely how the firms that *do* make money are built — just from the other side of the toll booth. Virtu Financial's IPO filing disclosed **one losing day in 1,238** while profitably exiting only **~49% of individual positions**: near-certain daily profits with coin-flip position outcomes is the signature of spread capture at enormous volume, not direction forecasting ([EVIDENCE_REVIEW.md](EVIDENCE_REVIEW.md)). Direction — the only edge retail can chase — is the part that doesn't pay.
 
 *(Chart: `phase2_charts/fastlab_partB.png` — gross edge per trade vs round-trip cost, side by side. The blue bars are barely visible next to the red ones. That's the entire retail high-frequency dream in one image.)*
 
@@ -83,7 +89,7 @@ Put the three numbers in one place:
 
 Everything about retail trading culture falls out of this arithmetic. Why do backtests look great? Because gross edges are real and in-sample numbers ignore the toll. Why do influencer strategies "work" in bull markets? Because long-only anything works in bull markets. Why does the industry sell *courses, signals, and bots* rather than trading? Because teaching the dream pays fees to the teacher, while living it pays fees to the exchange. Nobody in the pipeline needs to be lying — the survivor-bias and best-of-N machinery does the deceiving automatically, at scale, for free.
 
-And why do institutions extract what retail can't? They pay maker rebates instead of taker fees, at horizons where 1bp of edge times enormous volume clears their (much lower) toll. The edge I measured is probably *someone's* profit. It cannot be a $500 account's.
+And why do institutions extract what retail can't? They pay maker rebates instead of taker fees, at horizons where 1bp of edge times enormous volume clears their (much lower) toll. The numbers are public: Binance's base retail fee is 0.10% per side, its top VIP tier pays ~0.011% maker (0.00% maker on futures), and designated market makers on many venues pay *negative* fees — they are paid to trade ([EVIDENCE_REVIEW.md](EVIDENCE_REVIEW.md)). The edge I measured is probably *someone's* profit. It cannot be a $500 account's.
 
 ## 8. What actually won
 
@@ -99,6 +105,8 @@ So the project's real-money output is a one-page playbook and a Telegram reminde
 4. Pre-register your predictions. Being on the record changes what you allow yourself to believe afterward.
 5. When the hindsight-optimal version of a plan loses money, stop. There is no tuning your way past that bound.
 6. And if a system's in-sample numbers are spectacular, treat that as the alarm, not the achievement.
+
+The August 7 stop, committed in code before the results existed, is just the field's own answer to data-mining made physical: decide the bar first, then let it bind ([EVIDENCE_REVIEW.md](EVIDENCE_REVIEW.md)).
 
 The markets kept the money. I kept the instrument, and the numbers. Given how most retail trading stories end, that's a win.
 

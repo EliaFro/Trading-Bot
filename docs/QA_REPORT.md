@@ -128,3 +128,19 @@ Two record additions in the same mandate (documentation only): the **awake-hours
 Services restarted to load the fixes (paper bot + companion; both flat/stateless at restart, launchd-verified back up). Tests after addendum: **168 passed, 4 skipped**.
 
 **The freeze is re-declared as of this addendum's commit: no further changes without a new explicit mandate.**
+
+---
+
+## 9. Post-freeze addendum 2 — external evidence integration, 2026-07-22 (user-mandated, docs only)
+
+A user-supplied compilation of the global literature on trading profitability was integrated into the record. **Zero code, config, strategy, or criteria changes** — five documentation edits:
+
+1. **`docs/EVIDENCE_REVIEW.md` added** — the external literature compilation (Brazil/Chague 97%, Taiwan/Barber-Odean <1% with costs tripling losses, SEBI 91%, ESMA 74–89%, BIS crypto ~75%, Virtu one-losing-day/49%-profitable-exits, Harvey-Liu-Zhu t > 3.0, McLean-Pontiff decay, prop-firm ~7%-ever-paid, finfluencer antiskill), with a header stating it is external corroboration compiled after our studies concluded, never an input to our gates or verdicts.
+2. **README.md** — new section "The broader evidence (we didn't discover this — we reproduced it)": our coin-flip result beside Harvey/Liu/Zhu's t > 3.0; our fee wall beside the Taiwan net-vs-gross cost finding and the Binance fee-tier asymmetry; our predictive ≠ profitable beside Virtu's spread-capture signature; our kill rule beside the field's pre-registration remedy.
+3. **`docs/ARTICLE_DRAFT.md`** — the same four pairings woven in place (§4, §5, §6, §7), plus one closing-section line: the pre-registered Aug 7 stop is the field's answer to data-mining made physical.
+4. **OPERATING.md §3** — an **annotation, not a criteria change**, recording that the academic multiple-testing standard (t > 3.0, Harvey/Liu/Zhu 2016) is stricter than our pre-registered t ≥ 2.0; any future pass at 2.0 gets flagged for scrutiny against 3.0 before being believed. The pre-registered criteria remain untouched in both directions, because editing a pre-registered bar after registration — in either direction — is the tampering the document exists to prevent.
+5. **PLAYBOOK.md** — new informational section "What the broader evidence says": the literature's bottom line for sub-$10k capital (low-cost diversified index exposure), the BIS retail-crypto outcome numbers, and the observation that the playbook's discipline transfers to either choice. No directive; the reader decides.
+
+Verification: full test suite (including the docs-contract link/coherence tests covering every touched file) green; README chart/link blobs re-verified on `origin/main` after push.
+
+**The freeze is re-declared as of this addendum's commit: no further changes without a new explicit mandate.**
