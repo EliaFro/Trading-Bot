@@ -198,6 +198,7 @@ class EnsembleModel:
                     f"trainable deep models; keeping current strategies")
         return {
             'improvement': 0.0,
+            'noop': True,
             'model_name': 'ensemble_v1',
             'version': self._last_retrain.strftime('%Y%m%d%H%M%S'),
             'details': 'v1 classical ensemble: retraining is a no-op until '

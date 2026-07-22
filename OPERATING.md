@@ -125,6 +125,12 @@ python scripts/clear_kill_switch.py        # only after reading why it fired
 tail -n 200 logs/trading.log               # recent bot log
 ```
 
+**⚠️ 2027-01-05 — MANUAL STEP, put it on your calendar:** the one-time
+sentiment evaluation does **not** run itself. On or after that date, run
+`python scripts/run_sentiment_eval.py` by hand (it refuses to run earlier).
+Every other scheduled event — daily checks, monthly digest, the kill rule —
+is self-executing; this is the only one that waits for a human.
+
 The databases, logs, and models live in `./data`, `./logs`, `./models` on
 your machine; the launchd services survive restarts without losing state.
 (Docker files remain in the repo for reference but the supported deployment

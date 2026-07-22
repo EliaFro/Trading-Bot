@@ -59,4 +59,6 @@ Pre-registered P(anything beats full costs) ≈ 3% → **0%, confirmed**. The mo
 
 The Fast Lab's observation role now has something genuinely worth watching: a model with *measurable, honest, regime-robust* skill operating in public against a cost wall it cannot beat — the cleanest live demonstration possible of "predictive ≠ profitable." The dashboard's cost decomposition shows the ~31bp toll consuming the ~1bp edge on every trade, in real time. Per the pre-registered kill criteria: unless something clears the corrected bar after full costs by **2026-08-07** (nothing is on track to), the strategy-search role at this horizon ends permanently and the Fast Lab remains an observation instrument only.
 
+*Disclosed limitation of the live record: it runs on a laptop, so it samples only the hours the machine is awake (measured July 2026: daily service checks ran 5–13 h behind schedule) — a market-hours selection bias the offline studies, which saw every bar, did not have.*
+
 *Reproduce: `python scripts/run_fastlab_study.py` (Part B), `python scripts/run_ml_fast_study.py` (Part C) · Raw: `docs/fastlab_partB_metrics.json`, `docs/fastlab_partC_metrics.json`, `docs/spread_measurements.json` · Chart: `docs/phase2_charts/fastlab_partB.png`.*

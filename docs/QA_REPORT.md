@@ -111,3 +111,20 @@ Frozen evidence artifacts (metrics JSONs, charts, window tables) were restored f
 - Every box above is ticked with evidence; no finding remains open; the mandate's scope boundary held (zero strategy work, zero new features, zero new studies).
 
 **The system is FROZEN as of commit `0aee0f2` (2026-07-10): no further changes without a new explicit mandate.**
+
+---
+
+## 8. Post-freeze addendum — status check-in, 2026-07-22 (user-mandated)
+
+A full-system check-in on 2026-07-22 (12 days of unattended operation) verified: all four services healthy (one respawn total, the deliberate 7/13 QA kickstart), both labs reconciling to the cent at full float precision, 36-month coverage re-verified gap-free and current to within one bar, remote HEAD equal to local, zero unauthorized changes. It surfaced two defects, fixed here under the same QA discipline with the user's explicit approval:
+
+| # | Severity | Finding | Root cause | Fix | Regression test |
+|---|----------|---------|------------|-----|-----------------|
+| 18 | MEDIUM | Monthly digest silently skipped if the host slept through the entire UTC 1st of the month — the trigger was a bare `now.day == 1` check with no catch-up, unlike the DCA-day message's LATE-recovery window. | Laptop-sleep edge case not covered in Build 3. | `should_generate_digest()` in `src/playbook/companion.py`: fires on the 1st, and catches up within the first `LATE_WINDOW_DAYS` (7) days when the month's digest file is missing; never regenerates an existing one. Runner routed through it. | `tests/test_postfreeze_checkin.py` (4 tests: fires on 1st, catches up, respects existing file, window closes, runner uses helper) |
+| 19 | MEDIUM | Daily bot logged "Retraining did not improve performance (>2% required), keeping current models" nightly from the **legacy v1 ensemble** path, which is a structural no-op — no training or comparison ever happened. The line invited confusion with the real (weekly, separately logged) champion/challenger retrainer. | Legacy code path's log message written before the v1 no-op reality. | Ensemble's `retrain()` now returns `noop: True`; `main.py` logs the truth ("Legacy v1 ensemble: nothing to retrain…") while preserving the retrain-timer reset. | `tests/test_postfreeze_checkin.py` (2 tests: no-op flag returned; truthful branch ordered before the comparison, timer reset intact) |
+
+Two record additions in the same mandate (documentation only): the **awake-hours sampling bias** of the live Fast Lab record is now a one-line disclosed limitation in `docs/FASTLAB_RESULTS.md` and `docs/ARTICLE_DRAFT.md` (the live record samples only hours the host is awake — measured July 2026: daily checks ran 5–13 h behind schedule); and OPERATING.md §4 now flags the **2027-01-05 sentiment evaluation as a MANUAL step** — the only scheduled event that does not run itself.
+
+Services restarted to load the fixes (paper bot + companion; both flat/stateless at restart, launchd-verified back up). Tests after addendum: **168 passed, 4 skipped**.
+
+**The freeze is re-declared as of this addendum's commit: no further changes without a new explicit mandate.**

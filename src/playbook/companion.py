@@ -18,6 +18,7 @@ key, never places, sizes, or suggests orders beyond the fixed schedule.
 import json
 import logging
 from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
 from typing import Dict, List, Optional
 
 import pandas as pd
@@ -29,8 +30,21 @@ TREND_WINDOW = 200            # the 200-day rule, exactly as in PLAYBOOK.md
 DCA_DAY = 1                   # buy day: 1st of the month
 LATE_WINDOW_DAYS = 7          # a missed DCA-day message may be sent late up to this
 STALE_HOURS = 3.0             # newest 1h bar older than this => data stale
+DIGEST_DIR = Path('docs/digests')
 CHART_LINK = ("https://www.tradingview.com/chart/?symbol=BINANCE%3ABTCUSDT "
               "(add indicator 'Moving Average', length 200, on the 1D chart)")
+
+
+def should_generate_digest(now: datetime, digest_dir: Path = DIGEST_DIR) -> bool:
+    """Monthly digest trigger, with the same late-recovery window as a missed
+    DCA-day message: fire on the 1st, and catch up within the first
+    LATE_WINDOW_DAYS days if the month's digest file does not exist (the host
+    may sleep through the entire 1st)."""
+    if now.day == 1:
+        return True
+    if now.day <= LATE_WINDOW_DAYS:
+        return not (digest_dir / f"{now.strftime('%Y-%m')}.md").exists()
+    return False
 
 
 # ── State (small key/value + ledger, in the companion's own DB) ─────────────

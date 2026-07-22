@@ -517,7 +517,16 @@ class AITradingSystem:
             results = await self.components['models'].retrain(training_data)
 
             min_improvement = self.config.models.get('min_improvement', 0.02)
-            if results['improvement'] > min_improvement:
+            if results.get('noop'):
+                # Legacy v1 path trained and compared nothing — say so; the
+                # ML lab's champion/challenger retrainer runs separately and
+                # logs its decisions to ml_retrain_log.
+                logger.info("Legacy v1 ensemble: nothing to retrain "
+                            "(no trainable models on this path)")
+                # Record the attempt so the retrain timer resets
+                self.components['db'].save_model_version({**results,
+                                                          'is_active': False})
+            elif results['improvement'] > min_improvement:
                 logger.info(f"Model retraining successful, improvement: "
                             f"{results['improvement']:.2%}")
                 self.components['db'].save_model_version(results)

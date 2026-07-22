@@ -62,8 +62,9 @@ async def main():
                 sent = companion.run_daily_check(main_db, state_db, notifier)
                 logger.info(f"daily check done, messages: {sent or ['none']}")
 
-                # monthly evidence digest on the 1st (Build 3)
-                if now.day == 1:
+                # monthly evidence digest on the 1st, with a catch-up window
+                # if the host slept through it (QA addendum finding 18)
+                if companion.should_generate_digest(now):
                     try:
                         from scripts.generate_digest import generate_digest
                         path = generate_digest(notifier=notifier)
