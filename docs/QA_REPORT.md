@@ -144,3 +144,15 @@ A user-supplied compilation of the global literature on trading profitability wa
 Verification: full test suite (including the docs-contract link/coherence tests covering every touched file) green; README chart/link blobs re-verified on `origin/main` after push.
 
 **The freeze is re-declared as of this addendum's commit: no further changes without a new explicit mandate.**
+
+---
+
+## 10. Post-freeze addendum 3 — macOS-update outage, 2026-07-22 (operational bug fix)
+
+| # | Severity | Finding | Root cause | Fix | Regression test |
+|---|----------|---------|------------|-----|-----------------|
+| 20 | **HIGH** | After a macOS update + reboot, **all four launchd agents failed to start** — no PID, last exit `78 (EX_CONFIG)`, nothing written to any log. The lab was fully down until manually revived. | The update reset TCC privacy grants. launchd is then **denied opening `StandardOutPath`/`StandardErrorPath` files inside `~/Downloads`** (a TCC-protected folder) when the job's executable is a non-Apple binary (the venv Python) — the job dies at spawn, before the process exists, so nothing can log the reason. Isolated by experiment: the identical job runs perfectly with its launchd log paths outside Downloads; Apple-binary jobs are exempt; in-process file access inside the project was never affected. | `install_service.sh` now writes launchd's own stdout/stderr files to **`~/Library/Logs/tradingbot/`** (the standard, unprotected location); the app's rotating logs stay in `$REPO/logs` unchanged. Plists regenerated, all four services reinstalled and verified healthy (health endpoint all-green, dashboard HTTP 200, Fast Lab retrain ran, companion up). | `test_postfreeze_checkin.py::test_launchd_log_paths_avoid_tcc_protected_folders` |
+
+Known residual (not a defect, flagged for the operator): the project living under `~/Downloads` means any future TCC reset can surface new denials of this class. Moving the project out of a TCC-protected folder (e.g. `~/Trading_Bot_2`) would remove the class entirely — an operational choice for the user, not made unilaterally under the freeze.
+
+**The freeze is re-declared as of this addendum's commit: no further changes without a new explicit mandate.**

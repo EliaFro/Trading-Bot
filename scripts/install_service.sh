@@ -17,11 +17,19 @@ DASH_LABEL="com.tradingbot.dashboard"
 FAST_LABEL="com.tradingbot.fastlab"
 PLAYBOOK_LABEL="com.tradingbot.playbook"
 
+# launchd's stdout/stderr files must live OUTSIDE TCC-protected folders
+# (~/Downloads, ~/Documents, ~/Desktop): after a macOS update reset the TCC
+# grants, launchd was denied opening log files there for non-Apple binaries
+# and every agent died at spawn with EX_CONFIG (78). ~/Library/Logs is the
+# standard, unprotected location. The app's own rotating logs stay in
+# $REPO/logs — in-process writes are not affected.
+LAUNCHD_LOG_DIR="$HOME/Library/Logs/tradingbot"
+
 make_plist() {
     local label="$1"; shift
     local logname="$1"; shift
     local plist="$AGENTS_DIR/$label.plist"
-    mkdir -p "$AGENTS_DIR" "$REPO/logs"
+    mkdir -p "$AGENTS_DIR" "$REPO/logs" "$LAUNCHD_LOG_DIR"
     cat > "$plist" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
@@ -38,8 +46,8 @@ $(for arg in "$@"; do echo "        <string>$arg</string>"; done)
     <key>KeepAlive</key>
     <dict><key>SuccessfulExit</key><false/></dict>
     <key>ThrottleInterval</key><integer>30</integer>
-    <key>StandardOutPath</key><string>$REPO/logs/$logname.out.log</string>
-    <key>StandardErrorPath</key><string>$REPO/logs/$logname.err.log</string>
+    <key>StandardOutPath</key><string>$LAUNCHD_LOG_DIR/$logname.out.log</string>
+    <key>StandardErrorPath</key><string>$LAUNCHD_LOG_DIR/$logname.err.log</string>
 </dict>
 </plist>
 EOF

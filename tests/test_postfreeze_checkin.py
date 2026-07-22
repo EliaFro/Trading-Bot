@@ -79,3 +79,19 @@ def test_main_logs_noop_truthfully_not_as_a_failed_comparison():
     # the retrain-timer reset (save with is_active False) survives in the
     # noop branch — losing it would make the bot retrain every cycle
     assert "'is_active': False" in noop_branch
+
+
+def test_launchd_log_paths_avoid_tcc_protected_folders():
+    """Finding 20: after a macOS update reset TCC grants, launchd was denied
+    opening StandardOut/ErrorPath files under ~/Downloads for non-Apple
+    binaries — every agent died at spawn with EX_CONFIG (78). The installer
+    must keep launchd's own log files out of TCC-protected user folders."""
+    src = open(os.path.join(ROOT, 'scripts', 'install_service.sh')).read()
+    std_lines = [l for l in src.splitlines()
+                 if 'StandardOutPath' in l or 'StandardErrorPath' in l]
+    assert std_lines, 'installer lost its StandardOut/ErrorPath keys'
+    for line in std_lines:
+        assert '$REPO' not in line and 'Downloads' not in line \
+            and 'Documents' not in line and 'Desktop' not in line, \
+            f'launchd log path in a TCC-protected location: {line.strip()}'
+    assert 'LAUNCHD_LOG_DIR' in src and 'Library/Logs' in src
